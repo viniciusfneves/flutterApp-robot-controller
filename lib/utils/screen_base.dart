@@ -15,12 +15,10 @@ class ScreenBase extends StatefulWidget {
   const ScreenBase({Key key, this.bodyWidget}) : super(key: key);
 
   @override
-  _ScreenBaseState createState() => _ScreenBaseState();
+  ScreenBaseState createState() => ScreenBaseState();
 }
 
-class _ScreenBaseState extends State<ScreenBase> {
-  bool isDarkTheme = true;
-
+class ScreenBaseState extends State<ScreenBase> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +38,7 @@ class _ScreenBaseState extends State<ScreenBase> {
                 ),
                 Text(
                   'Minerva Bluetooth App',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 16),
                   overflow: TextOverflow.fade,
                   softWrap: true,
                 ),
@@ -65,16 +63,7 @@ class _ScreenBaseState extends State<ScreenBase> {
           // Dark Mode Switch
           DrawerLink(
             icon: Icons.brightness_2,
-            title: 'Dark Mode',
-            trailing: Switch(
-              value: isDarkTheme,
-              onChanged: (bool value) {
-                setState(() {
-                  isDarkTheme = value;
-                });
-              },
-            ),
-          )
+          ),
         ]),
       ),
       body: this.widget.bodyWidget,

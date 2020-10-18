@@ -1,33 +1,28 @@
+import 'dart:async';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:flutter/material.dart';
 
 class Bluetooth extends StatefulWidget {
-  final FlutterBlue flutterBlue = FlutterBlue.instance;
-
   @override
   State<StatefulWidget> createState() => _BluetoothState();
 
-  Future<List<BluetoothDevice>> getDevices() async {
-    List<BluetoothDevice> devices = new List<BluetoothDevice>();
+  final FlutterBlue flutterBlue = FlutterBlue.instance;
+
+  final _deviceStream = StreamController();
+
+  get deviceStream => _deviceStream.stream;
+
+  void searchDevices() async {
     flutterBlue.scanResults.listen(
       (scanResult) {
         for (ScanResult result in scanResult) {
-          if (!devices.contains(result.device)) {
-            devices.add(result.device);
-          }
+          _deviceStream.sink.add(result.device);
+          print(result.device.id.toString());
         }
       },
     );
     await flutterBlue.startScan(timeout: Duration(seconds: 5));
-    print('Scan concluído');
-    flutterBlue.stopScan();
-    return devices;
-  }
-
-  Future<Widget> deviceScreen() async {
-    //List view;
-    List<BluetoothDevice> availableDevices = await getDevices();
-    return Center(child: Text('Descobertos ${availableDevices.length}'),) ;
+    _deviceStream.close();
   }
 }
 

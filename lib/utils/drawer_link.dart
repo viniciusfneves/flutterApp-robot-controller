@@ -7,28 +7,34 @@ class DrawerLink extends StatelessWidget {
   @required
   final String title;
   final String pageRoute;
-  final trailing;
 
-  const DrawerLink(
-      {Key key, this.icon, this.title, this.pageRoute, this.trailing})
+  const DrawerLink({Key key, this.icon, this.title, this.pageRoute})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListTile(
-          onTap: () async =>
-              {await Navigator.pushNamed(context, this.pageRoute)},
-          leading: Icon(
-            this.icon,
-            size: 28,
+        InkWell(
+          onTap: () => Navigator.pushNamed(context, this.pageRoute),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Icon(
+                  this.icon,
+                  size: 22,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 22.0),
+                child: Text(
+                  this.title,
+                  style: TextStyle(fontSize: 15),
+                ),
+              ),
+            ],
           ),
-          title: Text(
-            this.title,
-            style: TextStyle(fontSize: 16, fontFamily: 'roboto'),
-          ),
-          trailing: this.trailing,
         ),
         Divider()
       ],
