@@ -63,6 +63,7 @@ class ScreenBaseState extends State<ScreenBase> {
           // Dark Mode Switch
           DrawerLink(
             icon: Icons.brightness_2,
+            title: 'DarkMode',
           ),
         ]),
       ),
