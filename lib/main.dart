@@ -1,6 +1,6 @@
-import 'package:blue_app/screen/conection.dart';
-import 'package:blue_app/screen/configuration.dart';
-import 'package:blue_app/screen/control.dart';
+import 'package:blue_app/screens/conection.dart';
+import 'package:blue_app/screens/configuration.dart';
+import 'package:blue_app/screens/control.dart';
 import 'package:blue_app/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 

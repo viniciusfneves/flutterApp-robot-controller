@@ -2,7 +2,7 @@ import 'package:blue_app/utils/app_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'drawer_link.dart';
+import 'drawer_links.dart';
 
 // Essa Classe cria uma tela base com toda a navegação e estilo
 // seguido por esse aplicativo. Recebe como parâmetro um Widget em
