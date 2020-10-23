@@ -30,7 +30,7 @@ class _ConectionPageState extends State<ConectionPage> {
     if (!alreadyDiscoveredDevices.contains(device))
       devicesWidget.add(
         ListTile(
-          title: device.name != '' ? Text(device.name) : Text('Unknow Name'),
+          title: device.name != '' ? Text(device.name) : Text('Unknow Device'),
           subtitle: Text(device.id.toString()),
           trailing: RaisedButton(
             child: Text('Conect'),
@@ -57,13 +57,11 @@ class _ConectionPageState extends State<ConectionPage> {
                 children: [
                   Container(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: Container(
-                        child: Text(
-                          'Busca Finalizada',
-                          textAlign: TextAlign.end,
-                          style: TextStyle(fontSize: 16),
-                        ),
+                      padding: const EdgeInsets.only(top: 12, bottom: 3),
+                      child: Text(
+                        'Busca Finalizada',
+                        textAlign: TextAlign.end,
+                        style: TextStyle(fontSize: 16),
                       ),
                     ),
                   ),
@@ -73,7 +71,7 @@ class _ConectionPageState extends State<ConectionPage> {
                   ...getDevicesWidget,
                 ],
               );
-            if (snapshot.connectionState == ConnectionState.active)
+            if (snapshot.connectionState == ConnectionState.done)
               return Column(
                 children: [
                   Container(
@@ -83,7 +81,7 @@ class _ConectionPageState extends State<ConectionPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
+                            padding: const EdgeInsets.only(left: 12.0),
                             child: Text(
                               'Buscando Dispositivos',
                               textAlign: TextAlign.center,
@@ -91,11 +89,14 @@ class _ConectionPageState extends State<ConectionPage> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
+                            padding: const EdgeInsets.only(right: 16.0),
                             child: Container(
-                              height: 15,
-                              width: 15,
+                              height: 22,
+                              width: 22,
                               child: CircularProgressIndicator(
+                                backgroundColor: Colors.black26,
+                                valueColor: AlwaysStoppedAnimation(
+                                    Color.fromARGB(255, 200, 0, 0)),
                                 strokeWidth: 1.5,
                               ),
                             ),
@@ -112,9 +113,28 @@ class _ConectionPageState extends State<ConectionPage> {
               );
             else
               return Center(
-                child: CircularProgressIndicator(
-                  valueColor:
-                      AlwaysStoppedAnimation(Color.fromARGB(255, 200, 0, 0)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Container(
+                        width: 72,
+                        height: 72,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(
+                              Color.fromARGB(255, 200, 0, 0)),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        'Buscando Dispositivos',
+                        style: TextStyle(fontSize: 17),
+                      ),
+                    )
+                  ],
                 ),
               );
           },
