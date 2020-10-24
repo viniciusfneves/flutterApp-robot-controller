@@ -21,7 +21,7 @@ class Bluetooth extends StatefulWidget {
         }
       },
     );
-    await flutterBlue.startScan(timeout: Duration(seconds: 5));
+    await flutterBlue.startScan(timeout: Duration(seconds: 10));
     _deviceStream.close();
   }
 }
