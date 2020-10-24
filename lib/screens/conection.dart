@@ -28,7 +28,7 @@ class _ConectionPageState extends State<ConectionPage> {
   }
 
   void _buildDevicesListView(BluetoothDevice device) {
-    if (!alreadyDiscoveredDevices.contains(device))
+    if (!alreadyDiscoveredDevices.contains(device)) {
       devicesWidget.add(
         ListTile(
           title: device.name != '' ? Text(device.name) : Text('Unknow Device'),
@@ -42,7 +42,8 @@ class _ConectionPageState extends State<ConectionPage> {
           ),
         ),
       );
-    alreadyDiscoveredDevices.add(device);
+      alreadyDiscoveredDevices.add(device);
+    }
   }
 
   @override
@@ -59,8 +60,9 @@ class _ConectionPageState extends State<ConectionPage> {
                       stream: blue.deviceStream,
                       builder: (BuildContext context,
                           AsyncSnapshot<dynamic> snapshot) {
-                        if (snapshot.hasData)
+                        if (snapshot.hasData) {
                           _buildDevicesListView(snapshot.data);
+                        }
                         if (snapshot.connectionState == ConnectionState.done)
                           return Column(
                             children: [
@@ -81,7 +83,7 @@ class _ConectionPageState extends State<ConectionPage> {
                               ...getDevicesWidget,
                             ],
                           );
-                        if (snapshot.connectionState == ConnectionState.done)
+                        if (snapshot.connectionState == ConnectionState.active)
                           return Column(
                             children: [
                               Container(
