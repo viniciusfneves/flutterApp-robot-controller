@@ -36,7 +36,7 @@ class _ConectionPageState extends State<ConectionPage> {
           trailing: RaisedButton(
             child: Text('Conect'),
             onPressed: () async {
-              await device.connect();
+              await device.connect(timeout: Duration(seconds: 10));
               print('Trying to connect to device.\nid: ${device.id}');
             },
           ),
