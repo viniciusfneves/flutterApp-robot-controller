@@ -48,14 +48,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
                   topRight: Radius.circular(12),
                 ),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  buttonRow(),
-                  buttonRow(),
-                  buttonRow(),
-                ],
-              ),
+              child: buttons(6),
             ),
           )
         ],
@@ -67,34 +60,24 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
 // Gambiarra para exibir vários ícones
 // TO-DO!  criar uma classe separada para exibir cada botão
 
-Widget buttonRow() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
+Widget buttons(int quantity) {
+  List<Widget> buttons = new List<Widget>();
+  for (int i = 1; i <= (quantity); i++) {
+    buttons.add(
+      RaisedButton(
+        color: Colors.red[600],
+        onPressed: () {},
+        child: Text(
+          'Função $i',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+  return Wrap(
+    alignment: WrapAlignment.spaceAround,
     children: [
-      RaisedButton(
-        color: Colors.red[600],
-        onPressed: () {},
-        child: Text(
-          'Function 1',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      RaisedButton(
-        color: Colors.red[600],
-        onPressed: () {},
-        child: Text(
-          'Function 2',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      RaisedButton(
-        color: Colors.red[600],
-        onPressed: () {},
-        child: Text(
-          'Function 3',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+      ...buttons,
     ],
   );
 }
