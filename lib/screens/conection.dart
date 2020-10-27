@@ -181,9 +181,7 @@ class _ConectionPageState extends State<ConectionPage> {
                   ),
                 );
         else
-          return Container(
-            color: Colors.red[800],
-          );
+          return Center(child:Container(color: Colors.red[800],));
       },
     );
   }
