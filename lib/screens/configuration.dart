@@ -1,6 +1,6 @@
-import 'package:blue_app/utils/screen_base.dart';
+import 'package:blue_app/utils/default_base_screen/default_base_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:blue_app/utils/bluetooth.dart';
+import 'package:blue_app/services/bluetooth.dart';
 
 class ConfigurationPage extends StatefulWidget {
   @override
