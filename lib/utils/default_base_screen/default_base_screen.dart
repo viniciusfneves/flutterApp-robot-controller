@@ -1,4 +1,5 @@
 import 'package:blue_app/utils/app_routes.dart';
+import 'package:blue_app/utils/theme_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -60,11 +61,7 @@ class ScreenBaseState extends State<ScreenBase> {
             title: 'Controls',
             pageRoute: AppRoutes.Control,
           ),
-          // Dark Mode Switch
-          DrawerLink(
-            icon: Icons.brightness_2,
-            title: 'DarkMode',
-          ),
+          ThemeController(),
         ]),
       ),
       body: this.widget.bodyWidget,
