@@ -29,6 +29,7 @@ class _ConectionPageState extends State<ConectionPage> {
 
   void _buildDevicesListView(BluetoothDevice device) {
     if (!alreadyDiscoveredDevices.contains(device)) {
+      print('Adding Device to List. ID:${device.id}');
       devicesWidget.add(
         ListTile(
           title: device.name != '' ? Text(device.name) : Text('Unknow Device'),

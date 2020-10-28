@@ -17,11 +17,11 @@ class Bluetooth extends StatefulWidget {
       (scanResult) {
         for (ScanResult result in scanResult) {
           _deviceStream.sink.add(result.device);
-          print(result.device.id.toString());
+          print('Found Device! ID: ${result.device.id.toString()}');
         }
       },
     );
-    await flutterBlue.startScan(timeout: Duration(seconds: 10));
+    await flutterBlue.startScan(timeout: Duration(seconds: 12));
     _deviceStream.close();
   }
 }
