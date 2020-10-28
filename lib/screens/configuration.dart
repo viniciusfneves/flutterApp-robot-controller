@@ -20,7 +20,7 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
             width: MediaQuery.of(context).size.width,
             height: (MediaQuery.of(context).size.height - 100) * 0.4,
             decoration: BoxDecoration(
-              color: Colors.lightGreen[100],
+              color: Colors.black12,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(12),
                 bottomRight: Radius.circular(12),
@@ -42,7 +42,6 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
             height: (MediaQuery.of(context).size.height - 440),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
