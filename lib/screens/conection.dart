@@ -5,12 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
-class ConectionPage extends StatefulWidget {
-  @override
-  _ConectionPageState createState() => _ConectionPageState();
-}
-
-class _ConectionPageState extends State<ConectionPage> {
+// ignore: must_be_immutable
+class ConectionPage extends StatelessWidget {
   final Bluetooth blue = Bluetooth();
 
   List<BluetoothDevice> alreadyDiscoveredDevices = new List<BluetoothDevice>();
@@ -21,9 +17,7 @@ class _ConectionPageState extends State<ConectionPage> {
     return devicesWidget;
   }
 
-  @override
   void initState() {
-    super.initState();
     blue.searchDevices();
   }
 
@@ -182,9 +176,7 @@ class _ConectionPageState extends State<ConectionPage> {
                   ),
                 );
         else
-          return Container(
-            color: Colors.red[800],
-          );
+          return Center(child:Container(color: Colors.red[800],));
       },
     );
   }

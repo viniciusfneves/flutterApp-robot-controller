@@ -8,9 +8,9 @@ class Bluetooth extends StatefulWidget {
 
   final FlutterBlue flutterBlue = FlutterBlue.instance;
 
-  final _deviceStream = StreamController();
+  final StreamController<BluetoothDevice> _deviceStream = new StreamController<BluetoothDevice>();
 
-  get deviceStream => _deviceStream.stream;
+  Stream<BluetoothDevice> get deviceStream => _deviceStream.stream;
 
   void searchDevices() async {
     flutterBlue.scanResults.listen(
@@ -21,7 +21,7 @@ class Bluetooth extends StatefulWidget {
         }
       },
     );
-    await flutterBlue.startScan(timeout: Duration(seconds: 12));
+    await flutterBlue.startScan(timeout: Duration(seconds: 12), scanMode: ScanMode.balanced);
     _deviceStream.close();
   }
 }
