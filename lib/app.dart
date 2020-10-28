@@ -1,4 +1,4 @@
-import 'package:blue_app/screens/conection.dart';
+import 'package:blue_app/screens/connection.dart';
 import 'package:blue_app/screens/configuration.dart';
 import 'package:blue_app/screens/control.dart';
 import 'package:blue_app/utils/app_routes.dart';
