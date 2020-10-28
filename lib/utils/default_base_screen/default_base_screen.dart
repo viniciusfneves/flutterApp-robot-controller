@@ -13,8 +13,10 @@ import 'drawer_links.dart';
 class ScreenBase extends StatelessWidget {
   @required
   final Widget bodyWidget;
+  final ThemeController controller = ThemeController();
 
   ScreenBase({Key key, this.bodyWidget}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,16 +62,7 @@ class ScreenBase extends StatelessWidget {
             Consumer(
               builder: (BuildContext context, ThemeController controller,
                   Widget child) {
-                return ListTile(
-                  title: Text('Dark Mode'),
-                  leading: Icon(Icons.brightness_2),
-                  trailing: Switch(
-                    value: Provider.of<ThemeController>(context).isDarkMode,
-                    onChanged: (value) {
-                      controller.changeTheme();
-                    },
-                  ),
-                );
+                return controller.changeThemeSwitch(context);
               },
             )
           ],
