@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class ConectionPage extends StatefulWidget {
   @override
   _ConectionPageState createState() => _ConectionPageState();
