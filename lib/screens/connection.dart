@@ -8,15 +8,21 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
-class ConectionPage extends StatelessWidget {
+class ConectionPage extends StatefulWidget {
+  @override
+  _ConectionPageState createState() => _ConectionPageState();
+}
+
+class _ConectionPageState extends State<ConectionPage> {
   final Bluetooth blue = Bluetooth();
 
   List<BluetoothDevice> alreadyDiscoveredDevices = new List<BluetoothDevice>();
 
   List<Widget> devicesWidget = new List<Widget>();
-
+  
   @override
   void initState() {
+    super.initState();
     blue.searchDevices();
   }
 
@@ -35,7 +41,7 @@ class ConectionPage extends StatelessWidget {
                 'Conect',
                 style: TextStyle(color: Colors.white),
               ),
-              color: darkTheme ? Colors.red[800]: Colors.blue,
+              color: darkTheme ? Colors.red[800] : Colors.blue,
               onPressed: () async {
                 await device.connect(timeout: Duration(seconds: 10));
                 print('Trying to connect to device.\nid: ${device.id}');
@@ -183,7 +189,10 @@ class ConectionPage extends StatelessWidget {
                   ),
                 );
         else
-          return Center(child:Container(color: Colors.red[800],));
+          return Center(
+              child: Container(
+            color: Colors.red[800],
+          ));
       },
     );
   }
