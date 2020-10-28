@@ -1,9 +1,11 @@
 import 'package:blue_app/utils/app_routes.dart';
+import 'package:blue_app/utils/theme_controller.dart';
 import 'package:blue_app/services/bluetooth.dart';
 import 'package:blue_app/utils/default_base_screen/default_base_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ConectionPage extends StatelessWidget {
@@ -13,10 +15,7 @@ class ConectionPage extends StatelessWidget {
 
   List<Widget> devicesWidget = new List<Widget>();
 
-  get getDevicesWidget {
-    return devicesWidget;
-  }
-
+  @override
   void initState() {
     blue.searchDevices();
   }
@@ -28,13 +27,21 @@ class ConectionPage extends StatelessWidget {
         ListTile(
           title: device.name != '' ? Text(device.name) : Text('Unknow Device'),
           subtitle: Text(device.id.toString()),
-          trailing: RaisedButton(
-            child: Text('Conect'),
-            onPressed: () async {
-              await device.connect(timeout: Duration(seconds: 10));
-              print('Trying to connect to device.\nid: ${device.id}');
-            },
-          ),
+          trailing: Consumer(builder:
+              (BuildContext context, ThemeController controller, Widget child) {
+            bool darkTheme = Provider.of<ThemeController>(context).isDarkMode;
+            return RaisedButton(
+              child: Text(
+                'Conect',
+                style: TextStyle(color: Colors.white),
+              ),
+              color: darkTheme ? Colors.red[800]: Colors.blue,
+              onPressed: () async {
+                await device.connect(timeout: Duration(seconds: 10));
+                print('Trying to connect to device.\nid: ${device.id}');
+              },
+            );
+          }),
         ),
       );
       alreadyDiscoveredDevices.add(device);
@@ -46,9 +53,9 @@ class ConectionPage extends StatelessWidget {
     return FutureBuilder(
       future: blue.flutterBlue.isOn,
       initialData: false,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.done)
-          return snapshot.data
+      builder: (BuildContext context, AsyncSnapshot isOn) {
+        if (isOn.hasData)
+          return isOn.data
               ? ScreenBase(
                   bodyWidget: Center(
                     child: StreamBuilder(
@@ -75,7 +82,7 @@ class ConectionPage extends StatelessWidget {
                               Divider(
                                 color: Color.fromARGB(255, 190, 0, 0),
                               ),
-                              ...getDevicesWidget,
+                              ...devicesWidget,
                             ],
                           );
                         if (snapshot.connectionState == ConnectionState.active)
@@ -118,7 +125,7 @@ class ConectionPage extends StatelessWidget {
                               Divider(
                                 color: Color.fromARGB(255, 190, 0, 0),
                               ),
-                              ...getDevicesWidget,
+                              ...devicesWidget,
                             ],
                           );
                         else

@@ -1,4 +1,4 @@
-import 'package:blue_app/screens/conection.dart';
+import 'package:blue_app/screens/connection.dart';
 import 'package:blue_app/screens/configuration.dart';
 import 'package:blue_app/screens/control.dart';
 import 'package:blue_app/utils/app_routes.dart';
@@ -11,25 +11,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ThemeController(),
-      child: Consumer(
-        builder:
-            (BuildContext context, ThemeController controller, Widget child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "MinervApp Bluetooth Communication Software",
-            theme: ThemeData(primaryColor: Color.fromARGB(255, 160, 25, 25)),
-            darkTheme: ThemeData.dark(),
-            themeMode: controller.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            home: ConectionPage(),
-            initialRoute: AppRoutes.Connection,
-            routes: {
-              AppRoutes.Configuration: (ctx) => ConfigurationPage(),
-              AppRoutes.Control: (ctx) => ControlPage(),
-            },
-          );
-        },
-      ),
+      create: (_) => ThemeController(),
+      child: MaterialAppWithThemeController(),
+    );
+  }
+}
+
+class MaterialAppWithThemeController extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    ThemeMode currentTheme = Provider.of<ThemeController>(context).appTheme;
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "MinervApp Bluetooth Communication Software",
+      theme: ThemeData(primaryColor: Color.fromARGB(255, 160, 25, 25)),
+      darkTheme: ThemeData.dark(),
+      themeMode: currentTheme,
+      home: ConectionPage(),
+      initialRoute: AppRoutes.Connection,
+      routes: {
+        AppRoutes.Configuration: (ctx) => ConfigurationPage(),
+        AppRoutes.Control: (ctx) => ControlPage(),
+      },
     );
   }
 }

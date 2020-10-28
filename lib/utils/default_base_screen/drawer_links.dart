@@ -15,27 +15,15 @@ class DrawerLink extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        InkWell(
-          onTap: () => Navigator.pushNamed(context, this.pageRoute),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Icon(
-                  this.icon,
-                  size: 22,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 22.0),
-                child: Text(
-                  this.title,
-                  style: TextStyle(fontSize: 15),
-                ),
-              ),
-            ],
+        //InkWell(
+          //onTap: () => Navigator.pushNamed(context, this.pageRoute),
+          //child: 
+          ListTile(
+            contentPadding: EdgeInsets.only(left: 18),
+            title: Text(this.title, style: TextStyle(fontSize: 15),),
+            leading: Icon(this.icon),
           ),
-        ),
+        //),
         Divider()
       ],
     );
