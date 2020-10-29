@@ -16,20 +16,22 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           // This container will be the chat with the robot
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: (MediaQuery.of(context).size.height - 100) * 0.4,
-            decoration: BoxDecoration(
-              color: Colors.black12,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12),
+          Flexible(
+            flex: 5,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
               ),
-            ),
-            child: Center(
-              child: Text(
-                "Chat",
-                style: TextStyle(fontSize: 60),
+              child: Center(
+                child: Text(
+                  "Chat",
+                  style: TextStyle(fontSize: 60),
+                ),
               ),
             ),
           ),
@@ -37,17 +39,20 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
             thickness: 1,
           ),
           // Buttons
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: (MediaQuery.of(context).size.height - 440),
+          Flexible(
+            flex: 6,
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
+              width: MediaQuery.of(context).size.width,
+              height: (MediaQuery.of(context).size.height - 440),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
                 ),
+                child: buttons(context, 24),
               ),
-              child: buttons(6),
             ),
           )
         ],
@@ -59,16 +64,21 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
 // Gambiarra para exibir vários ícones
 // TO-DO!  criar uma classe separada para exibir cada botão
 
-Widget buttons(int quantity) {
+Widget buttons(BuildContext context, int quantity) {
   List<Widget> buttons = new List<Widget>();
   for (int i = 1; i <= (quantity); i++) {
     buttons.add(
-      RaisedButton(
-        color: Colors.red[600],
-        onPressed: () {},
-        child: Text(
-          'Função $i',
-          style: TextStyle(color: Colors.white),
+      Container(
+        width: MediaQuery.of(context).size.width / 4.22,
+        child: RaisedButton(
+          color: Colors.red[600],
+          onPressed: () {},
+          child: Text(
+            'Função $i',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white),
+            overflow: TextOverflow.fade,
+          ),
         ),
       ),
     );
