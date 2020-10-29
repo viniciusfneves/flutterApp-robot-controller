@@ -25,7 +25,7 @@ class ScreenBase extends StatelessWidget {
         centerTitle: true,
       ),
       drawer: Drawer(
-        child: ListView(
+        child: Column(
           children: <Widget>[
             DrawerHeader(
               child: Row(
@@ -59,6 +59,7 @@ class ScreenBase extends StatelessWidget {
               title: 'Controls',
               pageRoute: AppRoutes.Control,
             ),
+            Expanded(child: Container()),
             Consumer(
               builder: (BuildContext context, ThemeController controller,
                   Widget child) {
