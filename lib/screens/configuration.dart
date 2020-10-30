@@ -39,19 +39,22 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
           ),
           // Divider
           Divider(
+            thickness: 1,
             color: Color.fromARGB(255, 160, 0, 5),
           ),
-          // Buttons
+          // Botões de Liga e Desliga
+          Container(
+            child: standardButtons(context),
+          ),
+          Divider(
+            thickness: 1,
+            color: Color.fromARGB(255, 160, 0, 5),
+          ),
+          // Botões de configurações gerais
           Flexible(
             flex: 6,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                standardButtons(context),
-                makeMultipleButtons(context, 16)
-              ],
-            ),
+            child:
+                SingleChildScrollView(child: makeMultipleButtons(context, 16)),
           ),
         ],
       ),
@@ -62,25 +65,33 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
 // Gambiarra para exibir vários ícones
 // TO-DO!  criar uma classe separada para exibir cada botão
 
-Widget button(BuildContext context, String title, {int qtd = 4}) {
+Widget button(BuildContext context, String title, {bool essencials = false}) {
   double containerWidth;
-  if (qtd == 2) {
-    containerWidth = 2.07;
+  EdgeInsetsGeometry buttonPadding;
+  if (essencials) {
+    containerWidth = 2.08;
+    buttonPadding = EdgeInsets.only(top: 4, bottom: 4);
   } else {
-    containerWidth = qtd + 0.25;
+    containerWidth = 3.2;
+    buttonPadding = EdgeInsets.only(top: 4, bottom: 12);
   }
+
   return Container(
     width: MediaQuery.of(context).size.width / containerWidth,
-    child: RaisedButton(
-      color: Provider.of<ThemeController>(context).isDarkMode
-          ? Color.fromARGB(200, 160, 0, 5)
-          : Colors.red[900],
-      onPressed: () {},
-      child: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.white),
-        overflow: TextOverflow.fade,
+    child: Padding(
+      padding: buttonPadding,
+      child: RaisedButton(
+        padding: EdgeInsets.all(18),
+        color: Provider.of<ThemeController>(context).isDarkMode
+            ? Color.fromARGB(200, 160, 0, 5)
+            : Colors.red[900],
+        onPressed: () {},
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.white),
+          overflow: TextOverflow.fade,
+        ),
       ),
     ),
   );
@@ -88,10 +99,10 @@ Widget button(BuildContext context, String title, {int qtd = 4}) {
 
 Widget standardButtons(BuildContext context) {
   return Wrap(
-    alignment: WrapAlignment.spaceAround,
+    spacing: 8,
     children: [
-      button(context, 'Ligar', qtd: 2),
-      button(context, 'Desligar', qtd: 2)
+      button(context, 'Ligar', essencials: true),
+      button(context, 'Desligar', essencials: true)
     ],
   );
 }
@@ -102,7 +113,7 @@ Widget makeMultipleButtons(BuildContext context, int quantity) {
     buttons.add(button(context, "Função $i"));
   }
   return Wrap(
-    alignment: WrapAlignment.spaceAround,
+    spacing: 8,
     children: [
       ...buttons,
     ],
