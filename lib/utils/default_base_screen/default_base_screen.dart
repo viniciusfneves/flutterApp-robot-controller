@@ -32,7 +32,7 @@ class ScreenBase extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
-                    'lib/assets/images/minerva_logo.jpg',
+                    'lib/assets/images/LogoMinervaVermelho.png',
                     height: 80,
                   ),
                   Text(
