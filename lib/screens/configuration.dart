@@ -72,7 +72,7 @@ Widget button(BuildContext context, String title, {bool essencials = false}) {
     containerWidth = 2.08;
     buttonPadding = EdgeInsets.only(top: 4, bottom: 4);
   } else {
-    containerWidth = 3.2;
+    containerWidth = 3.2; // Caso de 4 botões em linha, usar 4.36
     buttonPadding = EdgeInsets.only(top: 4, bottom: 12);
   }
 
@@ -81,7 +81,7 @@ Widget button(BuildContext context, String title, {bool essencials = false}) {
     child: Padding(
       padding: buttonPadding,
       child: RaisedButton(
-        padding: EdgeInsets.all(18),
+        padding: EdgeInsets.only(top:18, bottom: 18),
         color: Provider.of<ThemeController>(context).isDarkMode
             ? Color.fromARGB(200, 160, 0, 5)
             : Colors.red[900],
