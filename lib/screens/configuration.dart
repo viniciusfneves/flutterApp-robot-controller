@@ -97,6 +97,8 @@ Widget button(BuildContext context, String title, {bool essencials = false}) {
   );
 }
 
+// Botões padrões para ligar e desligar o robô
+// Sempre exibidos na parte superior da tela
 Widget standardButtons(BuildContext context) {
   return Wrap(
     spacing: 8,
