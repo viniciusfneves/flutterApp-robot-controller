@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'package:flutter_blue/flutter_blue.dart';
-import 'package:flutter/material.dart';
 
-class Bluetooth extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _BluetoothState();
-
+class Bluetooth {
   final FlutterBlue flutterBlue = FlutterBlue.instance;
 
-  final StreamController<BluetoothDevice> _deviceStream = new StreamController<BluetoothDevice>();
+  final StreamController<BluetoothDevice> _deviceStream =
+      new StreamController<BluetoothDevice>();
 
   Stream<BluetoothDevice> get deviceStream => _deviceStream.stream;
 
@@ -21,14 +18,8 @@ class Bluetooth extends StatefulWidget {
         }
       },
     );
-    await flutterBlue.startScan(timeout: Duration(seconds: 12), scanMode: ScanMode.balanced);
+    await flutterBlue.startScan(
+        timeout: Duration(seconds: 12), scanMode: ScanMode.balanced);
     _deviceStream.close();
-  }
-}
-
-class _BluetoothState extends State<Bluetooth> {
-  @override
-  Widget build(BuildContext context) {
-    return null;
   }
 }
