@@ -18,7 +18,7 @@ class _ConectionPageState extends State<ConectionPage> {
   List<BluetoothDevice> alreadyDiscoveredDevices = new List<BluetoothDevice>();
 
   List<Widget> devicesWidget = new List<Widget>();
-  
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +40,7 @@ class _ConectionPageState extends State<ConectionPage> {
                 'Conect',
                 style: TextStyle(color: Colors.white),
               ),
-              color: darkTheme ? Colors.red[800] : Colors.blue,
+              color: darkTheme ? Color.fromARGB(200, 160, 0, 5) : Colors.blue,
               onPressed: () async {
                 await device.connect(timeout: Duration(seconds: 10));
                 print('Trying to connect to device.\nid: ${device.id}');
@@ -59,139 +59,133 @@ class _ConectionPageState extends State<ConectionPage> {
       future: blue.flutterBlue.isOn,
       initialData: false,
       builder: (BuildContext context, AsyncSnapshot isOn) {
-        if (isOn.hasData)
-          return isOn.data
-              ? ScreenBase(
-                  bodyWidget: Center(
-                    child: StreamBuilder(
-                      stream: blue.deviceStream,
-                      builder: (BuildContext context,
-                          AsyncSnapshot<dynamic> snapshot) {
-                        if (snapshot.hasData) {
-                          _buildDevicesListView(snapshot.data);
-                        }
-                        if (snapshot.connectionState == ConnectionState.done)
-                          return Column(
-                            children: [
-                              Container(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 12, bottom: 3),
-                                  child: Text(
-                                    'Busca Finalizada',
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
+        return isOn.data
+            ? ScreenBase(
+                bodyWidget: Center(
+                  child: StreamBuilder(
+                    stream: blue.deviceStream,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      if (snapshot.hasData) {
+                        _buildDevicesListView(snapshot.data);
+                      }
+                      if (snapshot.connectionState == ConnectionState.done)
+                        return Column(
+                          children: [
+                            Container(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 12, bottom: 3),
+                                child: Text(
+                                  'Busca Finalizada',
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(fontSize: 16),
                                 ),
                               ),
-                              Divider(
-                                color: Color.fromARGB(255, 190, 0, 0),
-                              ),
-                              ...devicesWidget,
-                            ],
-                          );
-                        if (snapshot.connectionState == ConnectionState.active)
-                          return Column(
-                            children: [
-                              Container(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 12),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 12.0),
-                                        child: Text(
-                                          'Buscando Dispositivos',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(fontSize: 16),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 16.0),
-                                        child: Container(
-                                          height: 22,
-                                          width: 22,
-                                          child: CircularProgressIndicator(
-                                            backgroundColor: Colors.black26,
-                                            valueColor: AlwaysStoppedAnimation(
-                                                Color.fromARGB(255, 200, 0, 0)),
-                                            strokeWidth: 1.5,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Divider(
-                                color: Color.fromARGB(255, 190, 0, 0),
-                              ),
-                              ...devicesWidget,
-                            ],
-                          );
-                        else
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Container(
-                                    width: 72,
-                                    height: 72,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation(
-                                          Color.fromARGB(255, 200, 0, 0)),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(12),
-                                  child: Text(
-                                    'Buscando Dispositivos',
-                                    style: TextStyle(fontSize: 17),
-                                  ),
-                                )
-                              ],
                             ),
-                          );
-                      },
-                    ),
-                  ),
-                )
-              : ScreenBase(
-                  bodyWidget: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(12),
-                          child: Text(
-                              'Seu bluetooth está desabilitado no momento!'),
-                        ),
-                        Text(
-                            'Habilite-o na barra do sistema e clicke no botão abaixo'),
-                        Padding(
-                          padding: EdgeInsets.all(12),
-                          child: RaisedButton(
-                            child: Text('Refresh'),
-                            onPressed: () => Navigator.pushNamed(
-                                context, AppRoutes.Connection),
+                            Divider(
+                              color: Color.fromARGB(255, 160, 0, 5),
+                            ),
+                            ...devicesWidget,
+                          ],
+                        );
+                      if (snapshot.connectionState == ConnectionState.active)
+                        return Column(
+                          children: [
+                            Container(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 12),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 12.0),
+                                      child: Text(
+                                        'Buscando Dispositivos',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 16.0),
+                                      child: Container(
+                                        height: 22,
+                                        width: 22,
+                                        child: CircularProgressIndicator(
+                                          backgroundColor: Colors.black26,
+                                          valueColor: AlwaysStoppedAnimation(
+                                              Color.fromARGB(255, 160, 0, 5)),
+                                          strokeWidth: 1.5,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Divider(
+                              color: Color.fromARGB(255, 160, 0, 5),
+                            ),
+                            ...devicesWidget,
+                          ],
+                        );
+                      else
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Container(
+                                  width: 72,
+                                  height: 72,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation(
+                                        Color.fromARGB(255, 160, 0, 5)),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Text(
+                                  'Buscando Dispositivos',
+                                  style: TextStyle(fontSize: 17),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
+                        );
+                    },
                   ),
-                );
-        else
-          return Center(
-              child: Container(
-            color: Colors.red[800],
-          ));
+                ),
+              )
+            : ScreenBase(
+                bodyWidget: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(12),
+                        child:
+                            Text('Seu bluetooth está desabilitado no momento!'),
+                      ),
+                      Text(
+                          'Habilite-o na barra do sistema e clicke no botão abaixo'),
+                      Padding(
+                        padding: EdgeInsets.all(12),
+                        child: RaisedButton(
+                          child: Text('Refresh'),
+                          onPressed: () => Navigator.pushNamed(
+                              context, AppRoutes.Connection),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
       },
     );
   }
