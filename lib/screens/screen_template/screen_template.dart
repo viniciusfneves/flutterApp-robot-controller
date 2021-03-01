@@ -1,5 +1,5 @@
-import 'package:blue_app/utils/app_routes.dart';
-import 'package:blue_app/utils/theme_controller.dart';
+import 'package:blue_app/app_controller/app_routes.dart';
+import 'package:blue_app/app_controller/theme_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
