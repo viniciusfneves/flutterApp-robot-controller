@@ -17,31 +17,6 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
       bodyWidget: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // Chat
-          Flexible(
-            flex: 5,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Colors.black12,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  "Chat",
-                  style: TextStyle(fontSize: 60),
-                ),
-              ),
-            ),
-          ),
-          // Divider
-          Divider(
-            thickness: 1,
-            color: Color.fromARGB(255, 160, 0, 5),
-          ),
           // Botões de Liga e Desliga
           Container(
             child: standardButtons(context),
@@ -62,18 +37,17 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
   }
 }
 
-// Gambiarra para exibir vários ícones
-// TO-DO!  criar uma classe separada para exibir cada botão
-
+// Cria Widget para cada botão do ação do APP
+// Caso essencials = 2, exibe 2 botões por linha, do contrário, exibe 3 botões por linha
 Widget button(BuildContext context, String title, {bool essencials = false}) {
   double containerWidth;
   EdgeInsetsGeometry buttonPadding;
   if (essencials) {
-    containerWidth = 2.08;
-    buttonPadding = EdgeInsets.only(top: 4, bottom: 4);
+    containerWidth = 2.07;
+    buttonPadding = EdgeInsets.only(top: 20, bottom: 8);
   } else {
-    containerWidth = 3.2; // Caso de 4 botões em linha, usar 4.36
-    buttonPadding = EdgeInsets.only(top: 4, bottom: 12);
+    containerWidth = 3.3; // Caso de 4 botões em linha, usar 4.36
+    buttonPadding = EdgeInsets.only(top: 4, bottom: 0);
   }
 
   return Container(
@@ -81,10 +55,10 @@ Widget button(BuildContext context, String title, {bool essencials = false}) {
     child: Padding(
       padding: buttonPadding,
       child: RaisedButton(
-        padding: EdgeInsets.only(top:18, bottom: 18),
+        padding: EdgeInsets.only(top: 18, bottom: 18),
         color: Provider.of<ThemeController>(context).isDarkMode
             ? Color.fromARGB(200, 160, 0, 5)
-            : Colors.red[900],
+            : Color.fromARGB(255, 160, 0, 5),
         onPressed: () {},
         child: Text(
           title,
@@ -109,15 +83,39 @@ Widget standardButtons(BuildContext context) {
   );
 }
 
+// Gambiarra para exibir vários ícones
 Widget makeMultipleButtons(BuildContext context, int quantity) {
   List<Widget> buttons = new List<Widget>();
   for (int i = 1; i <= (quantity); i++) {
     buttons.add(button(context, "Função $i"));
   }
   return Wrap(
-    spacing: 8,
+    spacing: 16,
+    runSpacing: 12,
     children: [
       ...buttons,
     ],
+  );
+}
+
+Widget chat(BuildContext context) {
+  return Flexible(
+    flex: 5,
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: Colors.black12,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(12),
+          bottomRight: Radius.circular(12),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          "Chat",
+          style: TextStyle(fontSize: 60),
+        ),
+      ),
+    ),
   );
 }
