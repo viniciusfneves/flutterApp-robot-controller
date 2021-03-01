@@ -1,4 +1,4 @@
-import 'package:blue_app/utils/default_base_screen/default_base_screen.dart';
+import 'package:blue_app/screens/default_screen/default_screen.dart';
 import 'package:flutter/material.dart';
 
 class ControlPage extends StatelessWidget {

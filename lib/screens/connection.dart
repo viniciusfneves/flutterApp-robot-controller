@@ -1,7 +1,7 @@
-import 'package:blue_app/utils/app_routes.dart';
-import 'package:blue_app/utils/theme_controller.dart';
-import 'package:blue_app/services/bluetooth.dart';
-import 'package:blue_app/utils/default_base_screen/default_base_screen.dart';
+import 'package:blue_app/app_controller/app_routes.dart';
+import 'package:blue_app/app_controller/theme_controller.dart';
+import 'package:blue_app/communications/bluetooth/bluetooth.dart';
+import 'package:blue_app/screens/default_screen/default_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';

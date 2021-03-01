@@ -1,10 +1,10 @@
 import 'package:blue_app/screens/connection.dart';
 import 'package:blue_app/screens/configuration.dart';
 import 'package:blue_app/screens/control.dart';
-import 'package:blue_app/utils/app_routes.dart';
+import 'package:blue_app/app_controller/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:blue_app/utils/theme_controller.dart';
+import 'package:blue_app/app_controller/theme_controller.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
