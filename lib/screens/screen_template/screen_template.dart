@@ -44,12 +44,12 @@ class ScreenBase extends StatelessWidget {
             DrawerLink(
               icon: Icons.bluetooth,
               title: 'Configurações',
-              pageRoute: AppRoutes.Connection,
+              pageRoute: AppRoutes.Configuration,
             ),
             DrawerLink(
-              icon: Icons.account_tree_outlined,
+              icon: Icons.ten_k,
               title: 'Telemetria',
-              pageRoute: AppRoutes.Configuration,
+              pageRoute: AppRoutes.Telemetry,
             ),
             DrawerLink(
               icon: Icons.blur_circular,
@@ -59,6 +59,7 @@ class ScreenBase extends StatelessWidget {
             DrawerLink(
               icon: Icons.blur_circular,
               title: 'Controle Avançado',
+              pageRoute: AppRoutes.AdvancedControl,
             ),
           ],
         ),

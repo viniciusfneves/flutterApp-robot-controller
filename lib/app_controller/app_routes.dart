@@ -1,5 +1,6 @@
 class AppRoutes {
-  static const String Connection = '/';
-  static const String Configuration = '/configurations';
+  static const String Configuration = '/';
+  static const String Telemetry = '/telemetry';
   static const String Control = '/control';
+  static const String AdvancedControl = '/advanced_control';
 }
