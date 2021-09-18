@@ -1,8 +1,5 @@
 import 'package:blue_app/screens/screen_template/screen_template.dart';
-import 'package:blue_app/app_controller/theme_controller.dart';
-import 'package:blue_app/communications/bluetooth/bluetooth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ConfigurationPage extends StatefulWidget {
   @override
@@ -10,7 +7,6 @@ class ConfigurationPage extends StatefulWidget {
 }
 
 class _ConfigurationPageState extends State<ConfigurationPage> {
-  final Bluetooth blue = Bluetooth();
   @override
   Widget build(BuildContext context) {
     return ScreenBase(
@@ -56,9 +52,7 @@ Widget button(BuildContext context, String title, {bool essencials = false}) {
       padding: buttonPadding,
       child: RaisedButton(
         padding: EdgeInsets.only(top: 18, bottom: 18),
-        color: Provider.of<ThemeController>(context).isDarkMode
-            ? Color.fromARGB(200, 160, 0, 5)
-            : Color.fromARGB(255, 160, 0, 5),
+        color: Color.fromARGB(200, 160, 0, 5),
         onPressed: () {},
         child: Text(
           title,

@@ -1,8 +1,6 @@
 import 'package:blue_app/app_controller/app_routes.dart';
-import 'package:blue_app/app_controller/theme_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'drawer_links.dart';
 
@@ -13,7 +11,6 @@ import 'drawer_links.dart';
 class ScreenBase extends StatelessWidget {
   @required
   final Widget bodyWidget;
-  final ThemeController controller = ThemeController();
 
   ScreenBase({Key key, this.bodyWidget}) : super(key: key);
 
@@ -36,7 +33,7 @@ class ScreenBase extends StatelessWidget {
                     height: 80,
                   ),
                   Text(
-                    'Minerva Bluetooth App',
+                    'Minerva Wi-Fi Controller',
                     style: TextStyle(fontSize: 16),
                     overflow: TextOverflow.ellipsis,
                     softWrap: true,
@@ -46,26 +43,23 @@ class ScreenBase extends StatelessWidget {
             ),
             DrawerLink(
               icon: Icons.bluetooth,
-              title: 'Conections',
+              title: 'Configurações',
               pageRoute: AppRoutes.Connection,
             ),
             DrawerLink(
               icon: Icons.account_tree_outlined,
-              title: 'Configuration',
+              title: 'Telemetria',
               pageRoute: AppRoutes.Configuration,
             ),
             DrawerLink(
               icon: Icons.blur_circular,
-              title: 'Controls',
+              title: 'Controle Remoto',
               pageRoute: AppRoutes.Control,
             ),
-            Expanded(child: Container()),
-            Consumer(
-              builder: (BuildContext context, ThemeController controller,
-                  Widget child) {
-                return controller.changeThemeSwitch(context);
-              },
-            )
+            DrawerLink(
+              icon: Icons.blur_circular,
+              title: 'Controle Avançado',
+            ),
           ],
         ),
       ),
