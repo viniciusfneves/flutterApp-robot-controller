@@ -1,4 +1,6 @@
 import 'package:blue_app/app_routes/app_routes.dart';
+import 'package:provider/provider.dart';
+import 'package:blue_app/providers/widget_state_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,7 @@ class ScreenBase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MinervApp'),
+        title: Text(context.watch<WidgetState>().mainAppTitle),
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 160, 25, 25),
       ),

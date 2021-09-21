@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:blue_app/communications/wifi/websocket_handler.dart';
+import 'package:blue_app/providers/widget_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:provider/provider.dart';
@@ -16,15 +17,15 @@ class ControlPage extends StatefulWidget {
 }
 
 class _ControlPageState extends State<ControlPage> {
-  void initState() {
-    super.initState();
-    websocket.stream.listen((data) {
-      Map<String, dynamic> json = jsonDecode(data);
-      if (json.containsKey('configurations')) {
-        print(json['configurations']);
-      }
-    });
-  }
+  // void initState() {
+  //   super.initState();
+  //   websocket.stream.asBroadcastStream().listen((data) {
+  //     Map<String, dynamic> json = jsonDecode(data);
+  //     if (json.containsKey('robot_name')) {
+  //       context.read<WidgetState>().addRobotNameToAppTitle(json['robot_name']);
+  //     }
+  //   });
+  // }
 
   double valor = 50;
 

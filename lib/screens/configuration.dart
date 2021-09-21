@@ -1,5 +1,5 @@
 import 'package:blue_app/communications/WiFi/websocket_handler.dart';
-import 'package:blue_app/providers/widget_states_provider.dart';
+import 'package:blue_app/providers/widget_state_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:blue_app/screen_template/screen_template.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +22,7 @@ class ConfigurationPage extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: context.watch<RobotWidgetState>().readystate),
+                    color: context.watch<WidgetState>().readystate),
               ),
               Container(
                 width: 32,
@@ -30,7 +30,7 @@ class ConfigurationPage extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: context.watch<RobotWidgetState>().fightstate),
+                    color: context.watch<WidgetState>().fightstate),
               ),
               Container(
                 width: 32,
@@ -38,7 +38,7 @@ class ConfigurationPage extends StatelessWidget {
                 margin: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: context.watch<RobotWidgetState>().disabledstate),
+                    color: context.watch<WidgetState>().disabledstate),
               )
             ],
           ),
@@ -58,7 +58,7 @@ class ConfigurationPage extends StatelessWidget {
                     style: getStyle(Color.fromARGB(255, 25, 150, 25)),
                     onPressed: () {
                       websocket.sink.add('{"event_request": "start"}');
-                      context.read<RobotWidgetState>().setFightState();
+                      context.read<WidgetState>().setFightState();
                     }),
               ),
               Container(
@@ -72,7 +72,7 @@ class ConfigurationPage extends StatelessWidget {
                     style: getStyle(Color.fromARGB(255, 200, 25, 25)),
                     onPressed: () {
                       websocket.sink.add('{"event_request": "terminate"}');
-                      context.read<RobotWidgetState>().setDisabledState();
+                      context.read<WidgetState>().setDisabledState();
                     }),
               ),
               Container(
@@ -86,7 +86,7 @@ class ConfigurationPage extends StatelessWidget {
                     style: getStyle(Color.fromARGB(255, 190, 150, 0)),
                     onPressed: () {
                       websocket.sink.add('{"event_request": "reset"}');
-                      context.read<RobotWidgetState>().setReadyState();
+                      context.read<WidgetState>().setReadyState();
                     }),
               ),
             ],

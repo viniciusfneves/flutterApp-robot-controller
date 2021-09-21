@@ -1,5 +1,5 @@
 import 'package:blue_app/providers/robot_data_provider.dart';
-import 'package:blue_app/providers/widget_states_provider.dart';
+import 'package:blue_app/providers/widget_state_provider.dart';
 import 'package:blue_app/screens/configuration.dart';
 import 'package:blue_app/screens/telemetry.dart';
 import 'package:blue_app/screens/advanced_controller.dart';
@@ -31,7 +31,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => RobotData()),
-      ChangeNotifierProvider(create: (_) => RobotWidgetState()),
+      ChangeNotifierProvider(create: (_) => WidgetState()),
     ],
     child: MyApp(),
   ));

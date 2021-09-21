@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RobotWidgetState extends ChangeNotifier {
+class WidgetState extends ChangeNotifier {
+  String mainAppTitle = 'MinervApp';
   Color readystate = Colors.red;
   Color fightstate = Colors.red;
   Color disabledstate = Colors.red;
@@ -23,6 +24,11 @@ class RobotWidgetState extends ChangeNotifier {
     readystate = Colors.blueGrey;
     fightstate = Colors.blueGrey;
     disabledstate = Colors.green;
+    notifyListeners();
+  }
+
+  void addRobotNameToAppTitle(String robotName) {
+    mainAppTitle = 'MinervApp - $robotName';
     notifyListeners();
   }
 }
