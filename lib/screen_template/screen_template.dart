@@ -1,4 +1,4 @@
-import 'package:blue_app/app_controller/app_routes.dart';
+import 'package:blue_app/app_routes/app_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +20,7 @@ class ScreenBase extends StatelessWidget {
       appBar: AppBar(
         title: Text('MinervApp'),
         centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 160, 25, 25),
       ),
       drawer: Drawer(
         child: Column(

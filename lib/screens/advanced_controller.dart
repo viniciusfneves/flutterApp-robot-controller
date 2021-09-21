@@ -1,4 +1,4 @@
-import 'package:blue_app/screens/screen_template/screen_template.dart';
+import 'package:blue_app/screen_template/screen_template.dart';
 import 'package:flutter/material.dart';
 
 class AdvancedControllerPage extends StatelessWidget {
