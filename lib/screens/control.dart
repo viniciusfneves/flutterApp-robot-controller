@@ -35,33 +35,31 @@ class _ControlPageState extends State<ControlPage> {
         children: [
           Text(
             "Velocidade Máxima",
-            style: TextStyle(fontSize: 24),
+            style: TextStyle(fontSize: 22),
           ),
-          Container(
-            height: 8,
+          SizedBox(
+            height: 10,
           ),
           Text(
-            "${(context.watch<RobotData>().maxSpeed / 255 * 100).toStringAsFixed(1)} %",
-            style: TextStyle(fontSize: 24),
+            "${(context.watch<RobotData>().maxSpeed / 255 * 100).toStringAsFixed(0)} %",
+            style: TextStyle(fontSize: 22),
           ),
           Slider(
             min: 35,
             max: 255,
-            value: valor,
+            value: context.watch<RobotData>().maxSpeed.toDouble(),
             onChanged: (newValue) {
-              setState(() {
-                valor = newValue;
-              });
+              websocket.sink.add('{"max_speed":${newValue.toInt()}}');
             },
           ),
-          Container(
-            height: 55,
+          SizedBox(
+            height: 92,
           ),
           JoystickView(
-            size: 320,
+            size: 300,
             backgroundColor: Colors.black38,
             innerCircleColor: Colors.black45,
-            interval: Duration(milliseconds: 500),
+            interval: Duration(milliseconds: 32),
             onDirectionChanged: (degrees, intensity) {
               double rad = degrees * pi / 180;
               sendControllerCommand(intensity * cos(rad), intensity * sin(rad));
