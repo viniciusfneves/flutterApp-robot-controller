@@ -2,28 +2,24 @@ import 'package:flutter/material.dart';
 
 class WidgetState extends ChangeNotifier {
   String mainAppTitle = 'MinervApp';
-  Color readystate = Colors.red;
-  Color fightstate = Colors.red;
-  Color disabledstate = Colors.red;
+  String robotStateText = 'Unknown';
+  Color robotStateCircle = Colors.blueGrey;
 
   void setReadyState() {
-    readystate = Colors.green;
-    fightstate = Colors.blueGrey;
-    disabledstate = Colors.blueGrey;
+    robotStateText = 'Ready';
+    robotStateCircle = Colors.yellow[800];
     notifyListeners();
   }
 
   void setFightState() {
-    readystate = Colors.blueGrey;
-    fightstate = Colors.green;
-    disabledstate = Colors.blueGrey;
+    robotStateText = 'Fighting';
+    robotStateCircle = Colors.green[800];
     notifyListeners();
   }
 
   void setDisabledState() {
-    readystate = Colors.blueGrey;
-    fightstate = Colors.blueGrey;
-    disabledstate = Colors.green;
+    robotStateText = 'Disabled';
+    robotStateCircle = Colors.red[900];
     notifyListeners();
   }
 
