@@ -73,12 +73,10 @@ class RobotData extends ChangeNotifier {
 
   void setAvailableOP(int availableSensors) {
     availableOpSensors = availableSensors;
-    print("OP: $availableOpSensors");
   }
 
   void setAvailableEdge(int availableSensors) {
     availableEdgeSensors = availableSensors;
-    print("Edge: $availableEdgeSensors");
   }
 
   void setOpponentSensors(List<dynamic> detectionArray) {
