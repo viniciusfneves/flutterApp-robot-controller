@@ -5,7 +5,6 @@ import 'package:blue_app/screens/telemetry.dart';
 import 'package:blue_app/screens/advanced_controller.dart';
 import 'package:blue_app/screens/control.dart';
 import 'package:blue_app/app_routes/app_routes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

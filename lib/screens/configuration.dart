@@ -5,7 +5,6 @@ import 'package:blue_app/providers/robot_data_provider.dart';
 import 'package:blue_app/providers/widget_state_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:blue_app/screen_template/screen_template.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ConfigurationPage extends StatefulWidget {
