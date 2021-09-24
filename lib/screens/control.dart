@@ -25,8 +25,6 @@ class _ControlPageState extends State<ControlPage> {
     super.initState();
   }
 
-  double valor = 50;
-
   @override
   Widget build(BuildContext context) {
     return ScreenBase(
@@ -45,7 +43,7 @@ class _ControlPageState extends State<ControlPage> {
             style: TextStyle(fontSize: 22),
           ),
           Slider(
-            min: 35,
+            min: 76,
             max: 255,
             value: context.watch<RobotData>().maxSpeed.toDouble(),
             onChanged: (newValue) {
