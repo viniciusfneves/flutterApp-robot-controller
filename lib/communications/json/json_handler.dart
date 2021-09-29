@@ -57,17 +57,9 @@ void processJsonMessage(BuildContext context, Map<String, dynamic> json) {
   }
 
   if (json.containsKey("readings")) {
-    if (json["readings"].containsKey("opponent")) {
-      context
-          .read<RobotData>()
-          .setOpponentSensors(json["readings"]["opponent"]);
-    }
-    if (json["readings"].containsKey("edge")) {
-      context.read<RobotData>().setEdgeSensors(json["readings"]["edge"]);
-    }
-    if (json["readings"].containsKey("motors")) {
-      context.read<RobotData>().setWheelPower(
-          json["readings"]["motors"][0], json["readings"]["motors"][1]);
-    }
+    context.read<RobotData>().setOpponentSensors(json["readings"]["opponent"]);
+    context.read<RobotData>().setEdgeSensors(json["readings"]["edge"]);
+    context.read<RobotData>().setWheelPower(
+        json["readings"]["motors"][0], json["readings"]["motors"][1]);
   }
 }
