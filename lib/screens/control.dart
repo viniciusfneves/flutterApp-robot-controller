@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:blue_app/communications/wifi/websocket_handler.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -32,9 +30,7 @@ class ControlPage extends StatelessWidget {
             max: 255,
             value: context.watch<RobotData>().maxSpeed.toDouble(),
             onChanged: (newValue) {
-              Timer(Duration(milliseconds: 22), () {
-                websocket.sink.add('{"max_speed":${newValue.toInt()}}');
-              });
+              websocket.sink.add('{"max_speed":${newValue.toInt()}}');
             },
           ),
           SizedBox(
