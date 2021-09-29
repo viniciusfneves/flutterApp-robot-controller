@@ -1,26 +1,11 @@
-import 'dart:convert';
 import 'package:blue_app/communications/WiFi/websocket_handler.dart';
-import 'package:blue_app/communications/json/json_handler.dart';
 import 'package:blue_app/providers/robot_data_provider.dart';
 import 'package:blue_app/providers/widget_state_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:blue_app/screen_template/screen_template.dart';
 import 'package:flutter/material.dart';
 
-class ConfigurationPage extends StatefulWidget {
-  @override
-  State<ConfigurationPage> createState() => _ConfigurationPageState();
-}
-
-class _ConfigurationPageState extends State<ConfigurationPage> {
-  void initState() {
-    websocketData.listen((data) {
-      Map<String, dynamic> json = jsonDecode(data);
-      processJsonMessage(context, json);
-    });
-    super.initState();
-  }
-
+class ConfigurationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBase(
