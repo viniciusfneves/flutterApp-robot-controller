@@ -39,8 +39,8 @@ class ControlPage extends StatelessWidget {
           JoystickView(
             size: 300,
             backgroundColor: Colors.black38,
-            innerCircleColor: Colors.black45,
-            interval: Duration(milliseconds: 22),
+            innerCircleColor: Colors.black38,
+            interval: Duration(milliseconds: 28),
             onDirectionChanged: (degrees, intensity) {
               double rad = degrees * pi / 180;
               sendControllerCommand(intensity * cos(rad), intensity * sin(rad));
