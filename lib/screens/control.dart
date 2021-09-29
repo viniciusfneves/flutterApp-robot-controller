@@ -1,5 +1,5 @@
-import 'dart:convert';
-import 'package:blue_app/communications/json/json_handler.dart';
+import 'dart:async';
+
 import 'package:blue_app/communications/wifi/websocket_handler.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -9,22 +9,7 @@ import 'package:blue_app/communications/WiFi/http_requests.dart';
 import 'package:blue_app/screen_template/screen_template.dart';
 import 'package:control_pad/control_pad.dart';
 
-class ControlPage extends StatefulWidget {
-  ControlPage({Key key}) : super(key: key);
-
-  @override
-  State<ControlPage> createState() => _ControlPageState();
-}
-
-class _ControlPageState extends State<ControlPage> {
-  void initState() {
-    websocketData.listen((data) {
-      Map<String, dynamic> json = jsonDecode(data);
-      processJsonMessage(context, json);
-    });
-    super.initState();
-  }
-
+class ControlPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenBase(
@@ -47,7 +32,9 @@ class _ControlPageState extends State<ControlPage> {
             max: 255,
             value: context.watch<RobotData>().maxSpeed.toDouble(),
             onChanged: (newValue) {
-              websocket.sink.add('{"max_speed":${newValue.toInt()}}');
+              Timer(Duration(milliseconds: 22), () {
+                websocket.sink.add('{"max_speed":${newValue.toInt()}}');
+              });
             },
           ),
           SizedBox(
@@ -57,7 +44,7 @@ class _ControlPageState extends State<ControlPage> {
             size: 300,
             backgroundColor: Colors.black38,
             innerCircleColor: Colors.black45,
-            interval: Duration(milliseconds: 32),
+            interval: Duration(milliseconds: 22),
             onDirectionChanged: (degrees, intensity) {
               double rad = degrees * pi / 180;
               sendControllerCommand(intensity * cos(rad), intensity * sin(rad));
