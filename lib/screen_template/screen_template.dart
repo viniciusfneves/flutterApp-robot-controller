@@ -30,9 +30,15 @@ class ScreenBase extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Image.asset(
-                    'lib/assets/images/LogoMinervaVermelho.png',
+                  Container(
+                    width: 90,
                     height: 80,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                            "lib/assets/images/LogoMinervaVermelho.png"),
+                      ),
+                    ),
                   ),
                   Text(
                     'Minerva Wi-Fi Controller',

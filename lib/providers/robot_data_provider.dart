@@ -34,52 +34,52 @@ class RobotData extends ChangeNotifier {
     "right-motor": 0,
   };
 
-  void setStartTime(int time) {
+  setStartTime(int time) {
     startTime = time;
     notifyListeners();
   }
 
-  void setMaxSpeed(int speed) {
+  setMaxSpeed(int speed) {
     maxSpeed = speed;
     notifyListeners();
   }
 
-  void setPID(num kp, num ki, num kd) {
+  setPID(num kp, num ki, num kd) {
     pidConfiguration["kp"] = kp;
     pidConfiguration["ki"] = ki;
     pidConfiguration["kd"] = kd;
     notifyListeners();
   }
 
-  void setMode(String mode) {
+  setMode(String mode) {
     modeConfiguration = mode;
     notifyListeners();
   }
 
-  void setInitialMove(String move) {
+  setInitialMove(String move) {
     initialMoveConfiguration = move;
     notifyListeners();
   }
 
-  void setSearch(String search) {
+  setSearch(String search) {
     searchConfiguration = search;
     notifyListeners();
   }
 
-  void setChase(String chase) {
+  setChase(String chase) {
     chaseConfiguration = chase;
     notifyListeners();
   }
 
-  void setAvailableOP(int availableSensors) {
+  setAvailableOP(int availableSensors) {
     availableOpSensors = availableSensors;
   }
 
-  void setAvailableEdge(int availableSensors) {
+  setAvailableEdge(int availableSensors) {
     availableEdgeSensors = availableSensors;
   }
 
-  void setOpponentSensors(List<dynamic> detectionArray) {
+  setOpponentSensors(List<dynamic> detectionArray) {
     if (availableOpSensors == 2) {
       opSensorDetectionArray['left'] = detectionArray[0];
       opSensorDetectionArray['right'] = detectionArray[1];
@@ -108,7 +108,7 @@ class RobotData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setEdgeSensors(List<dynamic> detectionArray) {
+  setEdgeSensors(List<dynamic> detectionArray) {
     if (availableEdgeSensors == 2) {
       edgeSensorDetectionArray['front-left'] = detectionArray[0];
       edgeSensorDetectionArray['front-right'] = detectionArray[1];
@@ -122,7 +122,7 @@ class RobotData extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setWheelPower(int leftWheel, int rightWheel) {
+  setWheelPower(int leftWheel, int rightWheel) {
     powerOnWheels['left-motor'] = leftWheel;
     powerOnWheels['right-motor'] = rightWheel;
     notifyListeners();
