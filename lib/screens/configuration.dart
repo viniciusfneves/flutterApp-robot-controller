@@ -18,37 +18,110 @@ class ConfigurationPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: [
-                    ...robotStrategyConfigurationWidgets(
-                      context,
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text(
                       "Modo de Operação",
-                      "mode",
-                      ["Auto", "RC"],
-                      context.watch<RobotData>().modeConfiguration,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    ...robotStrategyConfigurationWidgets(
-                      context,
-                      "Movimento Inicial",
-                      "initial",
-                      ["None", "Full Frente", "Zig Zag"],
-                      context.watch<RobotData>().initialMoveConfiguration,
+                    SizedBox(
+                      height: 8,
                     ),
-                    ...robotStrategyConfigurationWidgets(
-                      context,
-                      "Busca",
-                      "search",
-                      ["None", "Radar"],
-                      context.watch<RobotData>().searchConfiguration,
+                    Selector<RobotData, String>(
+                      selector: (_, robotData) => robotData.modeConfiguration,
+                      builder: (ctx, mode, ___) => Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 14,
+                        runSpacing: 14,
+                        children: [
+                          ...robotStrategyConfigurationButtons(
+                            "mode",
+                            ["Auto", "RC"],
+                            mode,
+                          )
+                        ],
+                      ),
                     ),
-                    ...robotStrategyConfigurationWidgets(
-                      context,
-                      "Perseguição",
-                      "chase",
-                      ["Standard"],
-                      context.watch<RobotData>().chaseConfiguration,
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "Estratégia Inicial",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Selector<RobotData, String>(
+                      selector: (_, robotData) =>
+                          robotData.initialMoveConfiguration,
+                      builder: (ctx, initial, ___) => Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 14,
+                        runSpacing: 14,
+                        children: [
+                          ...robotStrategyConfigurationButtons(
+                            "initial",
+                            ["None", "Full Frente", "Zig Zag"],
+                            initial,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "Estratégia de Busca",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Selector<RobotData, String>(
+                      selector: (_, robotData) => robotData.searchConfiguration,
+                      builder: (ctx, search, ___) => Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 14,
+                        runSpacing: 14,
+                        children: [
+                          ...robotStrategyConfigurationButtons(
+                            "search",
+                            ["None", "Radar"],
+                            search,
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "Estratégia de Perseguição",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Selector<RobotData, String>(
+                      selector: (_, robotData) => robotData.chaseConfiguration,
+                      builder: (ctx, chase, ___) => Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 14,
+                        runSpacing: 14,
+                        children: [
+                          ...robotStrategyConfigurationButtons(
+                            "chase",
+                            ["Standard"],
+                            chase,
+                          )
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 10,
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -63,29 +136,31 @@ class ConfigurationPage extends StatelessWidget {
 Widget robotStateConfigurationWidgets(BuildContext context) {
   List<Widget> widgetsToDisplay = [
     // Display de estado
-    Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 32,
-          height: 32,
-          margin: EdgeInsets.only(bottom: 4, top: 8, left: 20, right: 14),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: context.watch<WidgetState>().robotStateCircle,
-          ),
-        ),
-        Container(
-          width: 85,
-          child: Text(
-            context.watch<WidgetState>().robotStateText,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.black,
+    Consumer<WidgetState>(
+      builder: (_, state, ___) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 32,
+            height: 32,
+            margin: EdgeInsets.only(bottom: 4, top: 8, left: 20, right: 14),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: state.robotStateCircle,
             ),
           ),
-        ),
-      ],
+          Container(
+            width: 85,
+            child: Text(
+              state.robotStateText,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ],
+      ),
     ),
     Divider(thickness: 2),
     // Botões de controle de estado
@@ -112,9 +187,7 @@ Widget robotStateConfigurationWidgets(BuildContext context) {
   );
 }
 
-List<Widget> robotStrategyConfigurationWidgets(
-  BuildContext context,
-  String textInidication,
+List<Widget> robotStrategyConfigurationButtons(
   String typeOfStrategy,
   List<String> availableStrategys,
   String selectedStrategy,
@@ -134,24 +207,7 @@ List<Widget> robotStrategyConfigurationWidgets(
     },
   );
 
-  return [
-    Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 6),
-      child: Text(
-        textInidication,
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.black,
-        ),
-      ),
-    ),
-    Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 14,
-      runSpacing: 14,
-      children: [...strategyButtons],
-    )
-  ];
+  return strategyButtons;
 }
 
 Widget makeEventRequestButton(
