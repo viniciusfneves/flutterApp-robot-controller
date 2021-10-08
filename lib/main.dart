@@ -39,6 +39,11 @@ class _MyAppState extends State<MyApp> {
         AppRoutes.Control: (ctx) => ControlPage(),
         AppRoutes.AdvancedControl: (ctx) => AdvancedControllerPage(),
       },
+      theme: ThemeData(
+        textTheme: TextTheme(
+          bodyText1: TextStyle(fontSize: 18),
+        ),
+      ),
     );
   }
 }
