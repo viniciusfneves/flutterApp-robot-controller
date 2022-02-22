@@ -1,59 +1,50 @@
-import 'dart:convert';
-import 'package:blue_app/providers/robot_data_provider.dart';
-import 'package:blue_app/providers/widget_state_provider.dart';
+import 'package:blue_app/colors/colors.dart';
+import 'package:blue_app/models/components/app_drawer.dart';
+import 'package:blue_app/providers/providers.dart';
+import 'package:blue_app/routes/app_routes.dart';
 import 'package:blue_app/screens/configuration.dart';
+import 'package:blue_app/screens/controller.dart';
 import 'package:blue_app/screens/telemetry.dart';
-import 'package:blue_app/screens/advanced_controller.dart';
-import 'package:blue_app/screens/control.dart';
-import 'package:blue_app/app_routes/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'communications/WiFi/websocket_handler.dart';
-import 'communications/json/json_handler.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);
-
+class MyApp extends ConsumerStatefulWidget {
   @override
-  State<MyApp> createState() => _MyAppState();
+  _MyApp createState() => _MyApp();
 }
 
-class _MyAppState extends State<MyApp> {
-  void initState() {
-    websocketData.listen((data) {
-      Map<String, dynamic> json = jsonDecode(data);
-      processJsonMessage(context, json);
-    });
-    super.initState();
-  }
-
+class _MyApp extends ConsumerState<MyApp> {
+  Widget? body;
   @override
   Widget build(BuildContext context) {
+    final page = ref.watch(selectedPage);
+    switch (page) {
+      case AppRoutes.configuration:
+        body = ConfigurationPage();
+        break;
+      case AppRoutes.telemetry:
+        body = TelemetryPage();
+        break;
+      case AppRoutes.controller:
+        body = ControllerPage();
+        break;
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "MinervApp Wi-Fi Controller Software",
-      initialRoute: AppRoutes.Configuration,
-      home: ConfigurationPage(),
-      routes: {
-        AppRoutes.Telemetry: (ctx) => TelemetryPage(),
-        AppRoutes.Control: (ctx) => ControlPage(),
-        AppRoutes.AdvancedControl: (ctx) => AdvancedControllerPage(),
-      },
-      theme: ThemeData(
-        textTheme: TextTheme(
-          bodyText1: TextStyle(fontSize: 18),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text("MinervApp"),
+          centerTitle: true,
+          backgroundColor: AppColors.standardRed,
         ),
+        drawer: const AppDrawer(),
+        body: body,
       ),
     );
   }
 }
 
 void main() {
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => RobotData()),
-      ChangeNotifierProvider(create: (_) => WidgetState()),
-    ],
-    child: MyApp(),
-  ));
+  runApp(ProviderScope(child: MyApp()));
 }

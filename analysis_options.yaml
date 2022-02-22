@@ -5,5 +5,3 @@ linter:
     # Não é necessário ordenar alfabeticamente os imports de dependências
     # nos arquivos. Acho desnecessário
     sort_pub_dependencies: false
-    directives_ordering: false
-
