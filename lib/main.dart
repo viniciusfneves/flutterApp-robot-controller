@@ -1,10 +1,11 @@
-import 'package:blue_app/colors/colors.dart';
 import 'package:blue_app/models/components/app_drawer.dart';
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:blue_app/screens/configuration.dart';
 import 'package:blue_app/screens/controller.dart';
 import 'package:blue_app/screens/telemetry.dart';
+import 'package:blue_app/style/colors/colors.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,13 +33,14 @@ class _MyApp extends ConsumerState<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "MinervApp Wi-Fi Controller Software",
+      scrollBehavior: const CupertinoScrollBehavior(),
       home: Scaffold(
         appBar: AppBar(
           title: const Text("MinervApp"),
           centerTitle: true,
           backgroundColor: AppColors.standardRed,
         ),
-        drawer: const AppDrawer(),
+        drawer: AppDrawer(page: page),
         body: body,
       ),
     );
