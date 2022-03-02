@@ -61,11 +61,11 @@ class EventController extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             RequestButton(
-              text: "Start",
+              title: "Start",
               color: AppColors.standardGreen,
             ),
             RequestButton(
-              text: "Arm",
+              title: "Arm",
               color: AppColors.standardAmbar,
             )
           ],

@@ -1,15 +1,15 @@
-import 'package:blue_app/global/websocket.dart';
 import 'package:blue_app/style/colors/colors.dart';
+import 'package:blue_app/style/texts/text_style.dart';
 import 'package:flutter/material.dart';
 
 class RequestButton extends StatelessWidget {
   const RequestButton({
     Key? key,
-    required this.text,
+    required this.title,
     required this.color,
   }) : super(key: key);
 
-  final String text;
+  final String title;
   final Color color;
 
   @override
@@ -23,15 +23,9 @@ class RequestButton extends StatelessWidget {
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(color),
             ),
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-              ),
-            ),
-            onPressed: () =>
-                {ws.sink.add('{"event_request": "${text.toLowerCase()}"}')},
+            onPressed: null,
+            child: EventRequestText(title),
+            //{ws.sink.add('{"event_request": "${title.toLowerCase()}"}')},
           ),
         ),
       ),
@@ -54,14 +48,9 @@ class DisengageRequestButton extends StatelessWidget {
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(AppColors.standardRed),
           ),
-          child: const Text(
-            "Disengage",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
-          ),
-          onPressed: () => {ws.sink.add('{"event_request":"disengage"}')},
+          onPressed: null,
+          child: const EventRequestText("Disengage"),
+          //{ws.sink.add('{"event_request":"disengage"}')},
         ),
       ),
     );
