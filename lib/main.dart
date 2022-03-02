@@ -1,4 +1,4 @@
-import 'package:blue_app/models/components/app_drawer.dart';
+import 'package:blue_app/models/app_drawer.dart';
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:blue_app/screens/configuration.dart';
@@ -9,16 +9,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyApp extends ConsumerStatefulWidget {
+class MyApp extends ConsumerWidget {
+  const MyApp();
   @override
-  _MyApp createState() => _MyApp();
-}
-
-class _MyApp extends ConsumerState<MyApp> {
-  Widget? body;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    Widget? body;
     final page = ref.watch(selectedPage);
+    final isDarkTheme = ref.watch(themeIsDark);
     switch (page) {
       case AppRoutes.configuration:
         body = ConfigurationPage();
@@ -34,6 +31,8 @@ class _MyApp extends ConsumerState<MyApp> {
       debugShowCheckedModeBanner: false,
       title: "MinervApp Wi-Fi Controller Software",
       scrollBehavior: const CupertinoScrollBehavior(),
+      themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+      darkTheme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
           title: const Text("MinervApp"),
@@ -48,5 +47,5 @@ class _MyApp extends ConsumerState<MyApp> {
 }
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }

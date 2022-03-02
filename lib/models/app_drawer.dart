@@ -60,7 +60,10 @@ class AppDrawer extends StatelessWidget {
             icon: Icons.control_camera_sharp,
             title: 'Controle Remoto',
             isSelected: page == AppRoutes.controller,
-          )
+          ),
+          const Expanded(child: SizedBox()),
+          const Divider(height: 0, thickness: 1.2),
+          const ThemeSwitch(),
         ],
       ),
     );
@@ -93,7 +96,9 @@ class DrawerPageLink extends ConsumerWidget {
             style: const TextStyle(fontSize: 16),
           ),
           selected: isSelected,
-          selectedColor: Colors.black,
+          selectedColor: ref.read(themeIsDark.notifier).state
+              ? Colors.white
+              : Colors.black,
           selectedTileColor: Colors.black12,
           onTap: () {
             ref.read(selectedPage.state).update((_) => route);
@@ -102,6 +107,28 @@ class DrawerPageLink extends ConsumerWidget {
         ),
         const Divider(height: 0, thickness: 1.2, endIndent: 12, indent: 12)
       ],
+    );
+  }
+}
+
+class ThemeSwitch extends ConsumerWidget {
+  const ThemeSwitch();
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeIsDark);
+    return ListTile(
+      contentPadding: const EdgeInsets.only(left: 24, top: 8, bottom: 8),
+      leading: const Icon(Icons.dark_mode_sharp),
+      title: const Text(
+        "DarkMode",
+        style: TextStyle(fontSize: 16),
+      ),
+      trailing: Switch.adaptive(
+        value: theme,
+        onChanged: (newState) {
+          ref.read(themeIsDark.notifier).state = newState;
+        },
+      ),
     );
   }
 }
