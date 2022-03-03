@@ -14,6 +14,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Widget? body;
+    ref.watch(robotDataStream);
     final page = ref.watch(selectedPage);
     final isDarkTheme = ref.watch(themeIsDark);
     switch (page) {
@@ -32,6 +33,8 @@ class MyApp extends ConsumerWidget {
       title: "MinervApp Wi-Fi Controller Software",
       scrollBehavior: const CupertinoScrollBehavior(),
       themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+      theme: ThemeData.light()
+          .copyWith(scaffoldBackgroundColor: AppColors.backgroundColor),
       darkTheme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(

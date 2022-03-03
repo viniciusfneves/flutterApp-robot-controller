@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   // TODO: padronizar todas as cores do aplicativo com a interface WEB
   // TODO: Validar as cores do aplicativo
+  static const backgroundColor = Color.fromARGB(255, 221, 221, 221);
   static const standardRed = Color(0xFF9E1F22);
   static const lightRed = Color(0xFFC80000);
   static const brightRed = Color(0xFFDF0000);
