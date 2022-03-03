@@ -12,7 +12,7 @@ final selectedPage = StateProvider<AppRoutes>((_) => AppRoutes.configuration);
 final themeIsDark = StateProvider<bool>((_) => false);
 
 // Providers para conexões
-final wsAdress = StateProvider<String>((_) => "");
+final wsAdress = StateProvider<String>((_) => "ws://192.168.4.1:81");
 final ws = StateProvider<WebSocketChannel>(
   (ref) {
     final adress = ref.watch(wsAdress);
