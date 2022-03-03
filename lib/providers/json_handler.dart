@@ -6,7 +6,6 @@ import 'package:blue_app/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void processJsonInfo(Map<String, dynamic> newInfo, StateProviderRef ref) {
-  print(newInfo);
   final infos = ref.read(robotInfo.notifier);
   infos.update(
     (state) => RobotInfos(
