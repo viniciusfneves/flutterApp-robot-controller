@@ -2,8 +2,25 @@ import 'package:blue_app/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ConfigText extends ConsumerWidget {
-  const ConfigText(
+class ConfigButtonText extends StatelessWidget {
+  const ConfigButtonText(this.data, {Key? key}) : super(key: key);
+  final String data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      data.toUpperCase(),
+      overflow: TextOverflow.ellipsis,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
+class ConfigTitleText extends ConsumerWidget {
+  const ConfigTitleText(
     this.text, {
     Key? key,
   }) : super(key: key);
@@ -20,6 +37,7 @@ class ConfigText extends ConsumerWidget {
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
+      overflow: TextOverflow.ellipsis,
     );
   }
 }
