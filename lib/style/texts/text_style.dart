@@ -1,6 +1,26 @@
 import 'package:blue_app/providers/providers.dart';
+import 'package:blue_app/style/colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+class RobotNameText extends StatelessWidget {
+  const RobotNameText(this.data);
+
+  final String? data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      data ?? "Sem conexão",
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w800,
+        color: data == null ? AppColors.standardRed : AppColors.standardGreen,
+      ),
+    );
+  }
+}
 
 class ConfigButtonText extends StatelessWidget {
   const ConfigButtonText(this.data, {Key? key}) : super(key: key);
@@ -34,7 +54,7 @@ class ConfigTitleText extends ConsumerWidget {
       text,
       style: TextStyle(
         color: theme ? Colors.white : Colors.black,
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
       overflow: TextOverflow.ellipsis,
@@ -58,6 +78,21 @@ class EventRequestText extends StatelessWidget {
         color: Colors.white,
         fontSize: 20,
         fontWeight: FontWeight.w700,
+      ),
+    );
+  }
+}
+
+class GeneralPurposeText extends StatelessWidget {
+  const GeneralPurposeText(this.data, {Key? key}) : super(key: key);
+
+  final String data;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      data,
+      style: const TextStyle(
+        fontSize: 20,
       ),
     );
   }

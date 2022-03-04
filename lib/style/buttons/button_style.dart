@@ -2,7 +2,7 @@ import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/style/colors/colors.dart';
 import 'package:blue_app/style/texts/text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RequestButton extends ConsumerWidget {
   const RequestButton({
@@ -30,7 +30,6 @@ class RequestButton extends ConsumerWidget {
                 .sink
                 .add("{'event_request':'${title.toLowerCase()}'}"),
             child: EventRequestText(title),
-            //{ws.sink.add('{"event_request": "${title.toLowerCase()}"}')},
           ),
         ),
       ),
@@ -48,7 +47,7 @@ class DisengageRequestButton extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: AspectRatio(
-        aspectRatio: 4.7 / 1,
+        aspectRatio: 5 / 1,
         child: ElevatedButton(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(AppColors.standardRed),
