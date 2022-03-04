@@ -1,23 +1,23 @@
 class RobotConfigs {
   RobotConfigs({
-    required this.startTime,
-    required this.maxSpeed,
-    required this.pid,
-    required this.controller,
-    required this.mode,
-    required this.initial,
-    required this.search,
-    required this.chase,
+    this.startTime,
+    this.maxSpeed,
+    this.pid,
+    this.controller,
+    this.mode,
+    this.initial,
+    this.search,
+    this.chase,
   });
 
-  final int startTime;
-  final int maxSpeed;
-  final PID pid;
-  final Controller controller;
-  final String mode;
-  final String initial;
-  final String search;
-  final String chase;
+  final int? startTime;
+  final int? maxSpeed;
+  final PID? pid;
+  final Controller? controller;
+  final String? mode;
+  final String? initial;
+  final String? search;
+  final String? chase;
 }
 
 class PID {
