@@ -24,7 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
   web_socket_channel: ^2.1.0
-  flutter_riverpod:
+  flutter_hooks: 
+  hooks_riverpod:
   flutter_svg:
 
   # The following adds the Cupertino Icons font to your application.
