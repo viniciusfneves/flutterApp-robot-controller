@@ -3,7 +3,7 @@ import 'package:blue_app/style/buttons/button_style.dart';
 import 'package:blue_app/style/colors/colors.dart';
 import 'package:blue_app/style/texts/text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ConfigurationPage extends StatelessWidget {
   @override
@@ -11,7 +11,81 @@ class ConfigurationPage extends StatelessWidget {
     return Column(
       children: const [
         Expanded(child: StrategyController()),
+        EventDisplay(),
         EventController(),
+      ],
+    );
+  }
+}
+
+class EventDisplay extends ConsumerWidget {
+  const EventDisplay({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [
+          ExecutionLight(
+            strategy: "Armed",
+            isActive: true,
+            activeColor: AppColors.standardAmbar,
+          ),
+          ExecutionLight(
+            strategy: "Starting",
+            isActive: true,
+          ),
+          ExecutionLight(
+            strategy: "Fighting",
+            isActive: true,
+            activeColor: AppColors.standardGreen,
+          ),
+          ExecutionLight(
+            strategy: "Disengaged",
+            isActive: true,
+            activeColor: AppColors.standardRed,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ExecutionLight extends StatelessWidget {
+  const ExecutionLight({
+    required this.strategy,
+    required this.isActive,
+    this.activeColor = AppColors.standardBlue,
+    Key? key,
+  }) : super(key: key);
+
+  final String strategy;
+  final bool isActive;
+  final Color activeColor;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Text(
+            strategy,
+            style: const TextStyle(fontSize: 14),
+          ),
+        ),
+        ClipOval(
+          child: Container(
+            decoration: BoxDecoration(
+              color: isActive ? activeColor : AppColors.unselectedColor,
+            ),
+            height: 22,
+            width: 22,
+          ),
+        ),
       ],
     );
   }
@@ -32,36 +106,38 @@ class StrategyController extends ConsumerWidget {
         child: Column(
           children: [
             const SizedBox(height: 4),
+            RobotNameText(infos.name),
+            const SizedBox(height: 6),
             const ConfigTitleText("Modo de Operação"),
             const SizedBox(height: 10),
             ConfigurationController(
               typeOfConfiguration: "mode",
-              availableConfigurations: infos.modesAvailable,
-              selectedConfiguration: configs.mode,
+              availableConfigurations: infos.modesAvailable ?? [],
+              selectedConfiguration: configs.mode ?? "",
             ),
             const SizedBox(height: 10),
             const ConfigTitleText("Estratégia Inicial"),
             const SizedBox(height: 10),
             ConfigurationController(
               typeOfConfiguration: "initial",
-              availableConfigurations: infos.initialAvailable,
-              selectedConfiguration: configs.initial,
+              availableConfigurations: infos.initialAvailable ?? [],
+              selectedConfiguration: configs.initial ?? "",
             ),
             const SizedBox(height: 10),
             const ConfigTitleText("Estratégia de Busca"),
             const SizedBox(height: 10),
             ConfigurationController(
               typeOfConfiguration: "search",
-              availableConfigurations: infos.searchAvailable,
-              selectedConfiguration: configs.search,
+              availableConfigurations: infos.searchAvailable ?? [],
+              selectedConfiguration: configs.search ?? "",
             ),
             const SizedBox(height: 10),
             const ConfigTitleText("Estratégia de Perseguição"),
             const SizedBox(height: 10),
             ConfigurationController(
               typeOfConfiguration: "chase",
-              availableConfigurations: infos.chaseAvailable,
-              selectedConfiguration: configs.chase,
+              availableConfigurations: infos.chaseAvailable ?? [],
+              selectedConfiguration: configs.chase ?? "",
             ),
             const SizedBox(height: 10),
           ],
@@ -135,7 +211,7 @@ class ConfigurationController extends ConsumerWidget {
                   ),
                 ),
                 onPressed: () {
-                  ref.read(ws).sink.add(
+                  ref.read(ws.notifier).state.sink.add(
                         "{'$typeOfConfiguration':'${availableConfigurations[index].toString().toLowerCase()}'}",
                       );
                 },

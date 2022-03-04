@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TelemetryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //double screenHeight = MediaQuery.of(context).size.height;
+    final screenSize = MediaQuery.of(context).size;
     return Center(
       child: Stack(
         alignment: Alignment.topCenter,
@@ -15,19 +15,26 @@ class TelemetryPage extends StatelessWidget {
               aspectRatio: 1,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.blueGrey,
+                  color: Colors.blueGrey[600],
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
             ),
           ),
-          const OpSensor(),
-          const OpSensor(),
-          const OpSensor(),
-          const OpSensor(),
-          const OpSensor(),
-          const OpSensor(),
-          const OpSensor(),
+          Positioned(
+            width: screenSize.width,
+            top: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: const [
+                OpSensor(),
+                OpSensor(),
+                OpSensor(),
+                OpSensor(),
+                OpSensor(),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -36,22 +43,20 @@ class TelemetryPage extends StatelessWidget {
 
 class OpSensor extends StatelessWidget {
   const OpSensor({
+    this.isActive = false,
     Key? key,
   }) : super(key: key);
 
+  final bool isActive;
+
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: 45,
-      child: SizedBox(
-        width: 60,
-        height: 35,
-        child: Container(
-          decoration: BoxDecoration(
-            color: AppColors.brightRed,
-            borderRadius: BorderRadius.circular(6),
-          ),
-        ),
+    return Container(
+      width: 35,
+      height: 25,
+      decoration: BoxDecoration(
+        color: isActive ? AppColors.lightRed : AppColors.unselectedColor,
+        borderRadius: BorderRadius.circular(6),
       ),
     );
   }
