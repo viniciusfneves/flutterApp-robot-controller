@@ -2,8 +2,8 @@ import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:blue_app/style/colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Essa Classe cria uma tela base com toda a navegação e estilo
 // seguido por esse aplicativo. Recebe como parâmetro um Widget em
@@ -58,10 +58,11 @@ class AppDrawer extends StatelessWidget {
           DrawerPageLink(
             route: AppRoutes.controller,
             icon: Icons.control_camera_sharp,
-            title: 'Controle Remoto',
+            title: 'Controle',
             isSelected: page == AppRoutes.controller,
           ),
           const Expanded(child: SizedBox()),
+          const AdvancedSettings(),
           const Divider(height: 0, thickness: 1.2),
           const ThemeSwitch(),
         ],
@@ -128,6 +129,33 @@ class ThemeSwitch extends ConsumerWidget {
         onChanged: (newState) {
           ref.read(themeIsDark.notifier).state = newState;
         },
+      ),
+    );
+  }
+}
+
+class AdvancedSettings extends ConsumerWidget {
+  const AdvancedSettings();
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: ElevatedButton(
+          onPressed: () {},
+          onLongPress: () {
+            ref
+                .read(selectedPage.state)
+                .update((_) => AppRoutes.advancedSettings);
+            Navigator.of(context).pop();
+          },
+          style: ButtonStyle(
+            backgroundColor: MaterialStateColor.resolveWith(
+              (states) => AppColors.standardRed,
+            ),
+          ),
+          child: const Icon(Icons.settings),
+        ),
       ),
     );
   }

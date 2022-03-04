@@ -3,7 +3,7 @@
 import 'package:blue_app/data/robot_configs.dart';
 import 'package:blue_app/data/robot_info.dart';
 import 'package:blue_app/providers/providers.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void processJsonInfo(Map<String, dynamic> newInfo, StateProviderRef ref) {
   final infos = ref.read(robotInfo.notifier);
