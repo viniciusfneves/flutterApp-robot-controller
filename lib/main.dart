@@ -37,8 +37,9 @@ class MyApp extends ConsumerWidget {
       title: "MinervApp Wi-Fi Controller Software",
       scrollBehavior: const CupertinoScrollBehavior(),
       themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
-      theme: ThemeData.light()
-          .copyWith(scaffoldBackgroundColor: AppColors.backgroundColor),
+      theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: AppColors.backgroundColor,
+      ),
       darkTheme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:blue_app/data/robot_configs.dart';
 import 'package:blue_app/data/robot_info.dart';
+import 'package:blue_app/data/robot_telemetry.dart';
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/style/colors/colors.dart';
 import 'package:blue_app/style/texts/text_style.dart';
@@ -30,9 +33,19 @@ class AdvancedSettingsPage extends HookConsumerWidget {
               ),
             ),
             onPressed: () {
+              if (adressController.text == adress) return;
+              ref.read(ws).sink.close();
               ref.read(wsAdress.state).update((_) => adressController.text);
-              ref.read(robotConfig.notifier).update((state) => RobotConfigs());
-              ref.read(robotInfo.notifier).update((state) => RobotInfos());
+              ref.read(robotConfig.notifier).update((_) => RobotConfigs());
+              ref.read(robotInfo.notifier).update((_) => RobotInfos());
+              ref.read(robotTelemetry.notifier).update((_) => RobotTelemetry());
+            },
+            onLongPress: () async {
+              final holder = adressController.text;
+              ref.read(wsAdress.state).update((_) => "ws://1.1.1.1:41");
+              ref.read(ws).sink.close();
+              await Future.delayed(const Duration(milliseconds: 500));
+              ref.read(wsAdress.state).update((_) => holder);
             },
             child: const Text(
               "Update",

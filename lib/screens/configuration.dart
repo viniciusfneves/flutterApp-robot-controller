@@ -18,79 +18,6 @@ class ConfigurationPage extends StatelessWidget {
   }
 }
 
-class EventDisplay extends ConsumerWidget {
-  const EventDisplay({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: const [
-          ExecutionLight(
-            strategy: "Armed",
-            isActive: true,
-            activeColor: AppColors.standardAmbar,
-          ),
-          ExecutionLight(
-            strategy: "Starting",
-            isActive: true,
-          ),
-          ExecutionLight(
-            strategy: "Fighting",
-            isActive: true,
-            activeColor: AppColors.standardGreen,
-          ),
-          ExecutionLight(
-            strategy: "Disengaged",
-            isActive: true,
-            activeColor: AppColors.standardRed,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ExecutionLight extends StatelessWidget {
-  const ExecutionLight({
-    required this.strategy,
-    required this.isActive,
-    this.activeColor = AppColors.standardBlue,
-    Key? key,
-  }) : super(key: key);
-
-  final String strategy;
-  final bool isActive;
-  final Color activeColor;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: Text(
-            strategy,
-            style: const TextStyle(fontSize: 14),
-          ),
-        ),
-        ClipOval(
-          child: Container(
-            decoration: BoxDecoration(
-              color: isActive ? activeColor : AppColors.unselectedColor,
-            ),
-            height: 22,
-            width: 22,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class StrategyController extends ConsumerWidget {
   const StrategyController({
     Key? key,
@@ -147,34 +74,6 @@ class StrategyController extends ConsumerWidget {
   }
 }
 
-class EventController extends StatelessWidget {
-  const EventController({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const DisengageRequestButton(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            RequestButton(
-              title: "Start",
-              color: AppColors.standardGreen,
-            ),
-            RequestButton(
-              title: "Arm",
-              color: AppColors.standardAmbar,
-            )
-          ],
-        ),
-      ],
-    );
-  }
-}
-
 class ConfigurationController extends ConsumerWidget {
   const ConfigurationController({
     required this.typeOfConfiguration,
@@ -225,6 +124,108 @@ class ConfigurationController extends ConsumerWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class EventController extends StatelessWidget {
+  const EventController({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const DisengageRequestButton(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            RequestButton(
+              title: "Start",
+              color: AppColors.standardGreen,
+            ),
+            RequestButton(
+              title: "Arm",
+              color: AppColors.standardAmbar,
+            )
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class EventDisplay extends ConsumerWidget {
+  const EventDisplay({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final status = ref.watch(robotTelemetry.select((r) => r.executionStatus));
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ExecutionLight(
+            strategy: "Armed",
+            isActive: status != null ? status == "ready" : true,
+            activeColor: AppColors.standardAmbar,
+          ),
+          ExecutionLight(
+            strategy: "Starting",
+            isActive: status != null ? status == "starting" : true,
+          ),
+          ExecutionLight(
+            strategy: "Fighting",
+            isActive: status != null ? status.substring(0, 5) == "exec_" : true,
+            activeColor: AppColors.standardGreen,
+          ),
+          ExecutionLight(
+            strategy: "Disengaged",
+            isActive: status != null ? status == "stopped" : true,
+            activeColor: AppColors.standardRed,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ExecutionLight extends StatelessWidget {
+  const ExecutionLight({
+    required this.strategy,
+    required this.isActive,
+    this.activeColor = AppColors.standardBlue,
+    Key? key,
+  }) : super(key: key);
+
+  final String strategy;
+  final bool isActive;
+  final Color activeColor;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Text(
+            strategy,
+            style: const TextStyle(fontSize: 14),
+          ),
+        ),
+        ClipOval(
+          child: Container(
+            decoration: BoxDecoration(
+              color: isActive ? activeColor : AppColors.unselectedColor,
+            ),
+            height: 22,
+            width: 22,
+          ),
+        ),
+      ],
     );
   }
 }
