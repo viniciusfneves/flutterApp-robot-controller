@@ -5,4 +5,3 @@ linter:
     # Não é necessário ordenar alfabeticamente os imports de dependências
     # nos arquivos. Acho desnecessário
     sort_pub_dependencies: false
-    avoid_bool_literals_in_conditional_expressions: false

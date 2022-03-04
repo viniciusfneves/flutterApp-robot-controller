@@ -62,6 +62,28 @@ class ConfigTitleText extends ConsumerWidget {
   }
 }
 
+class AdjustTitleText extends StatelessWidget {
+  const AdjustTitleText(
+    this.text, {
+    Key? key,
+  }) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+}
+
 class EventRequestText extends StatelessWidget {
   const EventRequestText(
     this.title, {
@@ -84,16 +106,32 @@ class EventRequestText extends StatelessWidget {
 }
 
 class GeneralPurposeText extends StatelessWidget {
-  const GeneralPurposeText(this.data, {Key? key}) : super(key: key);
+  const GeneralPurposeText(
+    this.data, {
+    Key? key,
+    this.adaptiveColor = true,
+    this.fontSize = 20,
+    this.color = Colors.white,
+  }) : super(key: key);
 
   final String data;
+  final double fontSize;
+  final Color color;
+  final bool adaptiveColor;
   @override
   Widget build(BuildContext context) {
-    return Text(
-      data,
-      style: const TextStyle(
-        fontSize: 20,
-      ),
-    );
+    if (adaptiveColor) {
+      return Text(
+        data,
+        style: TextStyle(
+          fontSize: fontSize,
+        ),
+      );
+    } else {
+      return Text(
+        data,
+        style: TextStyle(fontSize: fontSize, color: color),
+      );
+    }
   }
 }
