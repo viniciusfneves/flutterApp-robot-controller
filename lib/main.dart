@@ -1,7 +1,7 @@
-import 'package:blue_app/models/app_drawer.dart';
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:blue_app/screens/advanced_settings.dart';
+import 'package:blue_app/screens/components/app_drawer.dart';
 import 'package:blue_app/screens/configuration.dart';
 import 'package:blue_app/screens/controller.dart';
 import 'package:blue_app/screens/telemetry.dart';
