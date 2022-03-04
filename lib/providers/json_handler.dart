@@ -29,6 +29,9 @@ void processJsonConfig(Map<String, dynamic> newConfig, StateProviderRef ref) {
   configs.update(
     (_) => RobotConfigs(
       maxSpeed: newConfig["max_speed"] as int,
+      maxSpeedInChase: newConfig["max_speed_in_chase"] as num,
+      arcAngularSpeed: newConfig["arc_angular_speed"] as num,
+      radarSpeed: newConfig["radar_speed"] as num,
       startTime: newConfig["start_time"] as int,
       mode: newConfig["mode"].toString().toUpperCase(),
       initial: newConfig["initial_move"].toString().toUpperCase(),

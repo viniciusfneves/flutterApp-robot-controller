@@ -2,6 +2,9 @@ class RobotConfigs {
   RobotConfigs({
     this.startTime,
     this.maxSpeed,
+    this.maxSpeedInChase,
+    this.arcAngularSpeed,
+    this.radarSpeed,
     this.pid,
     this.controller,
     this.mode,
@@ -12,6 +15,9 @@ class RobotConfigs {
 
   final int? startTime;
   final int? maxSpeed;
+  final num? maxSpeedInChase;
+  final num? arcAngularSpeed;
+  final num? radarSpeed;
   final PID? pid;
   final Controller? controller;
   final String? mode;

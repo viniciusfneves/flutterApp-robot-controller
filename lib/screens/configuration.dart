@@ -1,4 +1,5 @@
 import 'package:blue_app/providers/providers.dart';
+import 'package:blue_app/screens/components/advanced_adjusts.dart';
 import 'package:blue_app/style/buttons/button_style.dart';
 import 'package:blue_app/style/colors/colors.dart';
 import 'package:blue_app/style/texts/text_style.dart';
@@ -66,7 +67,24 @@ class StrategyController extends ConsumerWidget {
               availableConfigurations: infos.chaseAvailable ?? [],
               selectedConfiguration: configs.chase ?? "",
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 18),
+            ElevatedButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.resolveWith(
+                  (_) =>
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                ),
+                backgroundColor: MaterialStateColor.resolveWith(
+                  (_) => AppColors.standardBlue,
+                ),
+              ),
+              onPressed: () => showBottomSheet(
+                backgroundColor: Colors.transparent,
+                context: context,
+                builder: (_) => AdvancedAdjustsModalSheet(),
+              ),
+              child: const ConfigButtonText("mais ajustes"),
+            )
           ],
         ),
       ),
@@ -171,21 +189,21 @@ class EventDisplay extends ConsumerWidget {
         children: [
           ExecutionLight(
             strategy: "Armed",
-            isActive: status != null ? status == "ready" : true,
+            isActive: status == null || status == "ready",
             activeColor: AppColors.standardAmbar,
           ),
           ExecutionLight(
             strategy: "Starting",
-            isActive: status != null ? status == "starting" : true,
+            isActive: status == null || status == "starting",
           ),
           ExecutionLight(
             strategy: "Fighting",
-            isActive: status != null ? status.substring(0, 5) == "exec_" : true,
+            isActive: status == null || status.substring(0, 5) == "exec_",
             activeColor: AppColors.standardGreen,
           ),
           ExecutionLight(
             strategy: "Disengaged",
-            isActive: status != null ? status == "stopped" : true,
+            isActive: status == null || status == "stopped",
             activeColor: AppColors.standardRed,
           ),
         ],
