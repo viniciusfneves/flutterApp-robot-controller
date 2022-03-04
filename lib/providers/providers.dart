@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:blue_app/data/robot_configs.dart';
 import 'package:blue_app/data/robot_info.dart';
+import 'package:blue_app/data/robot_telemetry.dart';
 import 'package:blue_app/providers/json_handler.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:flutter/widgets.dart';
@@ -29,7 +30,10 @@ final robotConnection = StateProvider(
         Map<String, dynamic> json;
         json = jsonDecode(message as String) as Map<String, dynamic>;
         if (json.containsKey("info")) {
-          processJsonInfo(json["info"] as Map<String, dynamic>, ref);
+          processJsonInfo(
+            json["info"] as Map<String, dynamic>,
+            ref,
+          );
         }
         if (json.containsKey("configurations")) {
           processJsonConfig(
@@ -38,13 +42,12 @@ final robotConnection = StateProvider(
           );
         }
         if (json.containsKey("readings")) {
-          processJsonTelemetry(json);
+          processJsonTelemetry(
+            json["readings"] as Map<String, dynamic>,
+            ref,
+          );
         }
       }
-    } on WebSocketChannelException {
-      debugPrint("Timeout de Conexão WebSocket");
-      ref.read(robotConfig.notifier).update((state) => RobotConfigs());
-      ref.read(robotInfo.notifier).update((state) => RobotInfos());
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -57,4 +60,7 @@ final robotInfo = StateProvider<RobotInfos>(
 
 final robotConfig = StateProvider<RobotConfigs>(
   (ref) => RobotConfigs(),
+);
+final robotTelemetry = StateProvider<RobotTelemetry>(
+  (ref) => RobotTelemetry(),
 );

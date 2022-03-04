@@ -1,14 +1,17 @@
 // TODO: Criar toda a lógica de processamento da mensagem JSON: info, configs e readings
 // TODO: Atualizar os providers com as informações recebidas
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:blue_app/data/robot_configs.dart';
 import 'package:blue_app/data/robot_info.dart';
+import 'package:blue_app/data/robot_telemetry.dart';
 import 'package:blue_app/providers/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void processJsonInfo(Map<String, dynamic> newInfo, StateProviderRef ref) {
   final infos = ref.read(robotInfo.notifier);
   infos.update(
-    (state) => RobotInfos(
+    (_) => RobotInfos(
       name: newInfo["robot_name"] as String,
       modesAvailable: newInfo["available_modes"] as List<dynamic>,
       initialAvailable:
@@ -24,7 +27,7 @@ void processJsonConfig(Map<String, dynamic> newConfig, StateProviderRef ref) {
   final controllerConfigs = newConfig["controller"] as Map<String, dynamic>;
   final pidConfigs = newConfig["pid"] as Map<String, dynamic>;
   configs.update(
-    (state) => RobotConfigs(
+    (_) => RobotConfigs(
       maxSpeed: newConfig["max_speed"] as int,
       startTime: newConfig["start_time"] as int,
       mode: newConfig["mode"].toString().toUpperCase(),
@@ -45,4 +48,24 @@ void processJsonConfig(Map<String, dynamic> newConfig, StateProviderRef ref) {
   );
 }
 
-void processJsonTelemetry(Map<String, dynamic> json) {}
+void processJsonTelemetry(Map<String, dynamic> newData, StateProviderRef ref) {
+  final data = ref.read(robotTelemetry.notifier);
+  final opSensors = newData["opponent"];
+  final edgeSensors = newData["edge"];
+  final motors = newData["motor"];
+
+  data.update(
+    (_) => RobotTelemetry(
+      executionStatus: newData["robot_status"] as String,
+      OPfarLeft: opSensors[0]! as bool,
+      OPleft: opSensors[1]! as bool,
+      OPcenter: opSensors[2]! as bool,
+      OPright: opSensors[3]! as bool,
+      OPfarRight: opSensors[4]! as bool,
+      EDGEfrontLeft: edgeSensors[0]! as bool,
+      EDGEfrontRight: edgeSensors[1]! as bool,
+      leftMotor: motors[0]! as int,
+      rightMotor: motors[1]! as int,
+    ),
+  );
+}
