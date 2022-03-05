@@ -13,8 +13,8 @@ class AdvancedAdjustsModalSheet extends ConsumerWidget {
     final configs = ref.watch(robotConfig);
     return ClipRRect(
       borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(30),
-        topRight: Radius.circular(30),
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(
@@ -25,10 +25,10 @@ class AdvancedAdjustsModalSheet extends ConsumerWidget {
           height: screenSize.height * 0.8,
           width: screenSize.width,
           decoration: BoxDecoration(
-            color: Colors.blueGrey[900]?.withOpacity(0.95),
+            color: Colors.blueGrey[900]?.withOpacity(0.9),
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             ),
           ),
           child: Padding(
@@ -36,11 +36,12 @@ class AdvancedAdjustsModalSheet extends ConsumerWidget {
             child: Column(
               children: [
                 const AdjustTitleText("AJUSTE DE PARÂMETROS"),
-                const AdjustBlockDisplay(text: "Velocidade Angular do Arco"),
+                const AdjustTitle(text: "Velocidade Angular do Arco"),
                 AdjustSlider(
                   minSliderValue: -0.5,
                   maxSliderValue: 0.5,
                   adaptiveColor: false,
+                  watchParameterPercentage: false,
                   watchValue: configs.arcAngularSpeed?.toDouble(),
                   onDoneAdjusting: (value) {
                     ref.read(ws).sink.add(
@@ -48,11 +49,12 @@ class AdvancedAdjustsModalSheet extends ConsumerWidget {
                         );
                   },
                 ),
-                const AdjustBlockDisplay(text: "Velocidade do Radar"),
+                const AdjustTitle(text: "Velocidade do Radar"),
                 AdjustSlider(
                   minSliderValue: 0.3,
                   maxSliderValue: 1,
                   adaptiveColor: false,
+                  watchParameterPercentage: false,
                   watchValue: configs.radarSpeed?.toDouble(),
                   onDoneAdjusting: (value) {
                     ref.read(ws).sink.add(
@@ -60,13 +62,14 @@ class AdvancedAdjustsModalSheet extends ConsumerWidget {
                         );
                   },
                 ),
-                const AdjustBlockDisplay(
-                  text: "Max Velocidade Angular em Perseguição",
+                const AdjustTitle(
+                  text: "MáxVel Angular em Perseguição",
                 ),
                 AdjustSlider(
-                  minSliderValue: 0.25,
+                  minSliderValue: 0.245,
                   maxSliderValue: 0.7,
                   adaptiveColor: false,
+                  watchParameterPercentage: false,
                   watchValue: configs.maxSpeedInChase?.toDouble(),
                   onDoneAdjusting: (value) {
                     ref.read(ws).sink.add(
@@ -83,8 +86,8 @@ class AdvancedAdjustsModalSheet extends ConsumerWidget {
   }
 }
 
-class AdjustBlockDisplay extends StatelessWidget {
-  const AdjustBlockDisplay({required this.text});
+class AdjustTitle extends StatelessWidget {
+  const AdjustTitle({required this.text});
 
   final String text;
 
