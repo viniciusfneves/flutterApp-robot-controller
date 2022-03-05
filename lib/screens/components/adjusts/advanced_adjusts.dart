@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/screens/components/adjusts/adjust_field.dart';
 import 'package:blue_app/screens/components/adjusts/adjust_slider.dart';
+import 'package:blue_app/screens/components/dialog/error_dialog.dart';
 import 'package:blue_app/style/buttons.dart';
-import 'package:blue_app/style/colors.dart';
 import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -13,13 +13,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class AdvancedAdjustsModalSheet extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final startTimeController = useTextEditingController();
     final kpController = useTextEditingController();
     final kiController = useTextEditingController();
     final kdController = useTextEditingController();
-    final startTimeController = useTextEditingController();
+    final angleBiasController = useTextEditingController();
+    final speedBiasController = useTextEditingController();
     final screenSize = MediaQuery.of(context).size;
     final configs = ref.watch(robotConfig);
-    final isDarkTheme = ref.watch(themeIsDark);
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(20),
@@ -41,7 +42,10 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(18.0),
+            padding: const EdgeInsets.symmetric(
+              vertical: 20.0,
+              horizontal: 8,
+            ),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -87,7 +91,15 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                           );
                     },
                   ),
-                  const AdjustTitle(text: "PID"),
+                  const AdjustTitle(text: "Start Time"),
+                  AdjustField(
+                    controller: startTimeController,
+                    watchValue: configs.startTime?.toString(),
+                  ),
+                  const AdjustTitle(
+                    text: "PID",
+                    removeDivider: true,
+                  ),
                   Row(
                     children: [
                       Flexible(
@@ -114,12 +126,26 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                     ],
                   ),
                   const AdjustTitle(
-                    text: "Start Time",
+                    text: "Rotation Bias",
                     removeDivider: true,
                   ),
-                  AdjustField(
-                    controller: startTimeController,
-                    watchValue: configs.startTime?.toString(),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: AdjustField(
+                          controller: angleBiasController,
+                          optionalDescriptionText: "Angle Bias",
+                          watchValue: configs.rotateAngleBias?.toString(),
+                        ),
+                      ),
+                      Flexible(
+                        child: AdjustField(
+                          controller: speedBiasController,
+                          optionalDescriptionText: "Speed Bias",
+                          watchValue: configs.rotateSpeedBias?.toString(),
+                        ),
+                      ),
+                    ],
                   ),
                   SetConfigButton(
                     text: 'SET',
@@ -130,38 +156,39 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                           kiController.text.replaceAll(",", ".");
                       kdController.text =
                           kdController.text.replaceAll(",", ".");
+                      angleBiasController.text =
+                          angleBiasController.text.replaceAll(",", ".");
+                      speedBiasController.text =
+                          speedBiasController.text.replaceAll(",", ".");
                       if (startTimeController.text.contains(",") ||
                           startTimeController.text.contains(".")) {
+                        startTimeController.text =
+                            configs.startTime?.toString() ?? "---";
+                        kpController.text = configs.pid?.kp.toString() ?? "---";
+                        kiController.text = configs.pid?.ki.toString() ?? "---";
+                        kdController.text = configs.pid?.kd.toString() ?? "---";
+                        angleBiasController.text =
+                            configs.rotateAngleBias?.toString() ?? "---";
+                        speedBiasController.text =
+                            configs.rotateSpeedBias?.toString() ?? "---";
                         showDialog(
                           context: context,
-                          builder: (_) => Center(
-                            child: Container(
-                              width: screenSize.width * 0.9,
-                              height: screenSize.width * 0.35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.blueGrey,
-                              ),
-                              child: const Center(
-                                child: Text(
-                                  'StartTime precisa ser inteiro',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                  ),
-                                ),
-                              ),
-                            ),
+                          builder: (_) => ErrorDialog(
+                            message: "Start Time precisa ser inteiro",
+                            screenSize: MediaQuery.of(context).size,
                           ),
                         );
-                        return;
+                      } else {
+                        ref.read(ws).sink.add(
+                              "{'start_time':'${startTimeController.text}'}",
+                            );
+                        ref.read(ws).sink.add(
+                              "{'pid':{'kp':'${kpController.text}','ki':'${kiController.text}','kd':'${kdController.text}'}}",
+                            );
+                        ref.read(ws).sink.add(
+                              "{'rotate_angle_bias':'${angleBiasController.text}','rotate_speed_bias':'${speedBiasController.text}'}",
+                            );
                       }
-
-                      ref.read(ws).sink.add(
-                            "{'start_time':'${startTimeController.text}','pid':{'kp':'${kpController.text}','ki':'${kiController.text}','kd':'${kdController.text}'}}",
-                          );
                     },
                   )
                 ],

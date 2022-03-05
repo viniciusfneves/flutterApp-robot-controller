@@ -30,6 +30,8 @@ void processJsonConfig(Map<String, dynamic> newConfig, StateProviderRef ref) {
     (_) => RobotConfigs(
       maxSpeed: newConfig["max_speed"] as int,
       maxSpeedInChase: newConfig["max_speed_in_chase"] as num,
+      rotateAngleBias: newConfig["rotate_angle_bias"] as num,
+      rotateSpeedBias: newConfig["rotate_speed_bias"] as num,
       arcAngularSpeed: newConfig["arc_angular_speed"] as num,
       radarSpeed: newConfig["radar_speed"] as num,
       startTime: newConfig["start_time"] as int,

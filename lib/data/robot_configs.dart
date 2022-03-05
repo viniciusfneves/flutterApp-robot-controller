@@ -3,6 +3,8 @@ class RobotConfigs {
     this.startTime,
     this.maxSpeed,
     this.maxSpeedInChase,
+    this.rotateAngleBias,
+    this.rotateSpeedBias,
     this.arcAngularSpeed,
     this.radarSpeed,
     this.pid,
@@ -16,6 +18,8 @@ class RobotConfigs {
   final int? startTime;
   final int? maxSpeed;
   final num? maxSpeedInChase;
+  final num? rotateAngleBias;
+  final num? rotateSpeedBias;
   final num? arcAngularSpeed;
   final num? radarSpeed;
   final PID? pid;

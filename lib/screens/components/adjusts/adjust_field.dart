@@ -25,7 +25,7 @@ class _AdjustFieldState extends State<AdjustField> {
     // Preenche o field vazio com o valor atual do watchValue
     // Caso o valor seja nulo, preenche com um texto padrão indicativo
     if (widget.controller.text == "") {
-      widget.controller.text = widget.watchValue ?? "X.000";
+      widget.controller.text = widget.watchValue ?? "---";
     }
   }
 

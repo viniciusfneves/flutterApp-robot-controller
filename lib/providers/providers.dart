@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:blue_app/data/json_handler.dart';
 import 'package:blue_app/data/robot_configs.dart';
 import 'package:blue_app/data/robot_info.dart';
 import 'package:blue_app/data/robot_telemetry.dart';
-import 'package:blue_app/providers/json_handler.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
