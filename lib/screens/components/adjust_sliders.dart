@@ -10,12 +10,16 @@ class AdjustSlider extends ConsumerStatefulWidget {
     required this.onDoneAdjusting,
     this.watchValue,
     this.adaptiveColor = true,
+    this.sliderLabelPercentage = true,
+    this.watchParameterPercentage = true,
   });
 
   final double minSliderValue;
   final double maxSliderValue;
   final double? watchValue;
   final bool adaptiveColor;
+  final bool sliderLabelPercentage;
+  final bool watchParameterPercentage;
   final Function(double) onDoneAdjusting;
 
   @override
@@ -29,12 +33,18 @@ class _AdjustSliderState extends ConsumerState<AdjustSlider> {
     _valueHolder = _valueHolder ?? widget.watchValue ?? widget.maxSliderValue;
     return Column(
       children: [
-        GeneralPurposeText(
-          widget.watchValue == null
-              ? "Sem dados"
-              : "${(widget.watchValue! / widget.maxSliderValue * 100).toStringAsFixed(0)} %",
-          adaptiveColor: widget.adaptiveColor,
-        ),
+        if (widget.watchParameterPercentage)
+          GeneralPurposeText(
+            widget.watchValue == null
+                ? "Sem dados"
+                : "${(widget.watchValue! / widget.maxSliderValue * 100).toStringAsFixed(0)} %",
+            adaptiveColor: widget.adaptiveColor,
+          )
+        else
+          GeneralPurposeText(
+            widget.watchValue == null ? "Sem dados" : "${widget.watchValue}",
+            adaptiveColor: widget.adaptiveColor,
+          ),
         Slider.adaptive(
           activeColor: AppColors.standardRed,
           min: widget.minSliderValue,
@@ -47,8 +57,9 @@ class _AdjustSliderState extends ConsumerState<AdjustSlider> {
           },
           onChangeEnd: widget.onDoneAdjusting,
           divisions: 100,
-          label:
-              "${(_valueHolder! / widget.maxSliderValue * 100).toStringAsFixed(0)} %",
+          label: widget.sliderLabelPercentage
+              ? "${(_valueHolder! / widget.maxSliderValue * 100).toStringAsFixed(0)} %"
+              : "${_valueHolder?.toStringAsFixed(2)}",
         ),
       ],
     );
