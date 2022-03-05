@@ -1,11 +1,11 @@
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:blue_app/screens/advanced_settings.dart';
-import 'package:blue_app/screens/components/app_drawer.dart';
+import 'package:blue_app/screens/components/drawer/app_drawer.dart';
 import 'package:blue_app/screens/configuration.dart';
 import 'package:blue_app/screens/controller.dart';
 import 'package:blue_app/screens/telemetry.dart';
-import 'package:blue_app/style/colors/colors.dart';
+import 'package:blue_app/style/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -46,9 +46,30 @@ class MyApp extends ConsumerWidget {
           title: const Text("MinervApp"),
           centerTitle: true,
           backgroundColor: AppColors.standardRed,
+          actions: const [AdvancedConfigsDoor()],
         ),
         drawer: AppDrawer(page: page),
         body: body,
+      ),
+    );
+  }
+}
+
+class AdvancedConfigsDoor extends ConsumerWidget {
+  const AdvancedConfigsDoor({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return TextButton(
+      onPressed: null,
+      onLongPress: () {
+        ref.read(selectedPage.state).update((_) => AppRoutes.advancedSettings);
+      },
+      child: const Icon(
+        Icons.settings,
+        color: Colors.white,
       ),
     );
   }

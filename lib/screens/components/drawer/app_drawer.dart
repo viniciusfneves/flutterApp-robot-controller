@@ -1,6 +1,6 @@
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/routes/app_routes.dart';
-import 'package:blue_app/style/colors/colors.dart';
+import 'package:blue_app/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,6 +17,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+
       child: Column(
         children: <Widget>[
           DrawerHeader(
@@ -62,7 +63,6 @@ class AppDrawer extends StatelessWidget {
             isSelected: page == AppRoutes.controller,
           ),
           const Expanded(child: SizedBox()),
-          const AdvancedSettings(),
           const Divider(height: 0, thickness: 1.2),
           const ThemeSwitch(),
         ],
@@ -129,33 +129,6 @@ class ThemeSwitch extends ConsumerWidget {
         onChanged: (newState) {
           ref.read(themeIsDark.notifier).state = newState;
         },
-      ),
-    );
-  }
-}
-
-class AdvancedSettings extends ConsumerWidget {
-  const AdvancedSettings();
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: ElevatedButton(
-          onPressed: () {},
-          onLongPress: () {
-            ref
-                .read(selectedPage.state)
-                .update((_) => AppRoutes.advancedSettings);
-            Navigator.of(context).pop();
-          },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateColor.resolveWith(
-              (states) => AppColors.standardRed,
-            ),
-          ),
-          child: const Icon(Icons.settings),
-        ),
       ),
     );
   }
