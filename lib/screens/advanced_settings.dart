@@ -14,6 +14,8 @@ class AdvancedSettingsPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController adressController = useTextEditingController();
+    final TextEditingController debugMessageController =
+        useTextEditingController();
     final adress = ref.watch(wsAdress);
     final infos = ref.watch(robotInfo);
     return Center(
@@ -25,9 +27,15 @@ class AdvancedSettingsPage extends HookConsumerWidget {
             height: 50,
           ),
           const ConfigTitleText("Connection Adress"),
-          AdressField(adress: adress, adressController: adressController),
+          ConfigTextField(
+            controller: adressController,
+            data: adress,
+          ),
           ElevatedButton(
             style: ButtonStyle(
+              padding: MaterialStateProperty.resolveWith(
+                (_) => const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+              ),
               backgroundColor: MaterialStateColor.resolveWith(
                 (states) => AppColors.standardRed,
               ),
@@ -42,6 +50,7 @@ class AdvancedSettingsPage extends HookConsumerWidget {
             },
             onLongPress: () async {
               final holder = adressController.text;
+              ref.read(ws).sink.close();
               ref.read(wsAdress.state).update((_) => "ws://1.1.1.1:41");
               ref.read(ws).sink.close();
               await Future.delayed(const Duration(milliseconds: 500));
@@ -51,6 +60,27 @@ class AdvancedSettingsPage extends HookConsumerWidget {
               "Update",
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
+          ),
+          const SizedBox(height: 16),
+          const ConfigTitleText("Debug Message"),
+          const ConfigTitleText("(JSON)"),
+          ConfigTextField(controller: debugMessageController),
+          ElevatedButton(
+            style: ButtonStyle(
+              padding: MaterialStateProperty.resolveWith(
+                (_) => const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+              ),
+              backgroundColor: MaterialStateColor.resolveWith(
+                (states) => AppColors.standardRed,
+              ),
+            ),
+            onPressed: () {
+              ref.read(ws).sink.add(debugMessageController.text);
+            },
+            child: const Text(
+              "Send",
+              style: TextStyle(color: Colors.white, fontSize: 18),
+            ),
           )
         ],
       ),
@@ -58,27 +88,35 @@ class AdvancedSettingsPage extends HookConsumerWidget {
   }
 }
 
-class AdressField extends StatelessWidget {
-  const AdressField({
+class ConfigTextField extends StatelessWidget {
+  const ConfigTextField({
     Key? key,
-    required this.adress,
-    required this.adressController,
+    this.data,
+    required this.controller,
   }) : super(key: key);
 
-  final String adress;
-  final TextEditingController adressController;
+  final String? data;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
-    adressController.text = adress;
-    return TextField(
-      style: const TextStyle(fontSize: 18),
-      decoration: const InputDecoration(
-        border: InputBorder.none,
+    controller.text = data ?? "";
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+      child: TextField(
+        style: const TextStyle(fontSize: 18),
+        decoration: const InputDecoration(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColors.standardRed),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColors.standardRed, width: 2),
+          ),
+        ),
+        cursorColor: AppColors.standardRed,
+        textAlign: TextAlign.center,
+        controller: controller,
       ),
-      cursorColor: AppColors.standardRed,
-      textAlign: TextAlign.center,
-      controller: adressController,
     );
   }
 }
