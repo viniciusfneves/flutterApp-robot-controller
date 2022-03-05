@@ -1,6 +1,6 @@
 import 'package:blue_app/providers/providers.dart';
-import 'package:blue_app/screens/components/adjust_sliders.dart';
-import 'package:blue_app/style/texts/text_style.dart';
+import 'package:blue_app/screens/components/adjusts/adjust_slider.dart';
+import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

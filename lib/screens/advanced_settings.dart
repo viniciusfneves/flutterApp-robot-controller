@@ -4,8 +4,9 @@ import 'package:blue_app/data/robot_configs.dart';
 import 'package:blue_app/data/robot_info.dart';
 import 'package:blue_app/data/robot_telemetry.dart';
 import 'package:blue_app/providers/providers.dart';
-import 'package:blue_app/style/colors/colors.dart';
-import 'package:blue_app/style/texts/text_style.dart';
+import 'package:blue_app/style/buttons.dart';
+import 'package:blue_app/style/colors.dart';
+import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,15 +32,8 @@ class AdvancedSettingsPage extends HookConsumerWidget {
             controller: adressController,
             data: adress,
           ),
-          ElevatedButton(
-            style: ButtonStyle(
-              padding: MaterialStateProperty.resolveWith(
-                (_) => const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-              ),
-              backgroundColor: MaterialStateColor.resolveWith(
-                (states) => AppColors.standardRed,
-              ),
-            ),
+          SetConfigButton(
+            text: "Update",
             onPressed: () {
               if (adressController.text == adress) return;
               ref.read(ws).sink.close();
@@ -56,32 +50,17 @@ class AdvancedSettingsPage extends HookConsumerWidget {
               await Future.delayed(const Duration(milliseconds: 500));
               ref.read(wsAdress.state).update((_) => holder);
             },
-            child: const Text(
-              "Update",
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
           ),
           const SizedBox(height: 16),
           const ConfigTitleText("Debug Message"),
           const ConfigTitleText("(JSON)"),
           ConfigTextField(controller: debugMessageController),
-          ElevatedButton(
-            style: ButtonStyle(
-              padding: MaterialStateProperty.resolveWith(
-                (_) => const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-              ),
-              backgroundColor: MaterialStateColor.resolveWith(
-                (states) => AppColors.standardRed,
-              ),
-            ),
+          SetConfigButton(
             onPressed: () {
               ref.read(ws).sink.add(debugMessageController.text);
             },
-            child: const Text(
-              "Send",
-              style: TextStyle(color: Colors.white, fontSize: 18),
-            ),
-          )
+            text: "Send",
+          ),
         ],
       ),
     );

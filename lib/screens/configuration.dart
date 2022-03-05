@@ -1,8 +1,8 @@
 import 'package:blue_app/providers/providers.dart';
-import 'package:blue_app/screens/components/advanced_adjusts.dart';
-import 'package:blue_app/style/buttons/button_style.dart';
-import 'package:blue_app/style/colors/colors.dart';
-import 'package:blue_app/style/texts/text_style.dart';
+import 'package:blue_app/screens/components/adjusts/advanced_adjusts.dart';
+import 'package:blue_app/style/buttons.dart';
+import 'package:blue_app/style/colors.dart';
+import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -83,7 +83,7 @@ class StrategyController extends ConsumerWidget {
                 context: context,
                 builder: (_) => AdvancedAdjustsModalSheet(),
               ),
-              child: const ConfigButtonText("mais ajustes"),
+              child: const ConfigButtonText("MAIS AJUSTES"),
             )
           ],
         ),
@@ -115,11 +115,11 @@ class ConfigurationController extends ConsumerWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: SizedBox(
-              width: 120,
+              width: 125,
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateColor.resolveWith(
-                    (states) => selectedConfiguration.toLowerCase() ==
+                    (_) => selectedConfiguration.toLowerCase() ==
                             availableConfigurations[index]
                                 .toString()
                                 .toLowerCase()
@@ -188,7 +188,7 @@ class EventDisplay extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ExecutionLight(
-            strategy: "Armed",
+            strategy: "Ready",
             isActive: status == null || status == "ready",
             activeColor: AppColors.standardAmbar,
           ),
@@ -202,7 +202,7 @@ class EventDisplay extends ConsumerWidget {
             activeColor: AppColors.standardGreen,
           ),
           ExecutionLight(
-            strategy: "Disengaged",
+            strategy: "Disabled",
             isActive: status == null || status == "stopped",
             activeColor: AppColors.standardRed,
           ),
