@@ -1,5 +1,5 @@
-import 'package:blue_app/style/colors/colors.dart';
-import 'package:blue_app/style/texts/text_style.dart';
+import 'package:blue_app/style/colors.dart';
+import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -46,6 +46,7 @@ class _AdjustSliderState extends ConsumerState<AdjustSlider> {
             adaptiveColor: widget.adaptiveColor,
           ),
         Slider.adaptive(
+          
           activeColor: AppColors.standardRed,
           min: widget.minSliderValue,
           max: widget.maxSliderValue,
