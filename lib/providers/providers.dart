@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:blue_app/data/json_handler.dart';
 import 'package:blue_app/data/robot_configs.dart';
 import 'package:blue_app/data/robot_info.dart';
 import 'package:blue_app/data/robot_telemetry.dart';
+import 'package:blue_app/providers/websocket_provider.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,12 +14,8 @@ final selectedPage = StateProvider<AppRoutes>((_) => AppRoutes.configuration);
 final themeIsDark = StateProvider<bool>((_) => false);
 
 // Providers para conexões
-final wsAdress = StateProvider<String>((_) => "ws://192.168.4.1:81");
-final ws = StateProvider<WebSocketChannel>(
-  (ref) {
-    final adress = ref.watch(wsAdress);
-    return WebSocketChannel.connect(Uri.parse(adress));
-  },
+final ws = StateNotifierProvider<WebSocketProvider, WebSocketChannel>(
+  (ref) => WebSocketProvider(),
 );
 
 final robotConnection = StateProvider(

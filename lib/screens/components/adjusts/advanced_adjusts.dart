@@ -32,10 +32,12 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
           sigmaY: 5,
         ),
         child: Container(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           height: screenSize.height * 0.8,
           width: screenSize.width,
           decoration: BoxDecoration(
-            color: Colors.blueGrey[900]?.withOpacity(0.9),
+            color: Colors.blueGrey[900]?.withOpacity(0.85),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -54,12 +56,25 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   AdjustSlider(
                     minSliderValue: -0.5,
                     maxSliderValue: 0.5,
-                    adaptiveColor: false,
+                    textAdaptiveColor: false,
                     watchParameterPercentage: false,
                     watchValue: configs.arcAngularSpeed?.toDouble(),
                     onDoneAdjusting: (value) {
-                      ref.read(ws).sink.add(
+                      ref.read(ws.notifier).sendMessage(
                             "{'arc_angular_speed':'${value.toStringAsFixed(3)}'}",
+                          );
+                    },
+                  ),
+                  const AdjustTitle(text: "Ângulo de Rotação do Arco"),
+                  AdjustSlider(
+                    minSliderValue: -180,
+                    maxSliderValue: 180,
+                    textAdaptiveColor: false,
+                    watchParameterPercentage: false,
+                    watchValue: configs.arcAngle?.toDouble(),
+                    onDoneAdjusting: (value) {
+                      ref.read(ws.notifier).sendMessage(
+                            "{'arc_rot_initial_angle':'${value.toInt()}'}",
                           );
                     },
                   ),
@@ -67,11 +82,11 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   AdjustSlider(
                     minSliderValue: 0.3,
                     maxSliderValue: 1,
-                    adaptiveColor: false,
+                    textAdaptiveColor: false,
                     watchParameterPercentage: false,
                     watchValue: configs.radarSpeed?.toDouble(),
                     onDoneAdjusting: (value) {
-                      ref.read(ws).sink.add(
+                      ref.read(ws.notifier).sendMessage(
                             "{'radar_speed':'${value.toStringAsFixed(3)}'}",
                           );
                     },
@@ -82,11 +97,11 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   AdjustSlider(
                     minSliderValue: 0.245,
                     maxSliderValue: 0.7,
-                    adaptiveColor: false,
+                    textAdaptiveColor: false,
                     watchParameterPercentage: false,
                     watchValue: configs.maxSpeedInChase?.toDouble(),
                     onDoneAdjusting: (value) {
-                      ref.read(ws).sink.add(
+                      ref.read(ws.notifier).sendMessage(
                             "{'max_angular_speed_in_chase':'${value.toStringAsFixed(3)}'}",
                           );
                     },
@@ -179,13 +194,13 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                           ),
                         );
                       } else {
-                        ref.read(ws).sink.add(
+                        ref.read(ws.notifier).sendMessage(
                               "{'start_time':'${startTimeController.text}'}",
                             );
-                        ref.read(ws).sink.add(
+                        ref.read(ws.notifier).sendMessage(
                               "{'pid':{'kp':'${kpController.text}','ki':'${kiController.text}','kd':'${kdController.text}'}}",
                             );
-                        ref.read(ws).sink.add(
+                        ref.read(ws.notifier).sendMessage(
                               "{'rotate_angle_bias':'${angleBiasController.text}','rotate_speed_bias':'${speedBiasController.text}'}",
                             );
                       }

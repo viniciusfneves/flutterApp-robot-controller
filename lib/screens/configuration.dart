@@ -32,6 +32,7 @@ class StrategyController extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 12.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 4),
             RobotNameText(infos.name),
@@ -78,7 +79,8 @@ class StrategyController extends ConsumerWidget {
                   (_) => AppColors.standardBlue,
                 ),
               ),
-              onPressed: () => showBottomSheet(
+              onPressed: () => showModalBottomSheet(
+                isScrollControlled: true,
                 backgroundColor: Colors.transparent,
                 context: context,
                 builder: (_) => AdvancedAdjustsModalSheet(),
@@ -128,7 +130,7 @@ class ConfigurationController extends ConsumerWidget {
                   ),
                 ),
                 onPressed: () {
-                  ref.read(ws.notifier).state.sink.add(
+                  ref.read(ws.notifier).sendMessage(
                         "{'$typeOfConfiguration':'${availableConfigurations[index].toString().toLowerCase()}'}",
                       );
                 },

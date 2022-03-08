@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:blue_app/data/robot_configs.dart';
 import 'package:blue_app/data/robot_info.dart';
 import 'package:blue_app/data/robot_telemetry.dart';
@@ -17,8 +15,8 @@ class AdvancedSettingsPage extends HookConsumerWidget {
     final TextEditingController adressController = useTextEditingController();
     final TextEditingController debugMessageController =
         useTextEditingController();
-    final adress = ref.watch(wsAdress);
     final infos = ref.watch(robotInfo);
+    final connection = ref.watch(ws.notifier);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -30,25 +28,17 @@ class AdvancedSettingsPage extends HookConsumerWidget {
           const ConfigTitleText("Connection Adress"),
           ConfigTextField(
             controller: adressController,
-            data: adress,
+            data: connection.adress,
           ),
           SetConfigButton(
             text: "Update",
             onPressed: () {
-              if (adressController.text == adress) return;
-              ref.read(ws).sink.close();
-              ref.read(wsAdress.state).update((_) => adressController.text);
+              ref
+                  .read(ws.notifier)
+                  .changeConnectionAdress(adressController.text);
               ref.read(robotConfig.notifier).update((_) => RobotConfigs());
               ref.read(robotInfo.notifier).update((_) => RobotInfos());
               ref.read(robotTelemetry.notifier).update((_) => RobotTelemetry());
-            },
-            onLongPress: () async {
-              final holder = adressController.text;
-              ref.read(ws).sink.close();
-              ref.read(wsAdress.state).update((_) => "ws://1.1.1.1:41");
-              ref.read(ws).sink.close();
-              await Future.delayed(const Duration(milliseconds: 500));
-              ref.read(wsAdress.state).update((_) => holder);
             },
           ),
           const SizedBox(height: 16),
@@ -57,7 +47,7 @@ class AdvancedSettingsPage extends HookConsumerWidget {
           ConfigTextField(controller: debugMessageController),
           SetConfigButton(
             onPressed: () {
-              ref.read(ws).sink.add(debugMessageController.text);
+              ref.read(ws.notifier).sendMessage(debugMessageController.text);
             },
             text: "Send",
           ),

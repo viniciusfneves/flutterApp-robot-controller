@@ -23,7 +23,9 @@ class _ControllerPageState extends ConsumerState<ControllerPage> {
           maxSliderValue: 255,
           watchValue: configs.maxSpeed?.toDouble(),
           onDoneAdjusting: (value) {
-            ref.read(ws).sink.add("{'max_speed':'${value.toInt()}'}");
+            ref
+                .read(ws.notifier)
+                .sendMessage("{'max_speed':'${value.toInt()}'}");
           },
         ),
       ],
