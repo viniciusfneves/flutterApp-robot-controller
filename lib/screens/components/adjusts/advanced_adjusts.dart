@@ -52,12 +52,23 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
               child: Column(
                 children: [
                   const AdjustTitleText("AJUSTE DE PARÂMETROS"),
+                  const AdjustTitle(text: "Velocidade do Radar"),
+                  AdjustSlider(
+                    minSliderValue: 0.3,
+                    maxSliderValue: 1,
+                    textAdaptiveColor: false,
+                    watchValue: configs.radarSpeed?.toDouble(),
+                    onDoneAdjusting: (value) {
+                      ref.read(ws.notifier).sendMessage(
+                            "{'radar_speed':'${value.toStringAsFixed(3)}'}",
+                          );
+                    },
+                  ),
                   const AdjustTitle(text: "Velocidade Angular do Arco"),
                   AdjustSlider(
                     minSliderValue: -0.5,
                     maxSliderValue: 0.5,
                     textAdaptiveColor: false,
-                    watchParameterPercentage: false,
                     watchValue: configs.arcAngularSpeed?.toDouble(),
                     onDoneAdjusting: (value) {
                       ref.read(ws.notifier).sendMessage(
@@ -71,6 +82,7 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                     maxSliderValue: 180,
                     textAdaptiveColor: false,
                     watchParameterPercentage: false,
+                    sliderLabelPercentage: false,
                     watchValue: configs.arcAngle?.toDouble(),
                     onDoneAdjusting: (value) {
                       ref.read(ws.notifier).sendMessage(
@@ -78,27 +90,13 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                           );
                     },
                   ),
-                  const AdjustTitle(text: "Velocidade do Radar"),
-                  AdjustSlider(
-                    minSliderValue: 0.3,
-                    maxSliderValue: 1,
-                    textAdaptiveColor: false,
-                    watchParameterPercentage: false,
-                    watchValue: configs.radarSpeed?.toDouble(),
-                    onDoneAdjusting: (value) {
-                      ref.read(ws.notifier).sendMessage(
-                            "{'radar_speed':'${value.toStringAsFixed(3)}'}",
-                          );
-                    },
-                  ),
                   const AdjustTitle(
-                    text: "MáxVel Angular em Perseguição",
+                    text: "Máx Vel Angular em Perseguição",
                   ),
                   AdjustSlider(
                     minSliderValue: 0.245,
                     maxSliderValue: 0.7,
                     textAdaptiveColor: false,
-                    watchParameterPercentage: false,
                     watchValue: configs.maxSpeedInChase?.toDouble(),
                     onDoneAdjusting: (value) {
                       ref.read(ws.notifier).sendMessage(
