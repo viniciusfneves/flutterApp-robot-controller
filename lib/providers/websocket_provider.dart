@@ -7,8 +7,8 @@ class WebSocketProvider extends StateNotifier<WebSocketChannel> {
       : super(WebSocketChannel.connect(Uri.parse("ws://192.168.4.1:81")));
 
   void changeConnectionAdress(String newAdress) {
-    adress = newAdress;
     state.sink.close();
+    adress = newAdress;
     state = WebSocketChannel.connect(Uri.parse(newAdress));
   }
 

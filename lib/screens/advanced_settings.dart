@@ -33,12 +33,12 @@ class AdvancedSettingsPage extends HookConsumerWidget {
           SetConfigButton(
             text: "Update",
             onPressed: () {
-              ref
-                  .read(ws.notifier)
-                  .changeConnectionAdress(adressController.text);
               ref.read(robotConfig.notifier).update((_) => RobotConfigs());
               ref.read(robotInfo.notifier).update((_) => RobotInfos());
               ref.read(robotTelemetry.notifier).update((_) => RobotTelemetry());
+              ref
+                  .read(ws.notifier)
+                  .changeConnectionAdress(adressController.text);
             },
           ),
           const SizedBox(height: 16),
