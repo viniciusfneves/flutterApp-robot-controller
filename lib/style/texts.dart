@@ -123,6 +123,7 @@ class GeneralPurposeText extends StatelessWidget {
     if (adaptiveColor) {
       return Text(
         data,
+        textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: fontSize,
         ),
@@ -130,6 +131,7 @@ class GeneralPurposeText extends StatelessWidget {
     } else {
       return Text(
         data,
+        textAlign: TextAlign.center,
         style: TextStyle(fontSize: fontSize, color: color),
       );
     }

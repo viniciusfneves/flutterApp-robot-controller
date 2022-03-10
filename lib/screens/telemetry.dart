@@ -32,10 +32,12 @@ class TelemetryPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         EdgeSensor(
-                          robotTelemetry.select((op) => op.EDGEfrontLeft),
+                          robotTelemetry
+                              .select((telemetry) => telemetry.EDGEfrontLeft),
                         ),
                         EdgeSensor(
-                          robotTelemetry.select((op) => op.EDGEfrontRight),
+                          robotTelemetry
+                              .select((telemetry) => telemetry.EDGEfrontRight),
                         ),
                       ],
                     ),
@@ -45,29 +47,49 @@ class TelemetryPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        OpSensor(robotTelemetry.select((op) => op.OPfarLeft)),
-                        OpSensor(robotTelemetry.select((op) => op.OPleft)),
-                        OpSensor(robotTelemetry.select((op) => op.OPcenter)),
-                        OpSensor(robotTelemetry.select((op) => op.OPright)),
-                        OpSensor(robotTelemetry.select((op) => op.OPfarRight)),
+                        OpSensor(
+                          robotTelemetry
+                              .select((telemetry) => telemetry.OPfarLeft),
+                        ),
+                        OpSensor(
+                          robotTelemetry
+                              .select((telemetry) => telemetry.OPleft),
+                        ),
+                        OpSensor(
+                          robotTelemetry
+                              .select((telemetry) => telemetry.OPcenter),
+                        ),
+                        OpSensor(
+                          robotTelemetry
+                              .select((telemetry) => telemetry.OPright),
+                        ),
+                        OpSensor(
+                          robotTelemetry
+                              .select((telemetry) => telemetry.OPfarRight),
+                        ),
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 75,
+                  const Flexible(
+                    child: FractionallySizedBox(
+                      heightFactor: 0.6,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Motor(),
-                        MotorDisplay(),
-                        MotorDisplay(),
-                        Motor(),
-                      ],
-                    ),
-                  )
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Motor(),
+                      MotorDisplay(
+                        robotTelemetry
+                            .select((telemetry) => telemetry.leftMotor),
+                      ),
+                      MotorDisplay(
+                        robotTelemetry
+                            .select((telemetry) => telemetry.rightMotor),
+                      ),
+                      Motor(),
+                    ],
+                  ),
                 ],
               ),
             ],
@@ -79,14 +101,20 @@ class TelemetryPage extends StatelessWidget {
 }
 
 class MotorDisplay extends ConsumerWidget {
+  const MotorDisplay(
+    this.watchValue,
+  );
+  final ProviderListenable watchValue;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Padding(
-      padding: EdgeInsets.all(24.0),
+    final value = ref.watch(watchValue) as int;
+    return Padding(
+      padding: const EdgeInsets.all(22.0),
       child: GeneralPurposeText(
-        "255",
+        value.abs().toString(),
+        color: value >= 0 ? const Color(0xFF00DC00) : const Color(0xFFDC0000),
         adaptiveColor: false,
-        color: AppColors.standardAmbar,
         fontSize: 32,
       ),
     );
@@ -96,22 +124,24 @@ class MotorDisplay extends ConsumerWidget {
 class Motor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Container(
-        width: 72,
-        height: 120,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [
-              Colors.purple,
-              Colors.deepPurple,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(
-            15,
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Container(
+          width: 68,
+          height: 115,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                Colors.purple,
+                Colors.deepPurple,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(
+              15,
+            ),
           ),
         ),
       ),
@@ -121,15 +151,15 @@ class Motor extends StatelessWidget {
 
 class OpSensor extends ConsumerWidget {
   const OpSensor(
-    this.watch, {
+    this.watchValue, {
     Key? key,
   }) : super(key: key);
 
-  final ProviderListenable watch;
+  final ProviderListenable watchValue;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isActive = ref.watch(watch) as bool;
+    final isActive = ref.watch(watchValue) as bool;
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
