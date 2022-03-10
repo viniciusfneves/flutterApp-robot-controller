@@ -12,10 +12,12 @@ class AdjustSlider extends ConsumerStatefulWidget {
     this.textAdaptiveColor = true,
     this.sliderLabelPercentage = true,
     this.watchParameterPercentage = true,
+    this.divisions = 100,
   });
 
   final double minSliderValue;
   final double maxSliderValue;
+  final int divisions;
   final double? watchValue;
   final bool textAdaptiveColor;
   final bool sliderLabelPercentage;
@@ -46,7 +48,6 @@ class _AdjustSliderState extends ConsumerState<AdjustSlider> {
             adaptiveColor: widget.textAdaptiveColor,
           ),
         Slider.adaptive(
-          
           activeColor: AppColors.standardRed,
           min: widget.minSliderValue,
           max: widget.maxSliderValue,
@@ -57,7 +58,7 @@ class _AdjustSliderState extends ConsumerState<AdjustSlider> {
             });
           },
           onChangeEnd: widget.onDoneAdjusting,
-          divisions: 100,
+          divisions: widget.divisions,
           label: widget.sliderLabelPercentage
               ? "${(_valueHolder! / widget.maxSliderValue * 100).toStringAsFixed(0)} %"
               : "${_valueHolder?.toStringAsFixed(2)}",

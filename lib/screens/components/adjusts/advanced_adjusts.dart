@@ -68,6 +68,7 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   AdjustSlider(
                     minSliderValue: -0.5,
                     maxSliderValue: 0.5,
+                    divisions: 200,
                     textAdaptiveColor: false,
                     watchValue: configs.arcAngularSpeed?.toDouble(),
                     onDoneAdjusting: (value) {
@@ -76,10 +77,26 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                           );
                     },
                   ),
+                  const AdjustTitle(text: "Tempo de Execução do Arco"),
+                  AdjustSlider(
+                    minSliderValue: 0,
+                    maxSliderValue: 1200,
+                    divisions: 300,
+                    textAdaptiveColor: false,
+                    sliderLabelPercentage: false,
+                    watchParameterPercentage: false,
+                    watchValue: configs.arcTimeout?.toDouble(),
+                    onDoneAdjusting: (value) {
+                      ref.read(ws.notifier).sendMessage(
+                            "{'arc_timeout':'${value.toInt()}'}",
+                          );
+                    },
+                  ),
                   const AdjustTitle(text: "Ângulo de Rotação do Arco"),
                   AdjustSlider(
                     minSliderValue: -180,
                     maxSliderValue: 180,
+                    divisions: 360,
                     textAdaptiveColor: false,
                     watchParameterPercentage: false,
                     sliderLabelPercentage: false,

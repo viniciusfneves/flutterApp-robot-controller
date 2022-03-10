@@ -10,6 +10,7 @@ class RobotConfigs {
     this.rotateSpeedBias,
     this.arcAngularSpeed,
     this.arcAngle,
+    this.arcTimeout,
     this.radarSpeed,
     this.pid,
     this.controller,
@@ -26,6 +27,7 @@ class RobotConfigs {
   final num? rotateSpeedBias;
   final num? arcAngularSpeed;
   final num? arcAngle;
+  final num? arcTimeout;
   final num? radarSpeed;
   final PID? pid;
   final Controller? controller;
@@ -63,6 +65,7 @@ void processJsonConfig(Map<String, dynamic> newConfig, StateProviderRef ref) {
       rotateSpeedBias: newConfig["rotate_speed_bias"] as num,
       arcAngularSpeed: newConfig["arc_angular_speed"] as num,
       arcAngle: newConfig["arc_rot_initial_angle"] as num,
+      arcTimeout: newConfig["arc_timeout"] as num,
       radarSpeed: newConfig["radar_speed"] as num,
       startTime: newConfig["start_time"] as int,
       mode: newConfig["mode"].toString().toUpperCase(),
