@@ -6,6 +6,7 @@ import 'package:blue_app/screens/components/adjusts/adjust_slider.dart';
 import 'package:blue_app/screens/components/dialog/error_dialog.dart';
 import 'package:blue_app/style/buttons.dart';
 import 'package:blue_app/style/texts.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,10 +22,18 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
     final speedBiasController = useTextEditingController();
     final screenSize = MediaQuery.of(context).size;
     final configs = ref.watch(robotConfig);
+    final List<TextEditingController> textControllers = [
+      startTimeController,
+      kpController,
+      kiController,
+      kdController,
+      angleBiasController,
+      speedBiasController,
+    ];
     return ClipRRect(
       borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(20),
-        topRight: Radius.circular(20),
+        topLeft: Radius.circular(16),
+        topRight: Radius.circular(16),
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(
@@ -39,8 +48,8 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
           decoration: BoxDecoration(
             color: Colors.blueGrey[900]?.withOpacity(0.85),
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
             ),
           ),
           child: Padding(
@@ -180,45 +189,35 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   SetConfigButton(
                     text: 'SET',
                     onPressed: () {
-                      kpController.text =
-                          kpController.text.replaceAll(",", ".");
-                      kiController.text =
-                          kiController.text.replaceAll(",", ".");
-                      kdController.text =
-                          kdController.text.replaceAll(",", ".");
-                      angleBiasController.text =
-                          angleBiasController.text.replaceAll(",", ".");
-                      speedBiasController.text =
-                          speedBiasController.text.replaceAll(",", ".");
-                      if (startTimeController.text.contains(",") ||
-                          startTimeController.text.contains(".")) {
+                      // Preparação dos textos de configuração
+                      for (final controller in textControllers) {
+                        controller.text = controller.text.replaceAll(",", ".");
+                      }
+                      if (startTimeController.text.contains(".")) {
+                        final floatIndex =
+                            startTimeController.text.indexOf('.');
                         startTimeController.text =
-                            configs.startTime?.toString() ?? "---";
-                        kpController.text = configs.pid?.kp.toString() ?? "---";
-                        kiController.text = configs.pid?.ki.toString() ?? "---";
-                        kdController.text = configs.pid?.kd.toString() ?? "---";
-                        angleBiasController.text =
-                            configs.rotateAngleBias?.toString() ?? "---";
-                        speedBiasController.text =
-                            configs.rotateSpeedBias?.toString() ?? "---";
-                        showDialog(
+                            startTimeController.text.substring(0, floatIndex);
+                        showCupertinoDialog(
                           context: context,
                           builder: (_) => ErrorDialog(
                             message: "Start Time precisa ser inteiro",
-                            screenSize: MediaQuery.of(context).size,
+                            obs:
+                                "Start Time definido como ${startTimeController.text}",
                           ),
                         );
-                      } else {
-                        ref.read(ws.notifier).sendMessage(
-                              "{'start_time':'${startTimeController.text}'}",
-                            );
-                        ref.read(ws.notifier).sendMessage(
-                              "{'pid':{'kp':'${kpController.text}','ki':'${kiController.text}','kd':'${kdController.text}'}}",
-                            );
-                        ref.read(ws.notifier).sendMessage(
-                              "{'rotate_angle_bias':'${angleBiasController.text}','rotate_speed_bias':'${speedBiasController.text}'}",
-                            );
                       }
+
+                      // Envio das informações para o robô
+                      ref.read(ws.notifier).sendMessage(
+                            "{'start_time':'${startTimeController.text}'}",
+                          );
+                      ref.read(ws.notifier).sendMessage(
+                            "{'pid':{'kp':'${kpController.text}','ki':'${kiController.text}','kd':'${kdController.text}'}}",
+                          );
+                      ref.read(ws.notifier).sendMessage(
+                            "{'rotate_angle_bias':'${angleBiasController.text}','rotate_speed_bias':'${speedBiasController.text}'}",
+                          );
                     },
                   )
                 ],

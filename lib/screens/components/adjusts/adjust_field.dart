@@ -24,9 +24,7 @@ class _AdjustFieldState extends State<AdjustField> {
     super.initState();
     // Preenche o field vazio com o valor atual do watchValue
     // Caso o valor seja nulo, preenche com um texto padrão indicativo
-    if (widget.controller.text == "") {
-      widget.controller.text = widget.watchValue ?? "---";
-    }
+    widget.controller.text = widget.watchValue ?? "---";
   }
 
   @override
@@ -49,7 +47,7 @@ class _AdjustFieldState extends State<AdjustField> {
             decoration: InputDecoration(
               counterText: "",
               enabledBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
                 borderSide: widget.controller.text == widget.watchValue
                     ? const BorderSide(
                         color: AppColors.standardGreen,
@@ -61,7 +59,7 @@ class _AdjustFieldState extends State<AdjustField> {
                       ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
                 borderSide: widget.controller.text == widget.watchValue
                     ? const BorderSide(
                         color: AppColors.standardGreen,
