@@ -114,7 +114,7 @@ class GeneralPurposeText extends StatelessWidget {
     this.color = Colors.white,
   }) : super(key: key);
 
-  final String data;
+  final String? data;
   final double fontSize;
   final Color color;
   final bool adaptiveColor;
@@ -122,7 +122,7 @@ class GeneralPurposeText extends StatelessWidget {
   Widget build(BuildContext context) {
     if (adaptiveColor) {
       return Text(
-        data,
+        data ?? "-",
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: fontSize,
@@ -130,7 +130,7 @@ class GeneralPurposeText extends StatelessWidget {
       );
     } else {
       return Text(
-        data,
+        data ?? "-",
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: fontSize, color: color),
       );

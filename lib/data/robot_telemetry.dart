@@ -6,8 +6,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class RobotTelemetry {
   RobotTelemetry({
     this.executionStatus,
-    this.leftMotor = 0,
-    this.rightMotor = 0,
+    this.leftMotor,
+    this.rightMotor,
     this.OPleftSide = false,
     this.OPfarLeft = false,
     this.OPleft = false,
@@ -22,8 +22,8 @@ class RobotTelemetry {
   });
 
   final String? executionStatus;
-  final int leftMotor;
-  final int rightMotor;
+  final int? leftMotor;
+  final int? rightMotor;
   final bool OPleftSide;
   final bool OPfarLeft;
   final bool OPleft;

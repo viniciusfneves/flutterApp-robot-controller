@@ -16,7 +16,16 @@ class TelemetryPage extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.blueGrey[600],
+                  gradient: LinearGradient(
+                    stops: const [0.75, 1],
+                    colors: [
+                      Colors.blueGrey.shade500,
+                      Colors.blueGrey.shade600,
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomCenter,
+                  ),
+                  color: Colors.blueGrey,
                   borderRadius: BorderRadius.circular(25),
                 ),
               ),
@@ -104,16 +113,22 @@ class MotorDisplay extends ConsumerWidget {
   const MotorDisplay(
     this.watchValue,
   );
-  final ProviderListenable watchValue;
+  final ProviderListenable<int?> watchValue;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final value = ref.watch(watchValue) as int;
+    final value = ref.watch(watchValue);
+    final Color color;
+    if (value == null || value < 0) {
+      color = const Color(0xFFDC0000);
+    } else {
+      color = const Color(0xFF00DC00);
+    }
     return Padding(
       padding: const EdgeInsets.all(22.0),
       child: GeneralPurposeText(
-        value.abs().toString(),
-        color: value >= 0 ? const Color(0xFF00DC00) : const Color(0xFFDC0000),
+        value?.abs().toString(),
+        color: color,
         adaptiveColor: false,
         fontSize: 32,
       ),
