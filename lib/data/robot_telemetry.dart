@@ -8,33 +8,33 @@ class RobotTelemetry {
     this.executionStatus,
     this.leftMotor,
     this.rightMotor,
-    this.OPleftSide = false,
-    this.OPfarLeft = false,
-    this.OPleft = false,
-    this.OPcenter = false,
-    this.OPright = false,
-    this.OPfarRight = false,
-    this.OPrightSide = false,
-    this.EDGEfrontLeft = false,
-    this.EDGEfrontRight = false,
-    this.EDGErearLeft = false,
-    this.EDGErearRight = false,
+    this.OPleftSide,
+    this.OPfarLeft,
+    this.OPleft,
+    this.OPcenter,
+    this.OPright,
+    this.OPfarRight,
+    this.OPrightSide,
+    this.EDGEfrontLeft,
+    this.EDGEfrontRight,
+    this.EDGErearLeft,
+    this.EDGErearRight,
   });
 
   final String? executionStatus;
   final int? leftMotor;
   final int? rightMotor;
-  final bool OPleftSide;
-  final bool OPfarLeft;
-  final bool OPleft;
-  final bool OPcenter;
-  final bool OPright;
-  final bool OPfarRight;
-  final bool OPrightSide;
-  final bool EDGEfrontLeft;
-  final bool EDGEfrontRight;
-  final bool EDGErearLeft;
-  final bool EDGErearRight;
+  final bool? OPleftSide;
+  final bool? OPfarLeft;
+  final bool? OPleft;
+  final bool? OPcenter;
+  final bool? OPright;
+  final bool? OPfarRight;
+  final bool? OPrightSide;
+  final bool? EDGEfrontLeft;
+  final bool? EDGEfrontRight;
+  final bool? EDGErearLeft;
+  final bool? EDGErearRight;
 }
 
 void processJsonTelemetry(Map<String, dynamic> newData, StateProviderRef ref) {
@@ -46,15 +46,15 @@ void processJsonTelemetry(Map<String, dynamic> newData, StateProviderRef ref) {
   data.update(
     (_) => RobotTelemetry(
       executionStatus: newData["robot_status"] as String,
-      OPfarLeft: opSensors[0]! as bool,
-      OPleft: opSensors[1]! as bool,
-      OPcenter: opSensors[2]! as bool,
-      OPright: opSensors[3]! as bool,
-      OPfarRight: opSensors[4]! as bool,
-      EDGEfrontLeft: edgeSensors[0]! as bool,
-      EDGEfrontRight: edgeSensors[1]! as bool,
-      leftMotor: motors[0]! as int,
-      rightMotor: motors[1]! as int,
+      OPfarLeft: opSensors[0] as bool?,
+      OPleft: opSensors[1] as bool?,
+      OPcenter: opSensors[2] as bool?,
+      OPright: opSensors[3] as bool?,
+      OPfarRight: opSensors[4] as bool?,
+      EDGEfrontLeft: edgeSensors[0] as bool?,
+      EDGEfrontRight: edgeSensors[1] as bool?,
+      leftMotor: motors[0] as int?,
+      rightMotor: motors[1] as int?,
     ),
   );
 }

@@ -79,10 +79,9 @@ class TelemetryPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Flexible(
-                    child: FractionallySizedBox(
-                      heightFactor: 0.6,
-                    ),
+                  const Expanded(
+                    flex: 3,
+                    child: SizedBox(),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,6 +97,27 @@ class TelemetryPage extends StatelessWidget {
                       ),
                       Motor(),
                     ],
+                  ),
+                  const Expanded(child: SizedBox()),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 12.0,
+                      left: 12,
+                      right: 12,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        EdgeSensor(
+                          robotTelemetry
+                              .select((telemetry) => telemetry.EDGErearLeft),
+                        ),
+                        EdgeSensor(
+                          robotTelemetry
+                              .select((telemetry) => telemetry.EDGErearRight),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -169,20 +189,25 @@ class OpSensor extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final ProviderListenable watchValue;
+  final ProviderListenable<bool?> watchValue;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isActive = ref.watch(watchValue) as bool;
+    final isActive = ref.watch(watchValue);
     return Flexible(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          width: 85,
-          height: 35,
-          decoration: BoxDecoration(
-            color: isActive ? AppColors.lightRed : AppColors.unselectedColor,
-            borderRadius: BorderRadius.circular(6),
+      child: Visibility(
+        visible: isActive != null,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: 85,
+            height: 35,
+            decoration: BoxDecoration(
+              color: (isActive ?? false)
+                  ? AppColors.lightRed
+                  : AppColors.unselectedColor,
+              borderRadius: BorderRadius.circular(6),
+            ),
           ),
         ),
       ),
@@ -196,20 +221,24 @@ class EdgeSensor extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final ProviderListenable watch;
+  final ProviderListenable<bool?> watch;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isActive = ref.watch(watch) as bool;
+    final isActive = ref.watch(watch);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ClipOval(
-        child: Container(
-          width: 22,
-          height: 22,
-          decoration: BoxDecoration(
-            color:
-                isActive ? AppColors.standardAmbar : AppColors.unselectedColor,
+      child: Visibility(
+        visible: isActive != null,
+        child: ClipOval(
+          child: Container(
+            width: 22,
+            height: 22,
+            decoration: BoxDecoration(
+              color: (isActive ?? false)
+                  ? AppColors.standardAmbar
+                  : AppColors.unselectedColor,
+            ),
           ),
         ),
       ),
