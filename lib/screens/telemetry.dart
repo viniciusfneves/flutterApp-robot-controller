@@ -129,7 +129,6 @@ class MotorDisplay extends ConsumerWidget {
       child: GeneralPurposeText(
         value?.abs().toString(),
         color: color,
-        adaptiveColor: false,
         fontSize: 32,
       ),
     );

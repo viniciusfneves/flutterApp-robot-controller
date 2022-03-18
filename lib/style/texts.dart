@@ -109,31 +109,27 @@ class GeneralPurposeText extends StatelessWidget {
   const GeneralPurposeText(
     this.data, {
     Key? key,
-    this.adaptiveColor = true,
     this.fontSize = 20,
-    this.color = Colors.white,
+    this.color,
+    this.padding = EdgeInsets.zero,
   }) : super(key: key);
 
   final String? data;
   final double fontSize;
-  final Color color;
-  final bool adaptiveColor;
+  final Color? color;
+  final EdgeInsets padding;
   @override
   Widget build(BuildContext context) {
-    if (adaptiveColor) {
-      return Text(
+    return Padding(
+      padding: padding,
+      child: Text(
         data ?? "-",
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: fontSize,
+          color: color,
         ),
-      );
-    } else {
-      return Text(
-        data ?? "-",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: fontSize, color: color),
-      );
-    }
+      ),
+    );
   }
 }

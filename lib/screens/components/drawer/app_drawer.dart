@@ -1,6 +1,7 @@
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:blue_app/style/colors.dart';
+import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,7 +18,6 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-
       child: Column(
         children: <Widget>[
           DrawerHeader(
@@ -63,6 +63,7 @@ class AppDrawer extends StatelessWidget {
             isSelected: page == AppRoutes.controller,
           ),
           const Expanded(child: SizedBox()),
+          const DesignInformations(),
           const Divider(height: 0, thickness: 1.2),
           const ThemeSwitch(),
         ],
@@ -130,6 +131,28 @@ class ThemeSwitch extends ConsumerWidget {
           ref.read(themeIsDark.notifier).state = newState;
         },
       ),
+    );
+  }
+}
+
+class DesignInformations extends StatelessWidget {
+  const DesignInformations();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const [
+        GeneralPurposeText(
+          "Design e Propriedade de:\nMinervaBots - Equipe de Robótica da UFRJ",
+          fontSize: 14,
+          padding: EdgeInsets.symmetric(horizontal: 8),
+        ),
+        GeneralPurposeText(
+          "Coded by Vinícius F. Neves",
+          fontSize: 11,
+          padding: EdgeInsets.all(8),
+        ),
+      ],
     );
   }
 }

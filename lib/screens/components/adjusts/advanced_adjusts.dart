@@ -65,8 +65,8 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   AdjustSlider(
                     minSliderValue: 0.3,
                     maxSliderValue: 1,
-                    textAdaptiveColor: false,
                     watchValue: configs.radarSpeed?.toDouble(),
+                    color: Colors.white,
                     onDoneAdjusting: (value) {
                       ref.read(ws.notifier).sendMessage(
                             "{'radar_speed':'${value.toStringAsFixed(3)}'}",
@@ -77,9 +77,9 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   AdjustSlider(
                     minSliderValue: -0.5,
                     maxSliderValue: 0.5,
-                    divisions: 200,
-                    textAdaptiveColor: false,
                     watchValue: configs.arcAngularSpeed?.toDouble(),
+                    divisions: 200,
+                    color: Colors.white,
                     onDoneAdjusting: (value) {
                       ref.read(ws.notifier).sendMessage(
                             "{'arc_angular_speed':'${value.toStringAsFixed(3)}'}",
@@ -90,11 +90,11 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   AdjustSlider(
                     minSliderValue: 0,
                     maxSliderValue: 1200,
+                    watchValue: configs.arcTimeout?.toDouble(),
                     divisions: 300,
-                    textAdaptiveColor: false,
                     sliderLabelPercentage: false,
                     watchParameterPercentage: false,
-                    watchValue: configs.arcTimeout?.toDouble(),
+                    color: Colors.white,
                     onDoneAdjusting: (value) {
                       ref.read(ws.notifier).sendMessage(
                             "{'arc_timeout':'${value.toInt()}'}",
@@ -105,11 +105,11 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   AdjustSlider(
                     minSliderValue: -180,
                     maxSliderValue: 180,
+                    watchValue: configs.arcAngle?.toDouble(),
                     divisions: 360,
-                    textAdaptiveColor: false,
                     watchParameterPercentage: false,
                     sliderLabelPercentage: false,
-                    watchValue: configs.arcAngle?.toDouble(),
+                    color: Colors.white,
                     onDoneAdjusting: (value) {
                       ref.read(ws.notifier).sendMessage(
                             "{'arc_rot_initial_angle':'${value.toInt()}'}",
@@ -122,8 +122,8 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                   AdjustSlider(
                     minSliderValue: 0.245,
                     maxSliderValue: 0.7,
-                    textAdaptiveColor: false,
                     watchValue: configs.maxSpeedInChase?.toDouble(),
+                    color: Colors.white,
                     onDoneAdjusting: (value) {
                       ref.read(ws.notifier).sendMessage(
                             "{'max_angular_speed_in_chase':'${value.toStringAsFixed(3)}'}",
