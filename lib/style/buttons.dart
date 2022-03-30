@@ -46,7 +46,7 @@ class DisengageRequestButton extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: AspectRatio(
-        aspectRatio: 5 / 1,
+        aspectRatio: 5.4 / 1,
         child: ElevatedButton(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(AppColors.standardRed),
@@ -75,20 +75,23 @@ class SetConfigButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        padding: MaterialStateProperty.resolveWith(
-          (_) => const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.resolveWith(
+            (_) => const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+          ),
+          backgroundColor: MaterialStateColor.resolveWith(
+            (states) => AppColors.standardRed,
+          ),
         ),
-        backgroundColor: MaterialStateColor.resolveWith(
-          (states) => AppColors.standardRed,
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white, fontSize: 18),
         ),
-      ),
-      onPressed: onPressed,
-      onLongPress: onLongPress,
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.white, fontSize: 18),
       ),
     );
   }

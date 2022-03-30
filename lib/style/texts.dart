@@ -10,30 +10,38 @@ class RobotNameText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      data ?? "Sem conexão",
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.w800,
-        color: data == null ? AppColors.standardRed : AppColors.standardGreen,
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Text(
+        data ?? "Sem conexão",
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
+          color: data == null ? AppColors.standardRed : AppColors.standardGreen,
+        ),
       ),
     );
   }
 }
 
 class ConfigButtonText extends StatelessWidget {
-  const ConfigButtonText(this.data, {Key? key}) : super(key: key);
+  const ConfigButtonText(
+    this.data, {
+    Key? key,
+    this.color,
+  }) : super(key: key);
   final String data;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       data.toUpperCase(),
       overflow: TextOverflow.ellipsis,
-      style: const TextStyle(
+      style: TextStyle(
         fontWeight: FontWeight.bold,
-        color: Colors.white,
+        color: color,
       ),
     );
   }
@@ -65,17 +73,19 @@ class ConfigTitleText extends ConsumerWidget {
 class AdjustTitleText extends StatelessWidget {
   const AdjustTitleText(
     this.text, {
+    this.color = Colors.white,
     Key? key,
   }) : super(key: key);
 
   final String text;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(
-        color: Colors.white,
+      style: TextStyle(
+        color: color,
         fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
