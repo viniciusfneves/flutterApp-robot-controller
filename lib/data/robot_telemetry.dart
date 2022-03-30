@@ -39,20 +39,42 @@ class RobotTelemetry {
 
 void processJsonTelemetry(Map<String, dynamic> newData, StateProviderRef ref) {
   final data = ref.read(robotTelemetry.notifier);
-  final opSensors = newData["opponent"];
-  final edgeSensors = newData["edge"];
+  final opSensors = newData["opponent"] as Map<String, dynamic>;
+  final edgeSensors = newData["edge"] as Map<String, dynamic>;
   final motors = newData["motor"];
 
   data.update(
     (_) => RobotTelemetry(
       executionStatus: newData["robot_status"] as String,
-      OPfarLeft: opSensors[0] as bool?,
-      OPleft: opSensors[1] as bool?,
-      OPcenter: opSensors[2] as bool?,
-      OPright: opSensors[3] as bool?,
-      OPfarRight: opSensors[4] as bool?,
-      EDGEfrontLeft: edgeSensors[0] as bool?,
-      EDGEfrontRight: edgeSensors[1] as bool?,
+      OPleftSide: opSensors.containsKey("leftSide")
+          ? opSensors["leftSide"] as bool
+          : null,
+      OPfarLeft: opSensors.containsKey("farLeft")
+          ? opSensors["farLeft"] as bool
+          : null,
+      OPleft: opSensors.containsKey("left") ? opSensors["left"] as bool : null,
+      OPcenter:
+          opSensors.containsKey("center") ? opSensors["center"] as bool : null,
+      OPright:
+          opSensors.containsKey("right") ? opSensors["right"] as bool : null,
+      OPfarRight: opSensors.containsKey("farRight")
+          ? opSensors["farRight"] as bool
+          : null,
+      OPrightSide: opSensors.containsKey("rightSide")
+          ? opSensors["rightSide"] as bool
+          : null,
+      EDGEfrontLeft: edgeSensors.containsKey("frontLeft")
+          ? edgeSensors["frontLeft"] as bool
+          : null,
+      EDGEfrontRight: edgeSensors.containsKey("frontRight")
+          ? edgeSensors["frontRight"] as bool
+          : null,
+      EDGErearLeft: edgeSensors.containsKey("rearLeft")
+          ? edgeSensors["rearLeft"] as bool
+          : null,
+      EDGErearRight: edgeSensors.containsKey("rearRight")
+          ? edgeSensors["rearRight"] as bool
+          : null,
       leftMotor: motors[0] as int?,
       rightMotor: motors[1] as int?,
     ),
