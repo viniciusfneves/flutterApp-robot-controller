@@ -1,8 +1,9 @@
 import 'package:blue_app/style/colors.dart';
 import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AdjustField extends StatefulWidget {
+class AdjustField extends ConsumerStatefulWidget {
   const AdjustField({
     Key? key,
     required this.controller,
@@ -15,10 +16,10 @@ class AdjustField extends StatefulWidget {
   final String? watchValue;
 
   @override
-  State<AdjustField> createState() => _AdjustFieldState();
+  ConsumerState<AdjustField> createState() => _AdjustFieldState();
 }
 
-class _AdjustFieldState extends State<AdjustField> {
+class _AdjustFieldState extends ConsumerState<AdjustField> {
   @override
   void initState() {
     super.initState();
@@ -29,54 +30,57 @@ class _AdjustFieldState extends State<AdjustField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Visibility(
-          visible: widget.optionalDescriptionText != null,
-          child: ConfigButtonText(widget.optionalDescriptionText ?? ''),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            keyboardType: TextInputType.number,
-            controller: widget.controller,
-            maxLength: 5,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white, fontSize: 18),
-            cursorColor: AppColors.standardRed,
-            decoration: InputDecoration(
-              counterText: "",
-              enabledBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                borderSide: widget.controller.text == widget.watchValue
-                    ? const BorderSide(
-                        color: AppColors.standardGreen,
-                        width: 1.5,
-                      )
-                    : const BorderSide(
-                        color: AppColors.standardAmbar,
-                        width: 1.5,
-                      ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(16)),
-                borderSide: widget.controller.text == widget.watchValue
-                    ? const BorderSide(
-                        color: AppColors.standardGreen,
-                        width: 3,
-                      )
-                    : const BorderSide(
-                        color: AppColors.standardAmbar,
-                        width: 3,
-                      ),
-              ),
-            ),
-            onChanged: (_) {
-              setState(() {});
-            },
+    return Visibility(
+      visible: widget.watchValue != null,
+      child: Column(
+        children: [
+          Visibility(
+            visible: widget.optionalDescriptionText != null,
+            child: ConfigButtonText(widget.optionalDescriptionText ?? ''),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              keyboardType: TextInputType.number,
+              controller: widget.controller,
+              maxLength: 5,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18),
+              cursorColor: AppColors.standardRed,
+              decoration: InputDecoration(
+                counterText: "",
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  borderSide: widget.controller.text == widget.watchValue
+                      ? const BorderSide(
+                          color: AppColors.standardGreen,
+                          width: 1.5,
+                        )
+                      : const BorderSide(
+                          color: AppColors.standardAmbar,
+                          width: 1.5,
+                        ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(16)),
+                  borderSide: widget.controller.text == widget.watchValue
+                      ? const BorderSide(
+                          color: AppColors.standardGreen,
+                          width: 3,
+                        )
+                      : const BorderSide(
+                          color: AppColors.standardAmbar,
+                          width: 3,
+                        ),
+                ),
+              ),
+              onChanged: (_) {
+                setState(() {});
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

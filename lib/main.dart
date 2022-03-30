@@ -1,6 +1,7 @@
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/routes/app_routes.dart';
 import 'package:blue_app/screens/advanced_settings.dart';
+import 'package:blue_app/screens/components/dialog/ws_adress.dart';
 import 'package:blue_app/screens/components/drawer/app_drawer.dart';
 import 'package:blue_app/screens/configuration.dart';
 import 'package:blue_app/screens/controller.dart';
@@ -63,9 +64,14 @@ class AdvancedConfigsDoor extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
-      onPressed: null,
-      onLongPress: () {
+      onPressed: () {
         ref.read(selectedPage.state).update((_) => AppRoutes.advancedSettings);
+      },
+      onLongPress: () {
+        showCupertinoDialog(
+          context: context,
+          builder: (_) => const ConnectionAdress(),
+        );
       },
       child: const Icon(
         Icons.settings,

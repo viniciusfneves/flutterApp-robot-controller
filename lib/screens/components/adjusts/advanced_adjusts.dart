@@ -1,35 +1,17 @@
 import 'dart:ui';
 
 import 'package:blue_app/providers/providers.dart';
-import 'package:blue_app/screens/components/adjusts/adjust_field.dart';
 import 'package:blue_app/screens/components/adjusts/adjust_slider.dart';
-import 'package:blue_app/screens/components/dialog/error_dialog.dart';
-import 'package:blue_app/style/buttons.dart';
 import 'package:blue_app/style/texts.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AdvancedAdjustsModalSheet extends HookConsumerWidget {
+class AdvancedAdjustsModalSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final startTimeController = useTextEditingController();
-    final kpController = useTextEditingController();
-    final kiController = useTextEditingController();
-    final kdController = useTextEditingController();
-    final angleBiasController = useTextEditingController();
-    final speedBiasController = useTextEditingController();
     final screenSize = MediaQuery.of(context).size;
     final configs = ref.watch(robotConfig);
-    final List<TextEditingController> textControllers = [
-      startTimeController,
-      kpController,
-      kiController,
-      kdController,
-      angleBiasController,
-      speedBiasController,
-    ];
+
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(16),
@@ -130,96 +112,6 @@ class AdvancedAdjustsModalSheet extends HookConsumerWidget {
                           );
                     },
                   ),
-                  const AdjustTitle(text: "Start Time"),
-                  AdjustField(
-                    controller: startTimeController,
-                    watchValue: configs.startTime?.toString(),
-                  ),
-                  const AdjustTitle(
-                    text: "PID",
-                    removeDivider: true,
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: AdjustField(
-                          controller: kpController,
-                          optionalDescriptionText: "KP",
-                          watchValue: configs.pid?.kp.toString(),
-                        ),
-                      ),
-                      Flexible(
-                        child: AdjustField(
-                          controller: kiController,
-                          optionalDescriptionText: "Ki",
-                          watchValue: configs.pid?.ki.toString(),
-                        ),
-                      ),
-                      Flexible(
-                        child: AdjustField(
-                          controller: kdController,
-                          optionalDescriptionText: "kd",
-                          watchValue: configs.pid?.kd.toString(),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const AdjustTitle(
-                    text: "Rotation Bias",
-                    removeDivider: true,
-                  ),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: AdjustField(
-                          controller: angleBiasController,
-                          optionalDescriptionText: "Angle Bias",
-                          watchValue: configs.rotateAngleBias?.toString(),
-                        ),
-                      ),
-                      Flexible(
-                        child: AdjustField(
-                          controller: speedBiasController,
-                          optionalDescriptionText: "Speed Bias",
-                          watchValue: configs.rotateSpeedBias?.toString(),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SetConfigButton(
-                    text: 'SET',
-                    onPressed: () {
-                      // Preparação dos textos de configuração
-                      for (final controller in textControllers) {
-                        controller.text = controller.text.replaceAll(",", ".");
-                      }
-                      if (startTimeController.text.contains(".")) {
-                        final floatIndex =
-                            startTimeController.text.indexOf('.');
-                        startTimeController.text =
-                            startTimeController.text.substring(0, floatIndex);
-                        showCupertinoDialog(
-                          context: context,
-                          builder: (_) => ErrorDialog(
-                            message: "Start Time precisa ser inteiro",
-                            obs:
-                                "Start Time definido como ${startTimeController.text}",
-                          ),
-                        );
-                      }
-
-                      // Envio das informações para o robô
-                      ref.read(ws.notifier).sendMessage(
-                            "{'start_time':'${startTimeController.text}'}",
-                          );
-                      ref.read(ws.notifier).sendMessage(
-                            "{'pid':{'kp':'${kpController.text}','ki':'${kiController.text}','kd':'${kdController.text}'}}",
-                          );
-                      ref.read(ws.notifier).sendMessage(
-                            "{'rotate_angle_bias':'${angleBiasController.text}','rotate_speed_bias':'${speedBiasController.text}'}",
-                          );
-                    },
-                  )
                 ],
               ),
             ),
