@@ -32,11 +32,8 @@ class StrategyController extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 12.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 4),
             RobotNameText(infos.name),
-            const SizedBox(height: 6),
             const ConfigTitleText("Modo de Operação"),
             const SizedBox(height: 10),
             ConfigurationController(
@@ -45,28 +42,9 @@ class StrategyController extends ConsumerWidget {
               selectedConfiguration: configs.mode ?? "",
             ),
             const SizedBox(height: 10),
-            const ConfigTitleText("Estratégia Inicial"),
-            const SizedBox(height: 10),
-            ConfigurationController(
-              typeOfConfiguration: "initial",
-              availableConfigurations: infos.initialAvailable ?? [],
-              selectedConfiguration: configs.initial ?? "",
-            ),
-            const SizedBox(height: 10),
-            const ConfigTitleText("Estratégia de Busca"),
-            const SizedBox(height: 10),
-            ConfigurationController(
-              typeOfConfiguration: "search",
-              availableConfigurations: infos.searchAvailable ?? [],
-              selectedConfiguration: configs.search ?? "",
-            ),
-            const SizedBox(height: 10),
-            const ConfigTitleText("Estratégia de Perseguição"),
-            const SizedBox(height: 10),
-            ConfigurationController(
-              typeOfConfiguration: "chase",
-              availableConfigurations: infos.chaseAvailable ?? [],
-              selectedConfiguration: configs.chase ?? "",
+            Visibility(
+              visible: configs.mode == "AUTO",
+              child: const AutoConfigurations(),
             ),
             const SizedBox(height: 18),
             ElevatedButton(
@@ -90,6 +68,43 @@ class StrategyController extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AutoConfigurations extends ConsumerWidget {
+  const AutoConfigurations({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final infos = ref.watch(robotInfo);
+    final configs = ref.watch(robotConfig);
+    return Column(
+      children: [
+        const ConfigTitleText("Estratégia Inicial"),
+        const SizedBox(height: 10),
+        ConfigurationController(
+          typeOfConfiguration: "initial",
+          availableConfigurations: infos.initialAvailable ?? [],
+          selectedConfiguration: configs.initial ?? "",
+        ),
+        const SizedBox(height: 10),
+        const ConfigTitleText("Estratégia de Busca"),
+        const SizedBox(height: 10),
+        ConfigurationController(
+          typeOfConfiguration: "search",
+          availableConfigurations: infos.searchAvailable ?? [],
+          selectedConfiguration: configs.search ?? "",
+        ),
+        const SizedBox(height: 10),
+        const ConfigTitleText("Estratégia de Perseguição"),
+        const SizedBox(height: 10),
+        ConfigurationController(
+          typeOfConfiguration: "chase",
+          availableConfigurations: infos.chaseAvailable ?? [],
+          selectedConfiguration: configs.chase ?? "",
+        ),
+      ],
     );
   }
 }
