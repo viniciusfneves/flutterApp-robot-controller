@@ -39,8 +39,12 @@ class RobotTelemetry {
 
 void processJsonTelemetry(Map<String, dynamic> newData, StateProviderRef ref) {
   final data = ref.read(robotTelemetry.notifier);
-  final opSensors = newData["opponent"] as Map<String, dynamic>;
-  final edgeSensors = newData["edge"] as Map<String, dynamic>;
+  final opSensors = newData.containsKey("opponent")
+      ? newData["opponent"] as Map<String, dynamic>
+      : {};
+  final edgeSensors = newData.containsKey("edge")
+      ? newData["edge"] as Map<String, dynamic>
+      : {};
   final motors = newData["motor"];
 
   data.update(
