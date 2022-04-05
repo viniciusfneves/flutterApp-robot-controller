@@ -29,44 +29,40 @@ class StrategyController extends ConsumerWidget {
     final configs = ref.watch(robotConfig);
     final infos = ref.watch(robotInfo);
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 12.0),
-        child: Column(
-          children: [
-            RobotNameText(infos.name),
-            const ConfigTitleText("Modo de Operação"),
-            const SizedBox(height: 10),
-            ConfigurationController(
-              typeOfConfiguration: "mode",
-              availableConfigurations: infos.modesAvailable ?? [],
-              selectedConfiguration: configs.mode ?? "",
-            ),
-            const SizedBox(height: 10),
-            Visibility(
-              visible: configs.mode == "AUTO",
-              child: const AutoConfigurations(),
-            ),
-            const SizedBox(height: 18),
-            ElevatedButton(
-              style: ButtonStyle(
-                padding: MaterialStateProperty.resolveWith(
-                  (_) =>
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-                ),
-                backgroundColor: MaterialStateColor.resolveWith(
-                  (_) => AppColors.standardBlue,
-                ),
+      child: Column(
+        children: [
+          RobotNameText(infos.name),
+          const ConfigTitleText("Modo de Operação"),
+          const SizedBox(height: 10),
+          ConfigurationController(
+            typeOfConfiguration: "mode",
+            availableConfigurations: infos.modesAvailable ?? [],
+            selectedConfiguration: configs.mode ?? "",
+          ),
+          const SizedBox(height: 10),
+          Visibility(
+            visible: configs.mode == "AUTO",
+            child: const AutoConfigurations(),
+          ),
+          const SizedBox(height: 18),
+          ElevatedButton(
+            style: ButtonStyle(
+              padding: MaterialStateProperty.resolveWith(
+                (_) => const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
               ),
-              onPressed: () => showModalBottomSheet(
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                context: context,
-                builder: (_) => AdvancedAdjustsModalSheet(),
+              backgroundColor: MaterialStateColor.resolveWith(
+                (_) => AppColors.standardBlue,
               ),
-              child: const ConfigButtonText("MAIS AJUSTES"),
-            )
-          ],
-        ),
+            ),
+            onPressed: () => showModalBottomSheet(
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              context: context,
+              builder: (_) => AdvancedAdjustsModalSheet(),
+            ),
+            child: const ConfigButtonText("MAIS AJUSTES"),
+          )
+        ],
       ),
     );
   }
