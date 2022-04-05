@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:blue_app/providers/providers.dart';
 import 'package:blue_app/style/colors.dart';
 import 'package:blue_app/style/texts.dart';
@@ -76,6 +78,24 @@ class TelemetryPage extends StatelessWidget {
                           robotTelemetry
                               .select((telemetry) => telemetry.OPfarRight),
                         ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        OpSensor(
+                          robotTelemetry
+                              .select((telemetry) => telemetry.OPleftSide),
+                          vertical: true,
+                        ),
+                        OpSensor(
+                          robotTelemetry
+                              .select((telemetry) => telemetry.OPrightSide),
+                          vertical: true,
+                        )
                       ],
                     ),
                   ),
@@ -187,8 +207,10 @@ class OpSensor extends ConsumerWidget {
   const OpSensor(
     this.watchValue, {
     Key? key,
+    this.vertical = false,
   }) : super(key: key);
 
+  final bool vertical;
   final ProviderListenable<bool?> watchValue;
 
   @override
@@ -199,14 +221,17 @@ class OpSensor extends ConsumerWidget {
         visible: isActive != null,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            width: 85,
-            height: 35,
-            decoration: BoxDecoration(
-              color: (isActive ?? false)
-                  ? AppColors.lightRed
-                  : AppColors.unselectedColor,
-              borderRadius: BorderRadius.circular(6),
+          child: Transform.rotate(
+            angle: vertical ? pi / 2 : 0,
+            child: Container(
+              width: 70,
+              height: 35,
+              decoration: BoxDecoration(
+                color: (isActive ?? false)
+                    ? AppColors.lightRed
+                    : AppColors.unselectedColor,
+                borderRadius: BorderRadius.circular(6),
+              ),
             ),
           ),
         ),
