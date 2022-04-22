@@ -44,6 +44,10 @@ class StrategyController extends ConsumerWidget {
             visible: configs.mode == "AUTO",
             child: const AutoConfigurations(),
           ),
+          Visibility(
+            visible: configs.mode == "RC",
+            child: const RcConfigurations(),
+          ),
           const SizedBox(height: 18),
           ElevatedButton(
             style: ButtonStyle(
@@ -99,6 +103,43 @@ class AutoConfigurations extends ConsumerWidget {
           typeOfConfiguration: "chase",
           availableConfigurations: infos.chaseAvailable ?? [],
           selectedConfiguration: configs.chase ?? "",
+        ),
+      ],
+    );
+  }
+}
+
+class RcConfigurations extends ConsumerWidget {
+  const RcConfigurations({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final infos = ref.watch(robotInfo);
+    final configs = ref.watch(robotConfig);
+    return Column(
+      children: [
+        const ConfigTitleText("Controle de Comando"),
+        const SizedBox(height: 10),
+        ConfigurationController(
+          typeOfConfiguration: "ctrl_type",
+          availableConfigurations: infos.ctrlTypeAvailable ?? [],
+          selectedConfiguration: configs.controller?.commander ?? "",
+        ),
+        const SizedBox(height: 10),
+        const ConfigTitleText("Mapa do Controle"),
+        const SizedBox(height: 10),
+        ConfigurationController(
+          typeOfConfiguration: "ctrl_map",
+          availableConfigurations: infos.ctrlMapAvailable ?? [],
+          selectedConfiguration: configs.controller?.map ?? "",
+        ),
+        const SizedBox(height: 10),
+        const ConfigTitleText("Filtro dos Comandos"),
+        const SizedBox(height: 10),
+        ConfigurationController(
+          typeOfConfiguration: "ctrl_filter",
+          availableConfigurations: infos.ctrlFilterAvailable ?? [],
+          selectedConfiguration: configs.controller?.filter ?? "",
         ),
       ],
     );

@@ -91,7 +91,7 @@ void processJsonConfig(Map<String, dynamic> newConfig, StateProviderRef ref) {
       chase: newConfig["chase"].toString().toUpperCase(),
       controller: Controller(
         controllerConfigs["commander"]! as String,
-        controllerConfigs["mapping"]! as String,
+        controllerConfigs["map"]! as String,
         controllerConfigs["filter"]! as String,
       ),
       pid: PID(
