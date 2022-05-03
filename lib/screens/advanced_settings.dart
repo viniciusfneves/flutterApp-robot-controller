@@ -36,6 +36,21 @@ class AdvancedSettingsPage extends HookConsumerWidget {
         children: [
           RobotNameText(infos.name),
           ConfigSwitch(
+            parameterName: "Inverter Roda Esquerda",
+            parameterId: "invert_left_wheel",
+            data: configs.leftWheelInverted,
+          ),
+          ConfigSwitch(
+            parameterName: "Inverter Roda Direita",
+            parameterId: "invert_right_wheel",
+            data: configs.rightWheelInverted,
+          ),
+          ConfigSwitch(
+            parameterName: "Inverter Direção",
+            parameterId: "invert_angular_axis",
+            data: configs.angularAxisInverted,
+          ),
+          ConfigSwitch(
             parameterName: "Inverter Sensor de Oponente",
             parameterId: "invert_op_sensors",
             data: configs.opReadingInverted,

@@ -4,6 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class RobotConfigs {
   RobotConfigs({
     this.opReadingInverted,
+    this.leftWheelInverted,
+    this.rightWheelInverted,
+    this.angularAxisInverted,
     this.edgeDetectionThreshold,
     this.opWeight,
     this.startTime,
@@ -24,6 +27,9 @@ class RobotConfigs {
   });
 
   final bool? opReadingInverted;
+  final bool? leftWheelInverted;
+  final bool? rightWheelInverted;
+  final bool? angularAxisInverted;
   final int? startTime;
   final int? maxSpeed;
   final num? edgeDetectionThreshold;
