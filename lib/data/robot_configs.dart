@@ -80,6 +80,9 @@ void processJsonConfig(Map<String, dynamic> newConfig, StateProviderRef ref) {
   configs.update(
     (_) => RobotConfigs(
       opReadingInverted: newConfig["op_reading_inverted"] as bool,
+      leftWheelInverted: newConfig["left_wheel_inverted"] as bool,
+      rightWheelInverted: newConfig["right_wheel_inverted"] as bool,
+      angularAxisInverted: newConfig["angular_axis_inverted"] as bool,
       opWeight: weights,
       maxSpeed: newConfig["max_speed"] as int,
       startTime: newConfig["start_time"] as int,
