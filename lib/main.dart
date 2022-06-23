@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/components/drawer/app_drawer.dart';
+import 'package:robot_controller/data/robot_configs.dart';
+import 'package:robot_controller/data/robot_info.dart';
+import 'package:robot_controller/data/robot_telemetry.dart';
 import 'package:robot_controller/providers/providers.dart';
 import 'package:robot_controller/routes/app_routes.dart';
 import 'package:robot_controller/screens/advanced_settings.dart';
-import 'package:robot_controller/screens/components/dialog/ws_adress.dart';
-import 'package:robot_controller/screens/components/drawer/app_drawer.dart';
 import 'package:robot_controller/screens/configuration.dart';
 import 'package:robot_controller/screens/controller.dart';
 import 'package:robot_controller/screens/telemetry.dart';
