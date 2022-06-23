@@ -47,7 +47,7 @@ class _AdjustSliderState extends ConsumerState<AdjustSlider> {
             widget.watchValue == null ? "Sem dados" : "${widget.watchValue}",
             color: widget.color,
           ),
-        Slider.adaptive(
+        Slider(
           activeColor: AppColors.standardRed,
           min: widget.minSliderValue,
           max: widget.maxSliderValue,

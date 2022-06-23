@@ -143,13 +143,8 @@ class DesignInformations extends StatelessWidget {
     return Column(
       children: const [
         GeneralPurposeText(
-          "Design e Propriedade de:\nMinervaBots - Equipe de Robótica da UFRJ",
-          fontSize: 14,
-          padding: EdgeInsets.symmetric(horizontal: 8),
-        ),
-        GeneralPurposeText(
           "Coded by Vinícius F. Neves",
-          fontSize: 11,
+          fontSize: 14,
           padding: EdgeInsets.all(8),
         ),
       ],

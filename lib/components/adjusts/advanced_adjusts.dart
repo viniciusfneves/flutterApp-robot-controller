@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/components/adjusts/adjust_slider.dart';
 import 'package:robot_controller/providers/providers.dart';
-import 'package:robot_controller/screens/components/adjusts/adjust_slider.dart';
 import 'package:robot_controller/style/texts.dart';
 
 class AdvancedAdjustsModalSheet extends ConsumerWidget {
