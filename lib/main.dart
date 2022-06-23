@@ -37,7 +37,7 @@ class MyApp extends ConsumerWidget {
     }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "MinervApp Wi-Fi Controller Software",
+      title: "MinervaBots Controller Software",
       scrollBehavior: const CupertinoScrollBehavior(),
       themeMode: isDarkTheme ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData.light().copyWith(
@@ -46,7 +46,7 @@ class MyApp extends ConsumerWidget {
       darkTheme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("MinervApp"),
+          title: const Text("Robot Controller"),
           centerTitle: true,
           backgroundColor: AppColors.standardRed,
           actions: const [AdvancedConfigsDoor()],
@@ -70,10 +70,10 @@ class AdvancedConfigsDoor extends ConsumerWidget {
         ref.read(selectedPage.state).update((_) => AppRoutes.advancedSettings);
       },
       onLongPress: () {
-        showCupertinoDialog(
-          context: context,
-          builder: (_) => const ConnectionAdress(),
-        );
+        ref.read(robotConfig.notifier).update((_) => RobotConfigs());
+        ref.read(robotInfo.notifier).update((_) => RobotInfos());
+        ref.read(robotTelemetry.notifier).update((_) => RobotTelemetry());
+        ref.read(ws.notifier).disconnect();
       },
       child: const Icon(
         Icons.settings,

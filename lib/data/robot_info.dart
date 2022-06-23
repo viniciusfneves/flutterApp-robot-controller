@@ -3,7 +3,9 @@ import 'package:robot_controller/providers/providers.dart';
 
 class RobotInfos {
   RobotInfos({
+    this.isConnected = false,
     this.name,
+    this.category,
     this.modesAvailable,
     this.initialAvailable,
     this.searchAvailable,
@@ -13,7 +15,9 @@ class RobotInfos {
     this.ctrlFilterAvailable,
   });
 
+  final bool isConnected;
   final String? name;
+  final String? category;
   final List<dynamic>? modesAvailable;
   final List<dynamic>? initialAvailable;
   final List<dynamic>? searchAvailable;
@@ -28,14 +32,31 @@ void processJsonInfo(Map<String, dynamic> newInfo, StateProviderRef ref) {
   infos.update(
     (_) => RobotInfos(
       name: newInfo["robot_name"] as String,
-      modesAvailable: newInfo["available_modes"] as List<dynamic>,
-      initialAvailable:
-          newInfo["available_initial_strategies"] as List<dynamic>,
-      searchAvailable: newInfo["available_search_strategies"] as List<dynamic>,
-      chaseAvailable: newInfo["available_chase_strategies"] as List<dynamic>,
-      ctrlTypeAvailable: newInfo["available_ctrl_types"] as List<dynamic>,
-      ctrlMapAvailable: newInfo["available_ctrl_maps"] as List<dynamic>,
-      ctrlFilterAvailable: newInfo["available_ctrl_filters"] as List<dynamic>,
+      isConnected: true,
+      category: newInfo.containsKey("category")
+          ? newInfo["category"] as String
+          : null,
+      modesAvailable: newInfo.containsKey("available_modes")
+          ? newInfo["available_modes"] as List<dynamic>
+          : null,
+      initialAvailable: newInfo.containsKey("available_initial_strategies")
+          ? newInfo["available_initial_strategies"] as List<dynamic>
+          : null,
+      searchAvailable: newInfo.containsKey("available_search_strategies")
+          ? newInfo["available_search_strategies"] as List<dynamic>
+          : null,
+      chaseAvailable: newInfo.containsKey("available_chase_strategies")
+          ? newInfo["available_chase_strategies"] as List<dynamic>
+          : null,
+      ctrlTypeAvailable: newInfo.containsKey("available_ctrl_types")
+          ? newInfo["available_ctrl_types"] as List<dynamic>
+          : null,
+      ctrlMapAvailable: newInfo.containsKey("available_ctrl_maps")
+          ? newInfo["available_ctrl_maps"] as List<dynamic>
+          : null,
+      ctrlFilterAvailable: newInfo.containsKey("available_ctrl_filters")
+          ? newInfo["available_ctrl_filters"] as List<dynamic>
+          : null,
     ),
   );
 }

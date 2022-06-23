@@ -1,20 +1,34 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/components/adjusts/advanced_adjusts.dart';
+import 'package:robot_controller/components/dialog/ws_adress.dart';
 import 'package:robot_controller/providers/providers.dart';
-import 'package:robot_controller/screens/components/adjusts/advanced_adjusts.dart';
 import 'package:robot_controller/style/buttons.dart';
 import 'package:robot_controller/style/colors.dart';
 import 'package:robot_controller/style/texts.dart';
 
-class ConfigurationPage extends StatelessWidget {
+class ConfigurationPage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        Expanded(child: StrategyController()),
-        EventDisplay(),
-        EventController(),
-      ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final infos = ref.watch(robotInfo);
+
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          RobotNameText(infos.name),
+          const StrategyController(),
+          Visibility(
+            visible: infos.isConnected,
+            child: const SumoEventDisplay(),
+          ),
+          Visibility(
+            visible: infos.isConnected,
+            child: const SumoEventController(),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -31,8 +45,29 @@ class StrategyController extends ConsumerWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          RobotNameText(infos.name),
-          const ConfigTitleText("Modo de Operação"),
+          Visibility(
+            visible: !infos.isConnected,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.resolveWith(
+                  (_) =>
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                ),
+                backgroundColor: MaterialStateColor.resolveWith(
+                  (_) => AppColors.standardBlue,
+                ),
+              ),
+              onPressed: () => showCupertinoDialog(
+                context: context,
+                builder: (_) => const ConnectionAdress(),
+              ),
+              child: const ConfigButtonText("CONECTAR"),
+            ),
+          ),
+          Visibility(
+            visible: infos.isConnected,
+            child: const ConfigTitleText("Modo de Operação"),
+          ),
           const SizedBox(height: 10),
           ConfigurationController(
             typeOfConfiguration: "mode",
@@ -49,22 +84,26 @@ class StrategyController extends ConsumerWidget {
             child: const RcConfigurations(),
           ),
           const SizedBox(height: 18),
-          ElevatedButton(
-            style: ButtonStyle(
-              padding: MaterialStateProperty.resolveWith(
-                (_) => const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+          Visibility(
+            visible: infos.isConnected,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.resolveWith(
+                  (_) =>
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                ),
+                backgroundColor: MaterialStateColor.resolveWith(
+                  (_) => AppColors.standardBlue,
+                ),
               ),
-              backgroundColor: MaterialStateColor.resolveWith(
-                (_) => AppColors.standardBlue,
+              onPressed: () => showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                context: context,
+                builder: (_) => AdvancedAdjustsModalSheet(),
               ),
+              child: const ConfigButtonText("MAIS AJUSTES"),
             ),
-            onPressed: () => showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              context: context,
-              builder: (_) => AdvancedAdjustsModalSheet(),
-            ),
-            child: const ConfigButtonText("MAIS AJUSTES"),
           )
         ],
       ),
@@ -200,8 +239,8 @@ class ConfigurationController extends ConsumerWidget {
   }
 }
 
-class EventController extends StatelessWidget {
-  const EventController({
+class SumoEventController extends StatelessWidget {
+  const SumoEventController({
     Key? key,
   }) : super(key: key);
 
@@ -228,8 +267,8 @@ class EventController extends StatelessWidget {
   }
 }
 
-class EventDisplay extends ConsumerWidget {
-  const EventDisplay({
+class SumoEventDisplay extends ConsumerWidget {
+  const SumoEventDisplay({
     Key? key,
   }) : super(key: key);
 
