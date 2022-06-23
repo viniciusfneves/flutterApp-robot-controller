@@ -1,13 +1,13 @@
-import 'package:blue_app/data/robot_configs.dart';
-import 'package:blue_app/data/robot_info.dart';
-import 'package:blue_app/data/robot_telemetry.dart';
-import 'package:blue_app/providers/providers.dart';
-import 'package:blue_app/screens/advanced_settings.dart';
-import 'package:blue_app/style/buttons.dart';
-import 'package:blue_app/style/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/data/robot_configs.dart';
+import 'package:robot_controller/data/robot_info.dart';
+import 'package:robot_controller/data/robot_telemetry.dart';
+import 'package:robot_controller/providers/providers.dart';
+import 'package:robot_controller/screens/advanced_settings.dart';
+import 'package:robot_controller/style/buttons.dart';
+import 'package:robot_controller/style/colors.dart';
 
 class ConnectionAdress extends HookConsumerWidget {
   const ConnectionAdress({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.blue_app">
+    package="com.example.robot_controller">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="MBots Robot Controller"

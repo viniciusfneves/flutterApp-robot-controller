@@ -1,7 +1,7 @@
-import 'package:blue_app/style/colors.dart';
-import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/style/colors.dart';
+import 'package:robot_controller/style/texts.dart';
 
 class AdjustSlider extends ConsumerStatefulWidget {
   const AdjustSlider({

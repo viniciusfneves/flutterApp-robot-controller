@@ -1,10 +1,10 @@
-import 'package:blue_app/providers/providers.dart';
-import 'package:blue_app/routes/app_routes.dart';
-import 'package:blue_app/style/colors.dart';
-import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/providers/providers.dart';
+import 'package:robot_controller/routes/app_routes.dart';
+import 'package:robot_controller/style/colors.dart';
+import 'package:robot_controller/style/texts.dart';
 
 // Essa Classe cria uma tela base com toda a navegação e estilo
 // seguido por esse aplicativo. Recebe como parâmetro um Widget em

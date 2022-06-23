@@ -1,10 +1,10 @@
-import 'package:blue_app/providers/providers.dart';
-import 'package:blue_app/screens/components/adjusts/advanced_adjusts.dart';
-import 'package:blue_app/style/buttons.dart';
-import 'package:blue_app/style/colors.dart';
-import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/providers/providers.dart';
+import 'package:robot_controller/screens/components/adjusts/advanced_adjusts.dart';
+import 'package:robot_controller/style/buttons.dart';
+import 'package:robot_controller/style/colors.dart';
+import 'package:robot_controller/style/texts.dart';
 
 class ConfigurationPage extends StatelessWidget {
   @override

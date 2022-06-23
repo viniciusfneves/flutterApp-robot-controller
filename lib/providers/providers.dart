@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:blue_app/data/robot_configs.dart';
-import 'package:blue_app/data/robot_info.dart';
-import 'package:blue_app/data/robot_telemetry.dart';
-import 'package:blue_app/providers/websocket_provider.dart';
-import 'package:blue_app/routes/app_routes.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/data/robot_configs.dart';
+import 'package:robot_controller/data/robot_info.dart';
+import 'package:robot_controller/data/robot_telemetry.dart';
+import 'package:robot_controller/providers/websocket_provider.dart';
+import 'package:robot_controller/routes/app_routes.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 // Providers para decisões do aplicativo

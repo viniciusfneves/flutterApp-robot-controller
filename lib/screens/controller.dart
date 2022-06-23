@@ -1,8 +1,8 @@
-import 'package:blue_app/providers/providers.dart';
-import 'package:blue_app/screens/components/adjusts/adjust_slider.dart';
-import 'package:blue_app/style/texts.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/providers/providers.dart';
+import 'package:robot_controller/screens/components/adjusts/adjust_slider.dart';
+import 'package:robot_controller/style/texts.dart';
 
 class ControllerPage extends ConsumerStatefulWidget {
   @override

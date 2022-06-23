@@ -1,13 +1,13 @@
-import 'package:blue_app/providers/providers.dart';
-import 'package:blue_app/screens/components/adjusts/adjust_field.dart';
-import 'package:blue_app/screens/components/dialog/error_dialog.dart';
-import 'package:blue_app/style/buttons.dart';
-import 'package:blue_app/style/colors.dart';
-import 'package:blue_app/style/texts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/providers/providers.dart';
+import 'package:robot_controller/screens/components/adjusts/adjust_field.dart';
+import 'package:robot_controller/screens/components/dialog/error_dialog.dart';
+import 'package:robot_controller/style/buttons.dart';
+import 'package:robot_controller/style/colors.dart';
+import 'package:robot_controller/style/texts.dart';
 
 class AdvancedSettingsPage extends HookConsumerWidget {
   @override

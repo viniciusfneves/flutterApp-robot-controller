@@ -1,5 +1,5 @@
-import 'package:blue_app/providers/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:robot_controller/providers/providers.dart';
 
 class RobotConfigs {
   RobotConfigs({
