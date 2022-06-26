@@ -27,8 +27,7 @@ class AdvancedSettingsPage extends HookConsumerWidget {
       speedBiasController,
     ];
 
-    final TextEditingController debugMessageController =
-        useTextEditingController();
+    final TextEditingController debugMessageController = useTextEditingController();
     final infos = ref.watch(robotInfo);
     final configs = ref.watch(robotConfig);
     return SingleChildScrollView(
@@ -134,14 +133,12 @@ class AdvancedSettingsPage extends HookConsumerWidget {
                 }
                 if (startTimeController.text.contains(".")) {
                   final floatIndex = startTimeController.text.indexOf('.');
-                  startTimeController.text =
-                      startTimeController.text.substring(0, floatIndex);
+                  startTimeController.text = startTimeController.text.substring(0, floatIndex);
                   showCupertinoDialog(
                     context: context,
                     builder: (_) => ErrorDialog(
                       message: "Start Time precisa ser inteiro",
-                      obs:
-                          "Start Time definido como ${startTimeController.text}",
+                      obs: "Start Time definido como ${startTimeController.text}",
                     ),
                   );
                 }

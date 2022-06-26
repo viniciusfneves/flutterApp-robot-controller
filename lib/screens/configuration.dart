@@ -50,8 +50,7 @@ class StrategyController extends ConsumerWidget {
             child: ElevatedButton(
               style: ButtonStyle(
                 padding: MaterialStateProperty.resolveWith(
-                  (_) =>
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                  (_) => const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
                 ),
                 backgroundColor: MaterialStateColor.resolveWith(
                   (_) => AppColors.standardBlue,
@@ -89,8 +88,7 @@ class StrategyController extends ConsumerWidget {
             child: ElevatedButton(
               style: ButtonStyle(
                 padding: MaterialStateProperty.resolveWith(
-                  (_) =>
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+                  (_) => const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
                 ),
                 backgroundColor: MaterialStateColor.resolveWith(
                   (_) => AppColors.standardBlue,
@@ -212,12 +210,10 @@ class ConfigurationController extends ConsumerWidget {
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateColor.resolveWith(
-                    (_) => selectedConfiguration.toLowerCase() ==
-                            availableConfigurations[index]
-                                .toString()
-                                .toLowerCase()
-                        ? AppColors.selectedColor
-                        : AppColors.unselectedColor,
+                    (_) =>
+                        selectedConfiguration.toLowerCase() == availableConfigurations[index].toString().toLowerCase()
+                            ? AppColors.selectedColor
+                            : AppColors.unselectedColor,
                   ),
                 ),
                 onPressed: () {
@@ -226,9 +222,7 @@ class ConfigurationController extends ConsumerWidget {
                       );
                 },
                 child: ConfigButtonText(
-                  availableConfigurations[index]
-                      .toString()
-                      .replaceAll("_", " "),
+                  availableConfigurations[index].toString().replaceAll("_", " "),
                 ),
               ),
             ),

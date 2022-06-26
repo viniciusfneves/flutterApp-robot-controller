@@ -23,8 +23,7 @@ class AdvancedAdjustsModalSheet extends ConsumerWidget {
           sigmaY: 5,
         ),
         child: Container(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           height: screenSize.height * 0.8,
           width: screenSize.width,
           decoration: BoxDecoration(

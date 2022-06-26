@@ -71,8 +71,7 @@ void processJsonConfig(Map<String, dynamic> newConfig, StateProviderRef ref) {
   final pidConfigs = newConfig["pid"] as Map<String, dynamic>;
   final Map<String, num?> weights = {};
   if (newConfig.containsKey("op_sensors_weight")) {
-    final Map<String, dynamic> buf =
-        newConfig["op_sensors_weight"] as Map<String, dynamic>;
+    final Map<String, dynamic> buf = newConfig["op_sensors_weight"] as Map<String, dynamic>;
     buf.forEach((key, value) {
       weights[key] = value as num?;
     });

@@ -33,12 +33,8 @@ void processJsonInfo(Map<String, dynamic> newInfo, StateProviderRef ref) {
     (_) => RobotInfos(
       name: newInfo["robot_name"] as String,
       isConnected: true,
-      category: newInfo.containsKey("category")
-          ? newInfo["category"] as String
-          : null,
-      modesAvailable: newInfo.containsKey("available_modes")
-          ? newInfo["available_modes"] as List<dynamic>
-          : null,
+      category: newInfo.containsKey("category") ? newInfo["category"] as String : null,
+      modesAvailable: newInfo.containsKey("available_modes") ? newInfo["available_modes"] as List<dynamic> : null,
       initialAvailable: newInfo.containsKey("available_initial_strategies")
           ? newInfo["available_initial_strategies"] as List<dynamic>
           : null,
@@ -48,15 +44,12 @@ void processJsonInfo(Map<String, dynamic> newInfo, StateProviderRef ref) {
       chaseAvailable: newInfo.containsKey("available_chase_strategies")
           ? newInfo["available_chase_strategies"] as List<dynamic>
           : null,
-      ctrlTypeAvailable: newInfo.containsKey("available_ctrl_types")
-          ? newInfo["available_ctrl_types"] as List<dynamic>
-          : null,
-      ctrlMapAvailable: newInfo.containsKey("available_ctrl_maps")
-          ? newInfo["available_ctrl_maps"] as List<dynamic>
-          : null,
-      ctrlFilterAvailable: newInfo.containsKey("available_ctrl_filters")
-          ? newInfo["available_ctrl_filters"] as List<dynamic>
-          : null,
+      ctrlTypeAvailable:
+          newInfo.containsKey("available_ctrl_types") ? newInfo["available_ctrl_types"] as List<dynamic> : null,
+      ctrlMapAvailable:
+          newInfo.containsKey("available_ctrl_maps") ? newInfo["available_ctrl_maps"] as List<dynamic> : null,
+      ctrlFilterAvailable:
+          newInfo.containsKey("available_ctrl_filters") ? newInfo["available_ctrl_filters"] as List<dynamic> : null,
     ),
   );
 }

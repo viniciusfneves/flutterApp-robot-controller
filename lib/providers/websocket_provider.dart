@@ -3,8 +3,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 class WebSocketProvider extends StateNotifier<WebSocketChannel> {
   String adress = "ws://192.168.4.1:81";
-  WebSocketProvider()
-      : super(WebSocketChannel.connect(Uri.parse("ws://1.1.1.1:81")));
+  WebSocketProvider() : super(WebSocketChannel.connect(Uri.parse("ws://1.1.1.1:81")));
 
   void changeConnectionAdress(String newAdress) {
     state.sink.close();

@@ -25,9 +25,7 @@ class RequestButton extends ConsumerWidget {
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(color),
             ),
-            onPressed: () => ref
-                .read(ws.notifier)
-                .sendMessage("{'event_request':'${title.toLowerCase()}'}"),
+            onPressed: () => ref.read(ws.notifier).sendMessage("{'event_request':'${title.toLowerCase()}'}"),
             child: EventRequestText(title),
           ),
         ),
@@ -51,9 +49,7 @@ class DisengageRequestButton extends ConsumerWidget {
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(AppColors.standardRed),
           ),
-          onPressed: () => ref
-              .read(ws.notifier)
-              .sendMessage("{'event_request':'disengage'}"),
+          onPressed: () => ref.read(ws.notifier).sendMessage("{'event_request':'disengage'}"),
           child: const EventRequestText("Disengage"),
         ),
       ),

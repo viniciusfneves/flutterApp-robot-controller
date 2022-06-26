@@ -43,12 +43,10 @@ class TelemetryPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         EdgeSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.EDGEfrontLeft),
+                          robotTelemetry.select((telemetry) => telemetry.EDGEfrontLeft),
                         ),
                         EdgeSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.EDGEfrontRight),
+                          robotTelemetry.select((telemetry) => telemetry.EDGEfrontRight),
                         ),
                       ],
                     ),
@@ -59,24 +57,19 @@ class TelemetryPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         OpSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.OPfarLeft),
+                          robotTelemetry.select((telemetry) => telemetry.OPfarLeft),
                         ),
                         OpSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.OPleft),
+                          robotTelemetry.select((telemetry) => telemetry.OPleft),
                         ),
                         OpSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.OPcenter),
+                          robotTelemetry.select((telemetry) => telemetry.OPcenter),
                         ),
                         OpSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.OPright),
+                          robotTelemetry.select((telemetry) => telemetry.OPright),
                         ),
                         OpSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.OPfarRight),
+                          robotTelemetry.select((telemetry) => telemetry.OPfarRight),
                         ),
                       ],
                     ),
@@ -87,13 +80,11 @@ class TelemetryPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         OpSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.OPleftSide),
+                          robotTelemetry.select((telemetry) => telemetry.OPleftSide),
                           vertical: true,
                         ),
                         OpSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.OPrightSide),
+                          robotTelemetry.select((telemetry) => telemetry.OPrightSide),
                           vertical: true,
                         )
                       ],
@@ -108,12 +99,10 @@ class TelemetryPage extends StatelessWidget {
                     children: [
                       Motor(),
                       MotorDisplay(
-                        robotTelemetry
-                            .select((telemetry) => telemetry.leftMotor),
+                        robotTelemetry.select((telemetry) => telemetry.leftMotor),
                       ),
                       MotorDisplay(
-                        robotTelemetry
-                            .select((telemetry) => telemetry.rightMotor),
+                        robotTelemetry.select((telemetry) => telemetry.rightMotor),
                       ),
                       Motor(),
                     ],
@@ -129,12 +118,10 @@ class TelemetryPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         EdgeSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.EDGErearLeft),
+                          robotTelemetry.select((telemetry) => telemetry.EDGErearLeft),
                         ),
                         EdgeSensor(
-                          robotTelemetry
-                              .select((telemetry) => telemetry.EDGErearRight),
+                          robotTelemetry.select((telemetry) => telemetry.EDGErearRight),
                         ),
                       ],
                     ),
@@ -227,9 +214,7 @@ class OpSensor extends ConsumerWidget {
               width: 70,
               height: 35,
               decoration: BoxDecoration(
-                color: (isActive ?? false)
-                    ? AppColors.lightRed
-                    : AppColors.unselectedColor,
+                color: (isActive ?? false) ? AppColors.lightRed : AppColors.unselectedColor,
                 borderRadius: BorderRadius.circular(6),
               ),
             ),
@@ -260,9 +245,7 @@ class EdgeSensor extends ConsumerWidget {
             width: 22,
             height: 22,
             decoration: BoxDecoration(
-              color: (isActive ?? false)
-                  ? AppColors.standardAmbar
-                  : AppColors.unselectedColor,
+              color: (isActive ?? false) ? AppColors.standardAmbar : AppColors.unselectedColor,
             ),
           ),
         ),
